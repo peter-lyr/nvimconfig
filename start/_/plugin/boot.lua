@@ -52,4 +52,7 @@ lazy.setup({
       },
     },
   },
+  checker = {
+    enabled = false,
+  }
 })
