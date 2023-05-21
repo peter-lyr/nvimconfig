@@ -8,7 +8,7 @@ if defined nvimwin64 (
   set pack=%nvimwin64%\share\nvim\runtime\pack\
 )
 if exist %pack% (
-  xcopy %dp% %pack%nvimconfig\ /s /e /f
+  xcopy %dp% %pack%nvimconfig\ /s /e /f /h
 ) else (
   echo no "%pack%"
 )
