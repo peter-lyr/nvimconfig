@@ -17,7 +17,7 @@ end
 
 local root = pack .. "lazy\\plugins"
 local readme = pack .. "lazy\\readme"
-local lockfile = pack .. "my-packer\\lazy-lock.json"
+local lockfile = pack .. "nvimconfig\\lazy-lock.json"
 
 local sta, lazy = pcall(require, 'lazy')
 
