@@ -6,8 +6,12 @@ return {
   cmd = { 'NvimTreeToggle', },
   event = { 'FocusLost', },
   config = function()
-    require('nvim-tree').setup()
-    vim.cmd('NvimTreeOpen')
-    vim.cmd('NvimTreeClose')
+    local sta, config = pcall(require, 'nvimtree')
+    if not sta then
+      config = {}
+    end
+    require('nvim-tree').setup(config)
+    -- vim.cmd('NvimTreeOpen')
+    -- vim.cmd('NvimTreeClose')
   end
 }
