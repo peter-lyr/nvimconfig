@@ -42,7 +42,7 @@ local buf_leave = function()
   vim.g.word = vim.fn.expand('<cword>')
 end
 
-vim.api.nvim_create_autocmd({ "BufLeave", "vim.cmdmdlineEnter" }, {
+vim.api.nvim_create_autocmd({ "BufLeave", "CmdlineEnter" }, {
   callback = buf_leave,
 })
 
@@ -55,19 +55,19 @@ vim.keymap.set({ 't', 'c', 'i' }, '<a-k>', '<UP>')
 vim.keymap.set({ 't', 'c', 'i' }, '<a-j>', '<DOWN>')
 vim.keymap.set({ 't', 'c', 'i' }, '<a-s-k>', '<UP><UP><UP><UP><UP>')
 vim.keymap.set({ 't', 'c', 'i' }, '<a-s-j>', '<DOWN><DOWN><DOWN><DOWN><DOWN>')
-vim.keymap.set({ 't', 'c', 'i' }, '<a-i>', '<HOvim.keymap.setE>')
-vim.keymap.set({ 't', 'c', 'i' }, '<a-s-i>', '<HOvim.keymap.setE>')
+vim.keymap.set({ 't', 'c', 'i' }, '<a-i>', '<HOME>')
+vim.keymap.set({ 't', 'c', 'i' }, '<a-s-i>', '<HOME>')
 vim.keymap.set({ 't', 'c', 'i' }, '<a-o>', '<END>')
 vim.keymap.set({ 't', 'c', 'i' }, '<a-s-o>', '<END>')
-vim.keymap.set({ 't', 'c', 'i' }, '<a-l>', '<RIvim.gHT>')
-vim.keymap.set({ 't', 'c', 'i' }, '<a-h>', '<LEvim.fnT>')
-vim.keymap.set({ 't', 'c', 'i' }, '<a-s-l>', '<c-RIvim.gHT>')
-vim.keymap.set({ 't', 'c', 'i' }, '<a-s-h>', '<c-LEvim.fnT>')
+vim.keymap.set({ 't', 'c', 'i' }, '<a-l>', '<RIGHT>')
+vim.keymap.set({ 't', 'c', 'i' }, '<a-h>', '<LEFT>')
+vim.keymap.set({ 't', 'c', 'i' }, '<a-s-l>', '<c-RIGHT>')
+vim.keymap.set({ 't', 'c', 'i' }, '<a-s-h>', '<c-LEFT>')
 
 vim.keymap.set('v', '<c-l>', 'L')
 vim.keymap.set('v', '<c-h>', 'H')
-vim.keymap.set('v', '<c-g>', 'vim.g')
-vim.keymap.set('v', '<c-m>', 'vim.keymap.set')
+vim.keymap.set('v', '<c-g>', 'G')
+vim.keymap.set('v', '<c-m>', 'M')
 vim.keymap.set('v', '<c-u>', 'U')
 
 -- esc
@@ -94,10 +94,10 @@ vim.keymap.set({ 'n', 'v' }, '<f5>', '<cmd>:e!<cr>', o)
 
 -- key
 
-vim.keymap.set({ 'n', 'v' }, '<leader>vim.keymap.set', 'vim.keymap.set', o) -- 可用vim.cmd代替
-vim.keymap.set({ 'n', 'v' }, 'vim.keymap.set', 's', o)
-vim.keymap.set({ 'n', 'v' }, '<leader>vim.fn', 'vim.fn', o)
-vim.keymap.set({ 'n', 'v' }, 'vim.fn', 'f', o)
+vim.keymap.set({ 'n', 'v' }, '<leader>S', 'S', o) -- 可用C代替
+vim.keymap.set({ 'n', 'v' }, 'S', 's', o)
+vim.keymap.set({ 'n', 'v' }, '<leader>F', 'F', o)
+vim.keymap.set({ 'n', 'v' }, 'F', 'f', o)
 
 -- mouse
 
