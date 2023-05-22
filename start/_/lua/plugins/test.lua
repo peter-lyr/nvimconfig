@@ -23,6 +23,7 @@ return {
     lazy = false,
     priority = 1000,
     config = function()
+      math.randomseed(os.time())
       vim.cmd([[colorscheme tokyonight]])
     end,
   },
