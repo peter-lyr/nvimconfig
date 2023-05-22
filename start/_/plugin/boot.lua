@@ -45,7 +45,7 @@ lazy.setup({
         -- "gzip",
         -- "matchit",
         -- "matchparen",
-        "netrwPlugin",
+        -- "netrwPlugin", -- already rm runtime netrw
         -- "tarPlugin",
         "tohtml",
         "tutor",
