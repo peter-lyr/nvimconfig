@@ -1,125 +1,119 @@
-G = vim.g
-F = vim.fn
-C = vim.cmd
-A = vim.api
-M = vim.keymap.set
-
 local o = { silent = true }
 
 -- alt_num
 
-M('n', '<alt-1>', '<nop>', o)
-M('n', '<alt-2>', '<nop>', o)
-M('n', '<alt-3>', '<nop>', o)
-M('n', '<alt-4>', '<nop>', o)
-M('n', '<alt-5>', '<nop>', o)
-M('n', '<alt-6>', '<nop>', o)
-M('n', '<alt-7>', '<nop>', o)
-M('n', '<alt-8>', '<nop>', o)
-M('n', '<alt-9>', '<nop>', o)
-M('n', '<alt-0>', '<nop>', o)
+vim.keymap.set('n', '<alt-1>', '<nop>', o)
+vim.keymap.set('n', '<alt-2>', '<nop>', o)
+vim.keymap.set('n', '<alt-3>', '<nop>', o)
+vim.keymap.set('n', '<alt-4>', '<nop>', o)
+vim.keymap.set('n', '<alt-5>', '<nop>', o)
+vim.keymap.set('n', '<alt-6>', '<nop>', o)
+vim.keymap.set('n', '<alt-7>', '<nop>', o)
+vim.keymap.set('n', '<alt-8>', '<nop>', o)
+vim.keymap.set('n', '<alt-9>', '<nop>', o)
+vim.keymap.set('n', '<alt-0>', '<nop>', o)
 
 -- change_cwd
 
-M({ 'n', 'v' }, 'c.', ':try|cd %:h|ec getcwd()|catch|endtry<cr>', o)
-M({ 'n', 'v' }, 'cu', ':try|cd ..|ec getcwd()|catch|endtry<cr>', o)
-M({ 'n', 'v' }, 'c-', ':try|cd -|ec getcwd()|catch|endtry<cr>', o)
+vim.keymap.set({ 'n', 'v' }, 'c.', ':try|cd %:h|ec getcwd()|catch|endtry<cr>', o)
+vim.keymap.set({ 'n', 'v' }, 'cu', ':try|cd ..|ec getcwd()|catch|endtry<cr>', o)
+vim.keymap.set({ 'n', 'v' }, 'c-', ':try|cd -|ec getcwd()|catch|endtry<cr>', o)
 
 -- copy_pase
 
-M({ 'n', 'v' }, '<a-y>', '"+y')
-M({ 'n', 'v' }, '<a-p>', '"+p')
-M({ 'n', 'v' }, '<a-s-p>', '"+P')
+vim.keymap.set({ 'n', 'v' }, '<a-y>', '"+y')
+vim.keymap.set({ 'n', 'v' }, '<a-p>', '"+p')
+vim.keymap.set({ 'n', 'v' }, '<a-s-p>', '"+P')
 
-M({ 'c', 'i' }, '<a-w>', '<c-r>=g:word<cr>')
-M({ 'c', 'i' }, '<a-v>', '<c-r>"')
-M({ 't',     }, '<a-v>', '<c-\\><c-n>pi')
-M({ 'c', 'i' }, '<a-=>', '<c-r>+')
-M({ 't',     }, '<a-=>', '<c-\\><c-n>"+pi')
-M({ 'n', 'v' }, '<a-z>', '"zy')
-M({ 'c', 'i' }, '<a-z>', '<c-r>z')
-M({ 't',     }, '<a-z>', '<c-\\><c-n>"zpi')
+vim.keymap.set({ 'c', 'i' }, '<a-w>', '<c-r>=g:word<cr>')
+vim.keymap.set({ 'c', 'i' }, '<a-v>', '<c-r>"')
+vim.keymap.set({ 't',     }, '<a-v>', '<c-\\><c-n>pi')
+vim.keymap.set({ 'c', 'i' }, '<a-=>', '<c-r>+')
+vim.keymap.set({ 't',     }, '<a-=>', '<c-\\><c-n>"+pi')
+vim.keymap.set({ 'n', 'v' }, '<a-z>', '"zy')
+vim.keymap.set({ 'c', 'i' }, '<a-z>', '<c-r>z')
+vim.keymap.set({ 't',     }, '<a-z>', '<c-\\><c-n>"zpi')
 
-M({ 'n', 'v' }, '<leader>y', '<esc>:let @+ = expand("%:t")<cr>')
-M({ 'n', 'v' }, '<leader>gy', '<esc>:let @+ = substitute(nvim_buf_get_name(0), "/", "\\\\", "g")<cr>')
-M({ 'n', 'v' }, '<leader><leader>gy', '<esc>:let @+ = substitute(getcwd(), "/", "\\\\", "g")<cr>')
+vim.keymap.set({ 'n', 'v' }, '<leader>y', '<esc>:let @+ = expand("%:t")<cr>')
+vim.keymap.set({ 'n', 'v' }, '<leader>gy', '<esc>:let @+ = substitute(nvim_buf_get_name(0), "/", "\\\\", "g")<cr>')
+vim.keymap.set({ 'n', 'v' }, '<leader><leader>gy', '<esc>:let @+ = substitute(getcwd(), "/", "\\\\", "g")<cr>')
 
 local buf_leave = function()
-  G.word = F.expand('<cword>')
+  vim.g.word = vim.fn.expand('<cword>')
 end
 
-A.nvim_create_autocmd({ "BufLeave", "CmdlineEnter" }, {
+vim.api.nvim_create_autocmd({ "BufLeave", "vim.cmdmdlineEnter" }, {
   callback = buf_leave,
 })
 
 -- cursor
 
-M({ 'n', 'v', }, '<c-j>', '5j')
-M({ 'n', 'v', }, '<c-k>', '5k')
+vim.keymap.set({ 'n', 'v', }, '<c-j>', '5j')
+vim.keymap.set({ 'n', 'v', }, '<c-k>', '5k')
 
-M({ 't', 'c', 'i' }, '<a-k>', '<UP>')
-M({ 't', 'c', 'i' }, '<a-j>', '<DOWN>')
-M({ 't', 'c', 'i' }, '<a-s-k>', '<UP><UP><UP><UP><UP>')
-M({ 't', 'c', 'i' }, '<a-s-j>', '<DOWN><DOWN><DOWN><DOWN><DOWN>')
-M({ 't', 'c', 'i' }, '<a-i>', '<HOME>')
-M({ 't', 'c', 'i' }, '<a-s-i>', '<HOME>')
-M({ 't', 'c', 'i' }, '<a-o>', '<END>')
-M({ 't', 'c', 'i' }, '<a-s-o>', '<END>')
-M({ 't', 'c', 'i' }, '<a-l>', '<RIGHT>')
-M({ 't', 'c', 'i' }, '<a-h>', '<LEFT>')
-M({ 't', 'c', 'i' }, '<a-s-l>', '<c-RIGHT>')
-M({ 't', 'c', 'i' }, '<a-s-h>', '<c-LEFT>')
+vim.keymap.set({ 't', 'c', 'i' }, '<a-k>', '<UP>')
+vim.keymap.set({ 't', 'c', 'i' }, '<a-j>', '<DOWN>')
+vim.keymap.set({ 't', 'c', 'i' }, '<a-s-k>', '<UP><UP><UP><UP><UP>')
+vim.keymap.set({ 't', 'c', 'i' }, '<a-s-j>', '<DOWN><DOWN><DOWN><DOWN><DOWN>')
+vim.keymap.set({ 't', 'c', 'i' }, '<a-i>', '<HOvim.keymap.setE>')
+vim.keymap.set({ 't', 'c', 'i' }, '<a-s-i>', '<HOvim.keymap.setE>')
+vim.keymap.set({ 't', 'c', 'i' }, '<a-o>', '<END>')
+vim.keymap.set({ 't', 'c', 'i' }, '<a-s-o>', '<END>')
+vim.keymap.set({ 't', 'c', 'i' }, '<a-l>', '<RIvim.gHT>')
+vim.keymap.set({ 't', 'c', 'i' }, '<a-h>', '<LEvim.fnT>')
+vim.keymap.set({ 't', 'c', 'i' }, '<a-s-l>', '<c-RIvim.gHT>')
+vim.keymap.set({ 't', 'c', 'i' }, '<a-s-h>', '<c-LEvim.fnT>')
 
-M('v', '<c-l>', 'L')
-M('v', '<c-h>', 'H')
-M('v', '<c-g>', 'G')
-M('v', '<c-m>', 'M')
-M('v', '<c-u>', 'U')
+vim.keymap.set('v', '<c-l>', 'L')
+vim.keymap.set('v', '<c-h>', 'H')
+vim.keymap.set('v', '<c-g>', 'vim.g')
+vim.keymap.set('v', '<c-m>', 'vim.keymap.set')
+vim.keymap.set('v', '<c-u>', 'U')
 
 -- esc
 
-M('v', 'm', '<esc>')
+vim.keymap.set('v', 'm', '<esc>')
 
-M({ 'i', 'c', }, 'ql', '<esc><esc>')
-M({ 'i', 'c', }, 'qL', '<esc><esc>')
-M({ 'i', 'c', }, 'Ql', '<esc><esc>')
-M({ 'i', 'c', }, 'QL', '<esc><esc>')
+vim.keymap.set({ 'i', 'c', }, 'ql', '<esc><esc>')
+vim.keymap.set({ 'i', 'c', }, 'qL', '<esc><esc>')
+vim.keymap.set({ 'i', 'c', }, 'Ql', '<esc><esc>')
+vim.keymap.set({ 'i', 'c', }, 'QL', '<esc><esc>')
 
-M( 't', 'ql', '<c-\\><c-n>')
-M( 't', 'qL', '<c-\\><c-n>')
-M( 't', 'Ql', '<c-\\><c-n>')
-M( 't', 'QL', '<c-\\><c-n>')
+vim.keymap.set( 't', 'ql', '<c-\\><c-n>')
+vim.keymap.set( 't', 'qL', '<c-\\><c-n>')
+vim.keymap.set( 't', 'Ql', '<c-\\><c-n>')
+vim.keymap.set( 't', 'QL', '<c-\\><c-n>')
 
-M({ 'i', 'c' }, '<a-m>', '<esc><esc>')
-M({ 't',     }, '<esc>', '<c-\\><c-n>')
-M({ 't',     }, '<a-m>', '<c-\\><c-n>')
+vim.keymap.set({ 'i', 'c' }, '<a-m>', '<esc><esc>')
+vim.keymap.set({ 't',     }, '<esc>', '<c-\\><c-n>')
+vim.keymap.set({ 't',     }, '<a-m>', '<c-\\><c-n>')
 
 -- f5
 
-M({ 'n', 'v' }, '<f5>', '<cmd>:e!<cr>', o)
+vim.keymap.set({ 'n', 'v' }, '<f5>', '<cmd>:e!<cr>', o)
 
 -- key
 
-M({ 'n', 'v' }, '<leader>M', 'M', o) -- 可用C代替
-M({ 'n', 'v' }, 'M', 's', o)
-M({ 'n', 'v' }, '<leader>F', 'F', o)
-M({ 'n', 'v' }, 'F', 'f', o)
+vim.keymap.set({ 'n', 'v' }, '<leader>vim.keymap.set', 'vim.keymap.set', o) -- 可用vim.cmd代替
+vim.keymap.set({ 'n', 'v' }, 'vim.keymap.set', 's', o)
+vim.keymap.set({ 'n', 'v' }, '<leader>vim.fn', 'vim.fn', o)
+vim.keymap.set({ 'n', 'v' }, 'vim.fn', 'f', o)
 
 -- mouse
 
-M({ 'n', 'v', 'i' }, '<rightmouse>', '<leftmouse>', o)
-M({ 'n', 'v', 'i' }, '<rightrelease>', '<nop>', o)
-M({ 'n', 'v', 'i' }, '<middlemouse>', '<nop>', o)
+vim.keymap.set({ 'n', 'v', 'i' }, '<rightmouse>', '<leftmouse>', o)
+vim.keymap.set({ 'n', 'v', 'i' }, '<rightrelease>', '<nop>', o)
+vim.keymap.set({ 'n', 'v', 'i' }, '<middlemouse>', '<nop>', o)
 
 -- record
 
-M({ 'n', 'v' }, 'q', '<nop>', o)
-M({ 'n', 'v' }, 'Q', 'q', o)
+vim.keymap.set({ 'n', 'v' }, 'q', '<nop>', o)
+vim.keymap.set({ 'n', 'v' }, 'Q', 'q', o)
 
 -- source
 
-M({ 'n', 'v' }, '<leader>f.', ':if (&ft == "vim" || &ft == "lua") | source %:p | endif<cr>', o)
+vim.keymap.set({ 'n', 'v' }, '<leader>f.', ':if (&ft == "vim" || &ft == "lua") | source %:p | endif<cr>', o)
 
 -- undo
 
-M('n', 'U', '<c-r>', o)
+vim.keymap.set('n', 'U', '<c-r>', o)
