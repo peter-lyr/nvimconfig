@@ -7,5 +7,7 @@ return {
   event = { 'FocusLost', },
   config = function()
     require('nvim-tree').setup()
+    vim.cmd('NvimTreeOpen')
+    vim.cmd('NvimTreeClose')
   end
 }
