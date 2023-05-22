@@ -28,7 +28,8 @@ end
 
 lazy.setup({
   spec = {
-    { import = 'plugins' }
+    { import = 'plugins' },
+    { import = 'myplugins' },
   },
   root = root,
   readme = {
