@@ -92,13 +92,6 @@ vim.keymap.set({ 't',     }, '<a-m>', '<c-\\><c-n>')
 
 vim.keymap.set({ 'n', 'v' }, '<f5>', '<cmd>:e!<cr>', o)
 
--- key
-
-vim.keymap.set({ 'n', 'v' }, '<leader>S', 'S', o) -- 可用C代替
-vim.keymap.set({ 'n', 'v' }, 'S', 's', o)
-vim.keymap.set({ 'n', 'v' }, '<leader>F', 'F', o)
-vim.keymap.set({ 'n', 'v' }, 'F', 'f', o)
-
 -- mouse
 
 vim.keymap.set({ 'n', 'v', 'i' }, '<rightmouse>', '<leftmouse>', o)
