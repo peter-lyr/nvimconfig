@@ -8,7 +8,7 @@ return {
   cmd = { 'NvimTreeToggle', 'NvimTreeFindFileToggle', 'NvimTreeOpen', },
   event = { 'FocusLost', },
   config = function()
-    local sta, config = pcall(require, 'nvimtree')
+    local sta, config = pcall(require, 'config.nvimtree')
     if not sta then
       config = {}
     end
