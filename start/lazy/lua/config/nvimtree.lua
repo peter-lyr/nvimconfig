@@ -57,10 +57,13 @@ local on_attach = function(bufnr)
   -- vim.keymap.set('n', 'm'                     , api.marks.toggle                                            , opts('Toggle Bookmark'))
 end
 
-return {
+require('nvim-tree').setup({
   on_attach = on_attach,
   remove_keymaps = true,
   view = {
     adaptive_size = 30,
   },
-}
+})
+
+vim.cmd('NvimTreeOpen')
+vim.cmd('NvimTreeClose')
