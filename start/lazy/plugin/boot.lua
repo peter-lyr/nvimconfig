@@ -19,12 +19,7 @@ local root = pack .. "lazy\\plugins"
 local readme = pack .. "lazy\\readme"
 local lockfile = pack .. "nvimconfig\\lazy-lock.json"
 
-local sta, lazy = pcall(require, 'lazy')
-
-if not sta then
-  print(lazy)
-  return
-end
+local lazy = require('lazy')
 
 lazy.setup({
   spec = {
@@ -34,9 +29,6 @@ lazy.setup({
   root = root,
   readme = {
     root = readme,
-  },
-  default = {
-    lazy = true,
   },
   lockfile = lockfile,
   performance = {
