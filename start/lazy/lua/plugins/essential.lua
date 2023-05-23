@@ -1,8 +1,6 @@
 return {
-  -- plugin manager itself
   { "folke/lazy.nvim" },
 
-  -- useful lua functions
   {
     "nvim-lua/plenary.nvim",
     lazy = true,
@@ -18,6 +16,7 @@ return {
     lazy = true,
     cmd = "StartupTime",
   },
+
   {
     "folke/tokyonight.nvim",
     lazy = false,
@@ -27,4 +26,5 @@ return {
       vim.cmd([[colorscheme tokyonight]])
     end,
   },
+
 }
