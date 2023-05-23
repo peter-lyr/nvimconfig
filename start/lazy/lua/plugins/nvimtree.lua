@@ -11,7 +11,7 @@ return {
       config = {}
     end
     require('nvim-tree').setup(config)
-    -- vim.cmd('NvimTreeOpen')
-    -- vim.cmd('NvimTreeClose')
+    vim.cmd('NvimTreeOpen')
+    vim.cmd('NvimTreeClose')
   end
 }
