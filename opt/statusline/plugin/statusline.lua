@@ -5,7 +5,7 @@ local o = vim.opt
 
 f['statusline#watch']()
 
-a.nvim_create_autocmd({ 'WinEnter', 'VimResized', }, {
+a.nvim_create_autocmd({ 'BufEnter', 'WinEnter', 'VimResized', }, {
   callback = function()
     f['statusline#watch']()
   end,
