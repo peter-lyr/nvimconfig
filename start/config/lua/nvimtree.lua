@@ -60,4 +60,7 @@ end
 return {
   on_attach = on_attach,
   remove_keymaps = true,
+  view = {
+    adaptive_size = 30,
+  },
 }
