@@ -65,6 +65,8 @@ require('nvim-tree').setup({
   },
 })
 
-vim.keymap.set({ 'n', 'v' }, '<leader>;', ':<c-u>NvimTreeToggle<cr>', { silent = true })
-vim.keymap.set({ 'n', 'v' }, '<leader>l', ':<c-u>NvimTreeFindFileToggle<cr>', { silent = true })
-vim.keymap.set({ 'n', 'v' }, '<leader><leader>l', ':<c-u>NvimTreeOpen <c-r>=getcwd()<cr><cr>', { silent = true })
+-- '<,'>s/vim\.keymap\.set(\([^}]\+},\) *\([^,]\+,\) *\([^,]\+,\) *\([^)]\+\))/\=printf("vim.keymap.set(%-20s %-24s %-64s %s)", submatch(1), submatch(2), submatch(3), submatch(4))
+
+vim.keymap.set({ 'n', 'v' },        '<leader>;',             ':<c-u>NvimTreeToggle<cr>',                                      { silent = true })
+vim.keymap.set({ 'n', 'v' },        '<leader>l',             ':<c-u>NvimTreeFindFileToggle<cr>',                              { silent = true })
+vim.keymap.set({ 'n', 'v' },        '<leader><leader>l',     ':<c-u>NvimTreeOpen <c-r>=getcwd()<cr><cr>',                     { silent = true })
