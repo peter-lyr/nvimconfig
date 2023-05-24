@@ -1,18 +1,14 @@
-local f = vim.fn
-local a = vim.api
-local c = vim.cmd
-
 local Path = require("plenary.path")
 
-local datapath = Path:new(f['expand']("$VIMRUNTIME") .. "\\my-neovim-data")
+local datapath = Path:new(vim.fn.expand("$VIMRUNTIME") .. "\\my-neovim-data")
 
 if not datapath:exists() then
-  f['mkdir'](datapath.filename)
+  vim.fn.mkdir(datapath.filename)
 end
 
 local sessionpath = datapath:joinpath("Session")
 if not sessionpath:exists() then
-  f['mkdir'](sessionpath.filename)
+  vim.fn.mkdir(sessionpath.filename)
 end
 
 local session = sessionpath:joinpath("session_cwd_branch_fname.txt")
@@ -29,15 +25,15 @@ local getbuffers = function()
   local branch
   local new = {}
   newcnt = 0
-  for _, bufnr in ipairs(a.nvim_list_bufs()) do
-    if f['buflisted'](bufnr) == 0 or a.nvim_buf_is_loaded(bufnr) == false then
+  for _, bufnr in ipairs(vim.api.nvim_list_bufs()) do
+    if vim.fn.buflisted(bufnr) == 0 or vim.api.nvim_buf_is_loaded(bufnr) == false then
       goto continue
     end
-    if f['getbufvar'](bufnr, '&readonly') == 1 then
+    if vim.fn.getbufvar(bufnr, '&readonly') == 1 then
       goto continue
     end
-    fname = string.gsub(a.nvim_buf_get_name(bufnr), '\\', '/')
-    fname = f['tolower'](fname)
+    fname = string.gsub(vim.api.nvim_buf_get_name(bufnr), '\\', '/')
+    fname = vim.fn.tolower(fname)
     if #fname == 0 then
       goto continue
     end
@@ -45,13 +41,13 @@ local getbuffers = function()
     if fpath:exists() ~= true or fpath:is_dir() then
       goto continue
     end
-    f['gitbranch#detect'](fpath:parent().filename)
-    cwd = f['projectroot#get'](fname)
+    vim.fn['gitbranch#detect'](fpath:parent().filename)
+    cwd = vim.fn['projectroot#get'](fname)
     if #cwd == 0 then
       cwd = '-'
       branch = '-'
     else
-      branch = f['gitbranch#name']()
+      branch = vim.fn['gitbranch#name']()
     end
     newcnt = newcnt + 1
     if not vim.tbl_contains(vim.tbl_keys(new), cwd) then
@@ -100,36 +96,36 @@ local savesession = function()
 end
 
 local bwande = function(cwd, fnames)
-  cwd = f['tolower'](cwd)
-  for _, bufnr in ipairs(a.nvim_list_bufs()) do
-    local fname = string.gsub(a.nvim_buf_get_name(bufnr), '\\', '/')
-    local curcwd = f['projectroot#get'](fname)
-    curcwd = f['tolower'](curcwd)
+  cwd = vim.fn.tolower(cwd)
+  for _, bufnr in ipairs(vim.api.nvim_list_bufs()) do
+    local fname = string.gsub(vim.api.nvim_buf_get_name(bufnr), '\\', '/')
+    local curcwd = vim.fn['projectroot#get'](fname)
+    curcwd = vim.fn.tolower(curcwd)
     if curcwd == cwd then
       local fpath = Path:new(fname)
       if not fpath:is_dir() then
         if not vim.tbl_contains(fnames, fname) then
-          c('bw! ' .. fname)
+          vim.cmd('bw! ' .. fname)
         end
       end
     end
   end
   for _, fname in ipairs(fnames) do
-    c('e ' .. fname)
+    vim.cmd('e ' .. fname)
   end
-  f['tabline#restorehidden']()
+  vim.fn['tabline#restorehidden']()
 end
 
 local loadsession = function()
   local cwds = loadstring('return ' .. session:read())()
-  vim.ui.select(f['sort'](vim.tbl_keys(cwds)), { prompt = 'cwd' }, function(cwd, _)
+  vim.ui.select(vim.fn.sort(vim.tbl_keys(cwds)), { prompt = 'cwd' }, function(cwd, _)
     local branches = cwds[cwd]
     if #vim.tbl_keys(branches) == 1 then
       for _, fnames in pairs(branches) do
         bwande(cwd, fnames)
       end
     else
-      vim.ui.select(f['sort'](vim.tbl_keys(branches)), { prompt = 'branch' }, function(branch, _)
+      vim.ui.select(vim.fn.sort(vim.tbl_keys(branches)), { prompt = 'branch' }, function(branch, _)
         local fnames = branches[branch]
         bwande(cwd, fnames)
       end)
@@ -139,7 +135,7 @@ end
 
 vim.keymap.set({ 'n', 'v' }, '<leader>bt', function()
   savesession()
-  f['tabline#savesession']()
+  vim.fn['tabline#savesession']()
 end, { silent = true })
 
 vim.api.nvim_create_user_command('TablineSessionRestoreProjects', function()
