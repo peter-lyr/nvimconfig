@@ -133,6 +133,8 @@ local loadsession = function()
   end)
 end
 
+-- mappings
+
 vim.keymap.set({ 'n', 'v' }, '<leader>bt', function()
   savesession()
   vim.fn['tabline#savesession']()

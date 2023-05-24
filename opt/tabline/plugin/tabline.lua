@@ -34,8 +34,6 @@ vim.api.nvim_create_autocmd({ 'BufLeave' }, {
   end,
 })
 
-vim.keymap.set({ 'n', 'v' }, '<leader><bs>', ':<c-u>try|exe "b" . g:lastbufnr|catch|endtry<cr>', { silent = true })
-
 -- 新buffer更新高亮
 
 local Path = require("plenary.path")
@@ -121,3 +119,7 @@ vim.loop.new_timer():start(1000, 1000, function()
     vim.g.tabline_onesecond = 1
   end)
 end)
+
+-- mappings
+
+vim.keymap.set({ 'n', 'v' }, '<leader><bs>', ':<c-u>try|exe "b" . g:lastbufnr|catch|endtry<cr>', { silent = true })

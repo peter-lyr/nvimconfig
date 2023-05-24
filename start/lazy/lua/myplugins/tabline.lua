@@ -10,14 +10,33 @@ local patterns = {
 
 vim.g.startuptime = os.time()
 
-
 return {
   name = name,
   dir = vim.fn.expand('$VIMRUNTIME') .. '\\pack\\nvimconfig\\opt\\' .. name,
   event = { 'FocusLost', 'WinEnter', 'VimResized', },
   keys = {
-    '<leader>bU',
+    '<leader>xC',
+    '<leader>xf',
+    '<leader>xh',
+    '<leader>xl',
+    '<leader>xo',
+
+    '<leader>bq',
+    '<leader>br',
+
+    '<leader>bs',
+
+    -- '<leader>bt',
     '<leader>bu',
+
+    '<leader>bv',
+    '<leader>bx',
+    '<leader>by',
+
+    '<leader>bt',
+    '<leader>bU',
+
+    '<leader><bs>',
   },
   dependencies = {
     {
@@ -39,3 +58,4 @@ return {
     },
   },
 }
+

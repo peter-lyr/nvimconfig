@@ -170,12 +170,6 @@ fu! tabline#bwfiletypedo(ft)
   let s:cnt = 19
 endfu
 
-nnoremap <silent><nowait> <leader>xo :call tabline#bwothers()<cr>
-nnoremap <silent><nowait> <leader>xl :call tabline#bwright()<cr>
-nnoremap <silent><nowait> <leader>xh :call tabline#bwleft()<cr>
-nnoremap <silent><nowait> <leader>xf :call tabline#bwfiletype()<cr>
-nnoremap <silent><nowait> <leader>xC :call tabline#bwall()<cr>
-
 " 重新打开bwipeout的buffer
 
 fu! tabline#updatedict(cwd, names)
@@ -226,9 +220,6 @@ fu! tabline#bwpop()
 EOF
   endif
 endfu
-
-nnoremap <silent><nowait> <leader>bq :call tabline#bwpop()<cr>
-nnoremap <silent><nowait> <leader>br :call tabline#bwpopmore()<cr>
 
 " 恢复其他隐藏的项目
 
@@ -301,8 +292,6 @@ fu! tabline#restorehidden()
   catch
   endtry
 endfu
-
-nnoremap <silent><nowait> <leader>bs :call tabline#restorehidden()<cr>
 
 " 鼠标wipeout或切换buffer
 
@@ -704,9 +693,6 @@ fu! tabline#restoresession()
   call tabline#restorehidden()
 endfu
 
-" nnoremap <silent><nowait> <leader>bt :call tabline#savesession()<cr>
-nnoremap <silent><nowait> <leader>bu :call tabline#restoresession()<cr>
-
 " 切换是否显示tabline
 
 fu! tabline#toggleshowtabline()
@@ -716,8 +702,6 @@ fu! tabline#toggleshowtabline()
     set showtabline=0
   endif
 endfu
-
-nnoremap <silent><nowait> <leader>bv :call tabline#toggleshowtabline()<cr>
 
 " 切换是否显示tabline右半部分
 
@@ -730,8 +714,6 @@ fu! tabline#toggleshowtablineright()
   endif
 endfu
 
-nnoremap <silent><nowait> <leader>by :call tabline#toggleshowtablineright()<cr>
-
 " 切换是否显示cmdline
 
 fu! tabline#togglecmdheight()
@@ -742,4 +724,22 @@ fu! tabline#togglecmdheight()
   endif
 endfu
 
+" mapping
+
+nnoremap <silent><nowait> <leader>xC :call tabline#bwall()<cr>
+nnoremap <silent><nowait> <leader>xf :call tabline#bwfiletype()<cr>
+nnoremap <silent><nowait> <leader>xh :call tabline#bwleft()<cr>
+nnoremap <silent><nowait> <leader>xl :call tabline#bwright()<cr>
+nnoremap <silent><nowait> <leader>xo :call tabline#bwothers()<cr>
+
+nnoremap <silent><nowait> <leader>bq :call tabline#bwpop()<cr>
+nnoremap <silent><nowait> <leader>br :call tabline#bwpopmore()<cr>
+
+nnoremap <silent><nowait> <leader>bs :call tabline#restorehidden()<cr>
+
+nnoremap <silent><nowait> <leader>bt :call tabline#savesession()<cr>
+nnoremap <silent><nowait> <leader>bu :call tabline#restoresession()<cr>
+
+nnoremap <silent><nowait> <leader>bv :call tabline#toggleshowtabline()<cr>
 nnoremap <silent><nowait> <leader>bx :call tabline#togglecmdheight()<cr>
+nnoremap <silent><nowait> <leader>by :call tabline#toggleshowtablineright()<cr>
