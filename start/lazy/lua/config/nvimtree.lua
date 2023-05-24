@@ -65,5 +65,6 @@ require('nvim-tree').setup({
   },
 })
 
-vim.cmd('NvimTreeOpen')
-vim.cmd('NvimTreeClose')
+vim.keymap.set({ 'n', 'v' }, '<leader>;', ':<c-u>NvimTreeToggle<cr>', { silent = true })
+vim.keymap.set({ 'n', 'v' }, '<leader>l', ':<c-u>NvimTreeFindFileToggle<cr>', { silent = true })
+vim.keymap.set({ 'n', 'v' }, '<leader><leader>l', ':<c-u>NvimTreeOpen <c-r>=getcwd()<cr><cr>', { silent = true })

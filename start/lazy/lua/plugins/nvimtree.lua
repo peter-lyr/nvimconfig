@@ -1,13 +1,9 @@
-vim.keymap.set({ 'n', 'v' }, '<leader>;', ':<c-u>NvimTreeToggle<cr>', { silent = true })
-vim.keymap.set({ 'n', 'v' }, '<leader>l', ':<c-u>NvimTreeFindFileToggle<cr>', { silent = true })
-vim.keymap.set({ 'n', 'v' }, '<leader><leader>l', ':<c-u>NvimTreeOpen <c-r>=getcwd()<cr><cr>', { silent = true })
-
 return {
   'nvim-tree/nvim-tree.lua',
   lazy = true,
-  cmd = { 'NvimTreeToggle', 'NvimTreeFindFileToggle', 'NvimTreeOpen', },
   event = { 'FocusLost', },
+  keys = { '<leader>;', '<leader>l', '<leader><leader>l', },
   config = function()
     require('config.nvimtree')
-  end
+  end,
 }
