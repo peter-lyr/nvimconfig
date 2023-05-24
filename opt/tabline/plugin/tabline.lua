@@ -121,9 +121,3 @@ vim.loop.new_timer():start(1000, 1000, function()
     vim.g.tabline_onesecond = 1
   end)
 end)
-
--- 恢复上次保存的所有buffer
-
-vim.api.nvim_create_user_command('TablineSessionRestoreAll', function()
-  vim.fn['tabline#restoresession']()
-end, { nargs = 0, })

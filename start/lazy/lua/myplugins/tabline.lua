@@ -10,14 +10,15 @@ local patterns = {
 
 vim.g.startuptime = os.time()
 
-vim.keymap.set({ 'n', 'v' }, '<leader>bU', ':<c-u>TablineSessionRestoreProjects<cr>', { silent = true })
-vim.keymap.set({ 'n', 'v' }, '<leader>bu', ':<c-u>TablineSessionRestoreAll<cr>', { silent = true })
 
 return {
   name = name,
   dir = vim.fn.expand('$VIMRUNTIME') .. '\\pack\\nvimconfig\\opt\\' .. name,
-  event = { 'WinEnter', 'VimResized', 'FocusLost' },
-  cmd = { 'TablineSessionRestoreProjects', 'TablineSessionRestoreAll', },
+  event = { 'FocusLost', 'WinEnter', 'VimResized', },
+  keys = {
+    '<leader>bU',
+    '<leader>bu',
+  },
   dependencies = {
     {
       "dbakker/vim-projectroot",

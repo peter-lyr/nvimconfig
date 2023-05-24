@@ -704,10 +704,8 @@ fu! tabline#restoresession()
   call tabline#restorehidden()
 endfu
 
-command! -nargs=0 TablineSessionRestoreAll call tabline#restoresession()
-
 " nnoremap <silent><nowait> <leader>bt :call tabline#savesession()<cr>
-" nnoremap <silent><nowait> <leader>bu :call tabline#restoresession()<cr>
+nnoremap <silent><nowait> <leader>bu :call tabline#restoresession()<cr>
 
 " 切换是否显示tabline
 

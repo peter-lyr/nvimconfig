@@ -138,6 +138,6 @@ vim.keymap.set({ 'n', 'v' }, '<leader>bt', function()
   vim.fn['tabline#savesession']()
 end, { silent = true })
 
-vim.api.nvim_create_user_command('TablineSessionRestoreProjects', function()
+vim.keymap.set({ 'n', 'v' }, '<leader>bU', function()
   loadsession()
-end, { nargs = 0, })
+end, { silent = true })
