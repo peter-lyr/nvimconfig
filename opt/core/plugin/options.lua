@@ -16,6 +16,7 @@ o.termguicolors = true
 o.splitright = true
 o.splitbelow = true
 o.mousemodel = "extend"
+o.mousescroll = "ver:5,hor:0"
 o.swapfile = false
 o.fileformats = 'dos'
 o.foldmethod = "indent"
