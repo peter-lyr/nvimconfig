@@ -1,23 +1,21 @@
-local o = { silent = true }
-
 -- alt_num
 
-vim.keymap.set('n', '<alt-1>', '<nop>', o)
-vim.keymap.set('n', '<alt-2>', '<nop>', o)
-vim.keymap.set('n', '<alt-3>', '<nop>', o)
-vim.keymap.set('n', '<alt-4>', '<nop>', o)
-vim.keymap.set('n', '<alt-5>', '<nop>', o)
-vim.keymap.set('n', '<alt-6>', '<nop>', o)
-vim.keymap.set('n', '<alt-7>', '<nop>', o)
-vim.keymap.set('n', '<alt-8>', '<nop>', o)
-vim.keymap.set('n', '<alt-9>', '<nop>', o)
-vim.keymap.set('n', '<alt-0>', '<nop>', o)
+vim.keymap.set('n', '<alt-1>', '<nop>', { silent = true })
+vim.keymap.set('n', '<alt-2>', '<nop>', { silent = true })
+vim.keymap.set('n', '<alt-3>', '<nop>', { silent = true })
+vim.keymap.set('n', '<alt-4>', '<nop>', { silent = true })
+vim.keymap.set('n', '<alt-5>', '<nop>', { silent = true })
+vim.keymap.set('n', '<alt-6>', '<nop>', { silent = true })
+vim.keymap.set('n', '<alt-7>', '<nop>', { silent = true })
+vim.keymap.set('n', '<alt-8>', '<nop>', { silent = true })
+vim.keymap.set('n', '<alt-9>', '<nop>', { silent = true })
+vim.keymap.set('n', '<alt-0>', '<nop>', { silent = true })
 
 -- change_cwd
 
-vim.keymap.set({ 'n', 'v' }, 'c.', ':try|cd %:h|ec getcwd()|catch|endtry<cr>', o)
-vim.keymap.set({ 'n', 'v' }, 'cu', ':try|cd ..|ec getcwd()|catch|endtry<cr>', o)
-vim.keymap.set({ 'n', 'v' }, 'c-', ':try|cd -|ec getcwd()|catch|endtry<cr>', o)
+vim.keymap.set({ 'n', 'v' }, 'c.', ':try|cd %:h|ec getcwd()|catch|endtry<cr>', { silent = true })
+vim.keymap.set({ 'n', 'v' }, 'cu', ':try|cd ..|ec getcwd()|catch|endtry<cr>', { silent = true })
+vim.keymap.set({ 'n', 'v' }, 'c-', ':try|cd -|ec getcwd()|catch|endtry<cr>', { silent = true })
 
 -- copy_pase
 
@@ -90,23 +88,23 @@ vim.keymap.set({ 't',     }, '<a-m>', '<c-\\><c-n>')
 
 -- f5
 
-vim.keymap.set({ 'n', 'v' }, '<f5>', '<cmd>:e!<cr>', o)
+vim.keymap.set({ 'n', 'v' }, '<f5>', '<cmd>:e!<cr>', { silent = true })
 
 -- mouse
 
-vim.keymap.set({ 'n', 'v', 'i' }, '<rightmouse>', '<leftmouse>', o)
-vim.keymap.set({ 'n', 'v', 'i' }, '<rightrelease>', '<nop>', o)
-vim.keymap.set({ 'n', 'v', 'i' }, '<middlemouse>', '<nop>', o)
+vim.keymap.set({ 'n', 'v', 'i' }, '<rightmouse>', '<leftmouse>', { silent = true })
+vim.keymap.set({ 'n', 'v', 'i' }, '<rightrelease>', '<nop>', { silent = true })
+vim.keymap.set({ 'n', 'v', 'i' }, '<middlemouse>', '<nop>', { silent = true })
 
 -- record
 
-vim.keymap.set({ 'n', 'v' }, 'q', '<nop>', o)
-vim.keymap.set({ 'n', 'v' }, 'Q', 'q', o)
+vim.keymap.set({ 'n', 'v' }, 'q', '<nop>', { silent = true })
+vim.keymap.set({ 'n', 'v' }, 'Q', 'q', { silent = true })
 
 -- source
 
-vim.keymap.set({ 'n', 'v' }, '<leader>f.', ':if (&ft == "vim" || &ft == "lua") | source %:p | endif<cr>', o)
+vim.keymap.set({ 'n', 'v' }, '<leader>f.', ':if (&ft == "vim" || &ft == "lua") | source %:p | endif<cr>', { silent = true })
 
 -- undo
 
-vim.keymap.set('n', 'U', '<c-r>', o)
+vim.keymap.set('n', 'U', '<c-r>', { silent = true })
