@@ -51,5 +51,7 @@ vim.api.nvim_create_user_command('BuffercleaN', function(params)
   run(params['fargs'])
 end, { nargs = '*', })
 
-vim.keymap.set({ 'n', 'v' }, '<leader>hh', ':<c-u>BuffercleaN cur<cr>', { silent = true })
-vim.keymap.set({ 'n', 'v' }, '<leader><leader>hh', ':<c-u>BuffercleaN all<cr>', { silent = true })
+-- '<,'>s/vim\.keymap\.set(\([^}]\+},\) *\([^,]\+,\) *\([^,]\+,\) *\([^)]\+\))/\=printf("vim.keymap.set(%-20s %-24s %-64s %s)", submatch(1), submatch(2), submatch(3), submatch(4))
+
+vim.keymap.set({ 'n', 'v' },        '<leader>hh',            ':<c-u>BuffercleaN cur<cr>',                                     { silent = true })
+vim.keymap.set({ 'n', 'v' },        '<leader><leader>hh',    ':<c-u>BuffercleaN all<cr>',                                     { silent = true })

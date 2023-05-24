@@ -95,6 +95,7 @@ vim.api.nvim_create_user_command('BufferneW', function(params)
 end, { nargs = '*', })
 
 -- '<,'>s/vim\.keymap\.set(\([^}]\+},\) *\([^,]\+,\) *\([^,]\+,\) *\([^)]\+\))/\=printf("vim.keymap.set(%-20s %-24s %-64s %s)", submatch(1), submatch(2), submatch(3), submatch(4))
+
 vim.keymap.set({ 'n', 'v' },        '<leader>bg',            ':<c-u>BufferneW copy_fpath<cr>',                                { silent = true })
 vim.keymap.set({ 'n', 'v' },        '<leader>bi',            ':<c-u>BufferneW here<cr>',                                      { silent = true })
 vim.keymap.set({ 'n', 'v' },        '<leader>bk',            ':<c-u>BufferneW up<cr>',                                        { silent = true })

@@ -15,6 +15,7 @@ vim.api.nvim_create_autocmd({ "TabLeave" }, {
 -- mappings
 
 -- '<,'>s/vim\.keymap\.set(\([^}]\+},\) *\([^,]\+,\) *\([^,]\+,\) *\([^)]\+\))/\=printf("vim.keymap.set(%-20s %-24s %-64s %s)", submatch(1), submatch(2), submatch(3), submatch(4))
+
 vim.keymap.set({ 'n', 'v', },       '<leader><f1>',          '1gt',                                                           { silent = true })
 vim.keymap.set({ 'n', 'v', },       '<leader><f2>',          '2gt',                                                           { silent = true })
 vim.keymap.set({ 'n', 'v', },       '<leader><f3>',          '3gt',                                                           { silent = true })
