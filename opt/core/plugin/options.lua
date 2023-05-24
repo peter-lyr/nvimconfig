@@ -1,5 +1,5 @@
 -- '<,'>s/\(vim\.opt\.\w\+\) \+= \+\(.\+\)/\=printf("%-30s = %s", submatch(1), submatch(2))
---
+
 vim.opt.number                 = true
 vim.opt.numberwidth            = 1
 vim.opt.relativenumber         = true
