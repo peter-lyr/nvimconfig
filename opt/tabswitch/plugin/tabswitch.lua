@@ -26,8 +26,6 @@ vim.keymap.set({ 'n', 'v' }, '<s-cr>', ':<c-u>tabprevious<cr>', { silent = true 
 
 vim.keymap.set({ 'n', 'v', }, '<c-s-h>', ':<c-u>try <bar> tabmove - <bar> catch <bar> endtry<cr>', { silent = true })
 vim.keymap.set({ 'n', 'v', }, '<c-s-l>', ':<c-u>try <bar> tabmove + <bar> catch <bar> endtry<cr>', { silent = true })
-vim.keymap.set({ 'n', 'v', }, '<c-s-k>', 'gT', { silent = true })
-vim.keymap.set({ 'n', 'v', }, '<c-s-j>', 'gt', { silent = true })
 
 vim.api.nvim_create_autocmd({ "TabLeave" }, {
   callback = function()
