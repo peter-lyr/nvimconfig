@@ -3,7 +3,7 @@ local name = "tabswitch"
 return {
   name = name,
   dir = vim.fn.expand('$VIMRUNTIME') .. '\\pack\\nvimconfig\\opt\\' .. name,
-  event = { 'TabNew', 'FocusLost' },
+  event = { 'FocusLost', 'TabNew', },
   keys = {
     '<leader><f1>',
     '<leader><f2>',
