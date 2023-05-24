@@ -1,32 +1,27 @@
-local a = vim.api
-local c = vim.cmd
-local f = vim.fn
-local o = vim.opt
+vim.fn['statusline#watch']()
 
-f['statusline#watch']()
-
-a.nvim_create_autocmd({ 'BufEnter', 'WinEnter', 'VimResized', }, {
+vim.api.nvim_create_autocmd({ 'BufEnter', 'WinEnter', 'VimResized', }, {
   callback = function()
-    f['statusline#watch']()
+    vim.fn['statusline#watch']()
   end,
 })
 
 local timer = vim.loop.new_timer()
 timer:start(1000, 1000, function()
   vim.schedule(function()
-    o.ro = o.ro:get()
+    vim.opt.ro = vim.opt.ro:get()
   end)
 end)
 
 local sta, light = pcall(require, "nvim-web-devicons-light")
 if not sta then
   print(light)
-  a.nvim_create_autocmd({ 'ColorScheme', }, {
+  vim.api.nvim_create_autocmd({ 'ColorScheme', }, {
     callback = function()
-      f['statusline#color']()
+      vim.fn['statusline#color']()
     end,
   })
-  f['statusline#color']()
+  vim.fn['statusline#color']()
   return
 end
 
@@ -58,7 +53,7 @@ local statuslinecolor = function()
     local opt = { fg = color }
     vim.api.nvim_set_hl(0, hiname, opt)
   end
-  c[[
+  vim.cmd[[
     hi MyHiLiInActive          gui=NONE guifg=#3a3a3a guibg=NONE
     hi MyHiLiFnameTailActive   gui=bold guifg=#ff9933 guibg=NONE
     hi MyHiLiFnameTailInActive gui=NONE guifg=#996633 guibg=NONE
@@ -68,7 +63,7 @@ local statuslinecolor = function()
   ]]
 end
 
-a.nvim_create_autocmd({ 'ColorScheme', }, {
+vim.api.nvim_create_autocmd({ 'ColorScheme', }, {
   callback = function()
     statuslinecolor()
   end,
