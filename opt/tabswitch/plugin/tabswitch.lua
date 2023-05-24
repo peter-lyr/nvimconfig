@@ -30,8 +30,8 @@ vim.keymap.set({ 'n', 'v', },       '<leader><f12>',         '<cmd>:tablast<cr>'
 
 vim.keymap.set({ 'n', 'v', },       '<leader><cr>',          space_enter,                                                     { silent = true })
 
-vim.keymap.set({ 'n', 'v' },        '<cr>',                  ':<c-u>tabnext<cr>',                                             { silent = true })
-vim.keymap.set({ 'n', 'v' },        '<s-cr>',                ':<c-u>tabprevious<cr>',                                         { silent = true })
+vim.keymap.set({ 'n', 'v', },       '<cr>',                  ':<c-u>tabnext<cr>',                                             { silent = true })
+vim.keymap.set({ 'n', 'v', },       '<s-cr>',                ':<c-u>tabprevious<cr>',                                         { silent = true })
 
 vim.keymap.set({ 'n', 'v', },       '<c-s-h>',               ':<c-u>try <bar> tabmove - <bar> catch <bar> endtry<cr>',        { silent = true })
 vim.keymap.set({ 'n', 'v', },       '<c-s-l>',               ':<c-u>try <bar> tabmove + <bar> catch <bar> endtry<cr>',        { silent = true })
