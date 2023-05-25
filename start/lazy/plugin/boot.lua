@@ -1,4 +1,5 @@
 vim.g.mapleader = " "
+vim.g.boot_lua = vim.fn.expand('<sfile>')
 
 local pack = vim.fn.expand("$VIMRUNTIME") .. '\\pack\\'
 
