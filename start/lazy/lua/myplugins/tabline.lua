@@ -48,12 +48,7 @@ return {
     {
       'ahmedkhalf/project.nvim',
       config = function()
-        require("project_nvim").setup({
-          manual_mode = false,
-          datapath = vim.fn['expand']("$VIMRUNTIME") .. "\\my-neovim-data",
-          detection_methods = { "pattern", "lsp" },
-          patterns = patterns,
-        })
+        require('config.telescope-projects')
       end
     },
   },
