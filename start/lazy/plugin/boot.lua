@@ -49,6 +49,9 @@ lazy.setup({
   checker = {
     enabled = false,
   },
+  change_detection = {
+    enabled = false,
+  },
   ui = {
     icons = {
       cmd = "⌘",
