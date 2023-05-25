@@ -737,7 +737,7 @@ nnoremap <silent><nowait> <leader>br :call tabline#bwpopmore()<cr>
 
 nnoremap <silent><nowait> <leader>bs :call tabline#restorehidden()<cr>
 
-nnoremap <silent><nowait> <leader>bt :call tabline#savesession()<cr>
+" nnoremap <silent><nowait> <leader>bt :call tabline#savesession()<cr>
 nnoremap <silent><nowait> <leader>bu :call tabline#restoresession()<cr>
 
 nnoremap <silent><nowait> <leader>bv :call tabline#toggleshowtabline()<cr>
