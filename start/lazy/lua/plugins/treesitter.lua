@@ -1,7 +1,7 @@
 return {
   'nvim-treesitter/nvim-treesitter',
   lazy = true,
-  event = { 'FocusLost', 'CursorMoved', },
+  event = { 'FocusLost', 'CursorMoved', 'CursorMovedI', },
   keys = {
     'qi',
   },
