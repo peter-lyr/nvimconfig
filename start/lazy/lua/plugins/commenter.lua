@@ -1,5 +1,5 @@
 return {
-  'commenter',
+  'preservim/nerdcommenter',
   lazy = true,
   keys = {
     '<leader>cp',
