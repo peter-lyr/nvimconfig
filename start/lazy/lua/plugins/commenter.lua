@@ -1,12 +1,7 @@
 return {
   'preservim/nerdcommenter',
   lazy = true,
-  keys = {
-    '<leader>cp',
-    '<leader>c}',
-    '<leader>c{',
-    '<leader>cG',
-  },
+  event = { 'CursorMoved', },
   config = function()
     vim.keymap.set({ 'n', 'v' }, '<leader>cp', "vip:call nerdcommenter#Comment('x', 'toggle')<CR>",  { silent = true })
     vim.keymap.set({ 'n', 'v' }, '<leader>c}', "V}k:call nerdcommenter#Comment('x', 'toggle')<CR>",  { silent = true })
