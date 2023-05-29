@@ -3,6 +3,6 @@ return {
   lazy = true,
   event = { 'FocusLost', 'CursorMoved', },
   config = function()
-    require('nvim-autopairs')
+    require('nvim-autopairs').setup()
   end,
 }
