@@ -23,9 +23,11 @@ require("nvim-treesitter.configs").setup({
       node_decremental = "qo",
     },
   },
-  -- rainbow = {
-  --   enable = true,
-  --   extended_mode = true,
-  --   max_file_lines = nil,
-  -- }
+  rainbow = {
+    enable = true,
+    extended_mode = true,
+    max_file_lines = nil,
+  }
 })
+
+vim.fn['timer_start'](200, require"rainbow.internal".defhl)
