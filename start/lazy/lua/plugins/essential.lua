@@ -17,14 +17,14 @@ return {
     cmd = "StartupTime",
   },
 
-  {
-    "folke/tokyonight.nvim",
-    lazy = false,
-    priority = 1000,
-    config = function()
-      math.randomseed(os.time())
-      vim.cmd([[colorscheme tokyonight]])
-    end,
-  },
+  -- {
+  --   "folke/tokyonight.nvim",
+  --   lazy = false,
+  --   priority = 1000,
+  --   config = function()
+  --     math.randomseed(os.time())
+  --     vim.cmd([[colorscheme tokyonight]])
+  --   end,
+  -- },
 
 }
