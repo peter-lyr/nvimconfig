@@ -144,8 +144,9 @@ vim.keymap.set({ 'n', 'v' }, '<a-;>h',  ':<c-u>Telescope git_branches<cr>',     
 vim.keymap.set({ 'n', 'v' }, '<a-;>j',  ':<c-u>Telescope git_status previewer=false<cr>',      { silent = true })
 vim.keymap.set({ 'n', 'v' }, '<a-;>l',  ':<c-u>Telescope git_diffs diff_commits<cr>',          { silent = true })
 
-vim.keymap.set({ 'n', 'v' }, '<a-l>',   ':<c-u>Telescope live_grep shorten_path=true word_match=-w only_sort_text=true search= grep_open_files=true<cr>', { silent = true })
-vim.keymap.set({ 'n', 'v' }, '<a-L>',   ':<c-u>Telescope live_grep<cr>',                       { silent = true })
+-- vim.keymap.set({ 'n', 'v' }, '<a-l>',   ':<c-u>Telescope live_grep shorten_path=true word_match=-w only_sort_text=true search= grep_open_files=true<cr>', { silent = true })
+-- vim.keymap.set({ 'n', 'v' }, '<a-L>',   ':<c-u>Telescope live_grep<cr>',                       { silent = true })
+vim.keymap.set({ 'n', 'v' }, '<a-l>',   ':<c-u>Telescope live_grep<cr>',                       { silent = true })
 vim.keymap.set({ 'n', 'v' }, '<a-i>',   ':<c-u>Telescope grep_string shorten_path=true word_match=-w only_sort_text=true search= grep_open_files=true<cr>', { silent = true })
 
 vim.keymap.set({ 'n', 'v' }, '<a-b>',   ':<c-u>Telescope lsp_document_symbols<cr>',            { silent = true })
