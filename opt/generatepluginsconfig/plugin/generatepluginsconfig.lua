@@ -6,19 +6,16 @@ local myplugins = function()
     return
   end
   local content = string.format([[
+local name = "%s"
+
 return {
-  '%s',
-  lazy = true,
-  event = { 'FocusLost', 'CursorMoved', },
+  name = name,
+  dir = vim.fn.expand('$VIMRUNTIME') .. '\\pack\\nvimconfig\\opt\\' .. name,
+  event = { 'FocusLost', 'TabNew', },
   keys = {
-    '<leader>gi',
-  },
-  dependencies = {
-  },
-  config = function()
-    require('config.%s')
-  end,
-}]], name, name)
+  }
+}
+}]], name)
   local pluginslua = path:new(vim.g.boot_lua):parent():parent():joinpath('lua', 'myplugins', name .. '.lua')
   pluginslua:write(content, 'w')
   vim.cmd(string.format([[e %s]], pluginslua.filename))
