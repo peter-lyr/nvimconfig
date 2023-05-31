@@ -102,6 +102,9 @@ fu! statusline#fileAbspathTail(fname)
 endfu
 
 fu! statusline#fileSize(fname)
+  if !filereadable(a:fname)
+    return '        '
+  endif
   let l:size = getfsize(expand(a:fname))
   if l:size == 0 || l:size == -1 || l:size == -2
     return '        '
