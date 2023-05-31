@@ -11,10 +11,11 @@ local name = "%s"
 return {
   name = name,
   dir = vim.fn.expand('$VIMRUNTIME') .. '\\pack\\nvimconfig\\opt\\' .. name,
-  event = { 'FocusLost', 'TabNew', },
+  event = { 'FocusLost', 'CursorMoved', },
   keys = {
-  }
-}
+  },
+  dependencies = {
+  },
 }]], name)
   local pluginslua = path:new(vim.g.boot_lua):parent():parent():joinpath('lua', 'myplugins', name .. '.lua')
   pluginslua:write(content, 'w')
