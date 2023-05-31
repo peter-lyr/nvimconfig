@@ -17,17 +17,17 @@ local lastcwd = ''
 local startuptime = os.date("%H:%M:%S", vim.g.startuptime)
 
 local update_title_string = function()
-    vim.fn.timer_start(100, function()
-      local title = vim.loop.cwd()
-      if #title > 0 then
-        local t1 = title .. ' | ' .. startuptime
-        if vim.g.colors_name then
-          t1 = t1 .. ' ' .. vim.g.colors_name
-        end
-        vim.opt.titlestring = t1
+  vim.fn.timer_start(100, function()
+    local title = vim.loop.cwd()
+    if #title > 0 then
+      local t1 = title .. ' | ' .. startuptime
+      if vim.g.colors_name then
+        t1 = t1 .. ' ' .. vim.g.colors_name
       end
-    end)
-  end
+      vim.opt.titlestring = t1
+    end
+  end)
+end
 
 local changecolorscheme = function(force)
   local cwd = string.lower(string.gsub(vim.loop.cwd(), '\\', '/'))
