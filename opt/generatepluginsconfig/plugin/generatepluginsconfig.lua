@@ -33,7 +33,7 @@ local plugins = function()
 return {
   '%s',
   lazy = true,
-  event = { 'FocusLost', },
+  event = { 'FocusLost', 'CursorMoved', },
   keys = {
     '<leader>gi',
   },
