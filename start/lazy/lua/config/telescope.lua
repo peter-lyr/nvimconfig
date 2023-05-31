@@ -114,6 +114,8 @@ add(t, {
 
 telescope.setup(get_setup_table(t))
 
+telescope.load_extension("ui-select")
+
 local do_telescope_lua = require("plenary.path"):new(vim.g.boot_lua):parent():parent():joinpath('lua', 'config', 'telescope.lua').filename
 
 local open = function()
