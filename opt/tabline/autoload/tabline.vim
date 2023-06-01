@@ -23,7 +23,10 @@ fu! tabline#bwwatcher(bufnr)
     try
       if getbufvar(a:bufnr, '&readonly') != 1
         call tabline#bwpush(nvim_buf_get_name(a:bufnr))
-        exe 'bw' . a:bufnr
+        try
+          exe 'bw!' . a:bufnr
+        catch
+        endtry
         let g:tabline_done = 0
       endif
     catch
@@ -56,7 +59,10 @@ fu! tabline#bwall()
         call tabline#bwpush(name)
       endif
     endif
-    exe 'bw!' . bufnr
+    try
+      exe 'bw!' . bufnr
+    catch
+    endtry
   endfor
   let g:tabline_done = 0
 endfu
@@ -72,7 +78,10 @@ fu! tabline#bwothers()
       if getbufvar(bufnr, '&readonly') != 1
         call tabline#bwpush(name)
       endif
-      exe 'bw!' . bufnr
+      try
+        exe 'bw!' . bufnr
+      catch
+      endtry
     endif
   endfor
   let g:tabline_done = 0
@@ -93,7 +102,10 @@ fu! tabline#bwright()
       if getbufvar(bufnr, '&readonly') != 1
         call tabline#bwpush(name)
       endif
-      exe 'bw!' . bufnr
+      try
+        exe 'bw!' . bufnr
+      catch
+      endtry
     endif
   endfor
   let g:tabline_done = 0
@@ -114,7 +126,10 @@ fu! tabline#bwleft()
       if getbufvar(bufnr, '&readonly') != 1
         call tabline#bwpush(name)
       endif
-      exe 'bw!' . bufnr
+      try
+        exe 'bw!' . bufnr
+      catch
+      endtry
     endif
   endfor
   let g:tabline_done = 0
@@ -162,7 +177,10 @@ fu! tabline#bwfiletypedo(ft)
         if getbufvar(bufnr, '&readonly') != 1
           call tabline#bwpush(name)
         endif
-        exe 'bw!' . bufnr
+        try
+          exe 'bw!' . bufnr
+        catch
+        endtry
       endif
     endif
   endfor
