@@ -49,4 +49,4 @@ local multilinesearch = function()
   end)
 end
 
-vim.keymap.set({ 'n', 'v' }, '<c-8>', multilinesearch,  { silent = true })
+vim.keymap.set({ 'v' }, '*', multilinesearch,  { silent = true })
