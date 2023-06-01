@@ -21,7 +21,7 @@ return {
     cmdline = {
       enabled = true,
       view = "cmdline",
-    }
+    },
   },
   dependencies = {
     "MunifTanjim/nui.nvim",
