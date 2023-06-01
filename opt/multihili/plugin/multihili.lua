@@ -35,6 +35,7 @@ local getvisualcontent = function()
     end
   end
   local content = table.concat(lines, " . '\\n' . ")
+  return content
 end
 
 local multilinesearchdo = function()
