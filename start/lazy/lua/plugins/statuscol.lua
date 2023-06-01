@@ -1,5 +1,7 @@
 return {
   "luukvbaal/statuscol.nvim",
+  lazy = true,
+  event = { 'FocusLost', 'CursorMoved', },
   config = function()
     vim.opt.foldcolumn = 1
     local builtin = require("statuscol.builtin")
