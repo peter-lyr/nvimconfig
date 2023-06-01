@@ -39,7 +39,7 @@ local multilinesearchdo = function()
 end
 
 local multilinesearch = function()
-  vim.cmdc([[call feedkeys("\<esc>")]])
+  vim.cmd([[call feedkeys("\<esc>")]])
   local timer = vim.loop.new_timer()
   timer:start(10, 0, function()
     vim.schedule(function()
