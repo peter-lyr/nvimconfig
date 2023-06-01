@@ -7,8 +7,8 @@ return {
     '<leader>es',
   },
   config = function()
-    vim.keymap.set({ 'n', 'v' }, '<leader>ee', ':<c-u>EraseBadwhitespace<cr>',  { silent = true })
-    vim.keymap.set({ 'n', 'v' }, '<leader>eh', ':<c-u>HideBadwhitespace<cr> ',  { silent = true })
-    vim.keymap.set({ 'n', 'v' }, '<leader>es', ':<c-u>ShowBadwhitespace<cr> ',  { silent = true })
+    vim.keymap.set({ 'n', 'v' }, '<leader>ee', ':<c-u>EraseBadWhitespace<cr>',  { silent = true })
+    vim.keymap.set({ 'n', 'v' }, '<leader>eh', ':<c-u>HideBadWhitespace<cr> ',  { silent = true })
+    vim.keymap.set({ 'n', 'v' }, '<leader>es', ':<c-u>ShowBadWhitespace<cr> ',  { silent = true })
   end,
 }
