@@ -90,7 +90,7 @@ local cmake_app_do = function(app_cbp)
     nn = 'projects'
   end
   if string.match(app_cbp, 'app/projects') then
-    vim.cmd(string.format([[silent !start cmd /c "chcp 65001 & python "%s" "%s" %s & pause"]], vim.g.cmake_app_py, mm, nn))
+    vim.cmd(string.format([[silent !start cmd /c "chcp 65001 & python "%s" "%s" %s & timeout /t 3"]], vim.g.cmake_app_py, mm, nn))
   end
 end
 
@@ -112,7 +112,7 @@ local cmake_others = function()
   local other_cbp = cbp_files[1]
   print(other_cbp)
   local path = Path:new(other_cbp)
-  vim.cmd(string.format([[silent !start cmd /c "chcp 65001 & python "%s" "%s" & pause"]], vim.g.cmake_others_py, path:parent().filename))
+  vim.cmd(string.format([[silent !start cmd /c "chcp 65001 & python "%s" "%s" & timeout /t 3"]], vim.g.cmake_others_py, path:parent().filename))
 end
 
 local sdkcbp = function()
