@@ -62,8 +62,7 @@ fu! statusline#mode()
   else
     hi MyHiLiMode gui=NONE guifg=NONE
   endif
-  let ret = '[' . ret . ']'
-  return printf("%-10s", ret)
+  return printf("%-8s", ret)
 endfu
 
 fu! statusline#bufNr()
