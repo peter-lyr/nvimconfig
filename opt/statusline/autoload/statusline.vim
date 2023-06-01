@@ -105,22 +105,22 @@ fu! statusline#fileSize(fname)
   if !filereadable(a:fname)
     return '        '
   endif
-  let l:size = getfsize(expand(a:fname))
-  if l:size == 0 || l:size == -1 || l:size == -2
+  let size = getfsize(a:fname)
+  if size == 0 || size == -1 || size == -2
     return '        '
   endif
-  if l:size < 1024
+  if size < 1024
     hi MyHiLiFsize gui=NONE guifg=gray guibg=NONE
-    return printf('%6d', l:size) .'B'
-  elseif l:size < 1024*1024
+    return printf('%6d', size) .'B'
+  elseif size < 1024*1024
     hi MyHiLiFsize gui=NONE guifg=yellow guibg=NONE
-    return printf('%3d', l:size/1024) .'.' .split(printf('%.2f', l:size/1024.0), '\.')[-1] .'K'
-  elseif l:size < 1024*1024*1024
+    return printf('%3d', size/1024) .'.' .split(printf('%.2f', size/1024.0), '\.')[-1] .'K'
+  elseif size < 1024*1024*1024
     hi MyHiLiFsize gui=bold guifg=orange guibg=NONE
-    return printf('%3d', l:size/1024/1024) .'.' .split(printf('%.2f', l:size/1024.0/1024.0), '\.')[-1] .'M'
+    return printf('%3d', size/1024/1024) .'.' .split(printf('%.2f', size/1024.0/1024.0), '\.')[-1] .'M'
   else
     hi MyHiLiFsize gui=bold guifg=red guibg=NONE
-    return printf('%3d', l:size/1024/1024/1024) .'.' .split(printf('%.2f', l:size/1024.0/1024.0/1024.0), '\.')[-1] .'G'
+    return printf('%3d', size/1024/1024/1024) .'.' .split(printf('%.2f', size/1024.0/1024.0/1024.0), '\.')[-1] .'G'
   endif
 endfu
 
