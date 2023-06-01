@@ -13,18 +13,7 @@ timer:start(1000, 1000, function()
   end)
 end)
 
-local sta, light = pcall(require, "nvim-web-devicons-light")
-if not sta then
-  print(light)
-  vim.api.nvim_create_autocmd({ 'ColorScheme', }, {
-    callback = function()
-      vim.fn['statusline#color']()
-    end,
-  })
-  vim.fn['statusline#color']()
-  return
-end
-
+local light = require("nvim-web-devicons-light")
 
 local by_filename = light.icons_by_filename
 
