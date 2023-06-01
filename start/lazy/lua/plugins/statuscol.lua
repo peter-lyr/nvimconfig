@@ -3,7 +3,6 @@ return {
   lazy = true,
   event = { 'FocusLost', 'CursorMoved', },
   config = function()
-    vim.opt.foldcolumn = 1
     local builtin = require("statuscol.builtin")
     require("statuscol").setup({
       bt_ignore = { "terminal", "nofile" },

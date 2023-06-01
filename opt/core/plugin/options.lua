@@ -22,6 +22,7 @@ vim.opt.fileformats            = 'dos'
 vim.opt.foldmethod             = "indent"
 vim.opt.foldlevel              = 99
 vim.opt.signcolumn             = "auto:9"
+vim.opt.foldcolumn             = '1'
 -- vim.opt.updatetime             = 0
 -- vim.opt.background             = "dark" -- 耗时高
 -- vim.opt.backspace              = "indent,eol,start"
