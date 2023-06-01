@@ -5,6 +5,7 @@ return {
   dependencies = {
     'p00f/nvim-ts-rainbow',
     'nvim-treesitter/nvim-treesitter-context',
+    'andymass/vim-matchup',
   },
   keys = {
     'qi',
