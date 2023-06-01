@@ -11,6 +11,12 @@ return {
       'quangnguyen30192/cmp-nvim-ultisnips',
       dependencies = {
         'SirVer/ultisnips',
+        config = function()
+          vim.g.UltiSnipsJumpForwardTrigger = "<a-.>"
+          vim.g.UltiSnipsJumpBackwardTrigger = "<a-,>"
+          vim.g.UltiSnipsSnippetDirectories = {
+            require("plenary.path"):new(vim.g.boot_lua):parent():parent():joinpath('lua', 'config', 'snippets').filename }
+        end
       }
     }
   },
