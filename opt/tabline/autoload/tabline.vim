@@ -74,7 +74,7 @@ fu! tabline#bwothers()
     if name == '' || match(tolower(name), cwd) == -1 || bufnr == s:curbufnr
       continue
     endif
-    if buflisted(bufnr) && nvim_buf_is_loaded(bufnr) && filereadable(name)
+    if nvim_buf_is_loaded(bufnr) && filereadable(name)
       if getbufvar(bufnr, '&readonly') != 1
         call tabline#bwpush(name)
       endif
@@ -98,7 +98,7 @@ fu! tabline#bwright()
     if name == '' || match(tolower(name), cwd) == -1
       continue
     endif
-    if buflisted(bufnr) && nvim_buf_is_loaded(bufnr) && filereadable(name)
+    if nvim_buf_is_loaded(bufnr) && filereadable(name)
       if getbufvar(bufnr, '&readonly') != 1
         call tabline#bwpush(name)
       endif
@@ -122,7 +122,7 @@ fu! tabline#bwleft()
     if name == '' || match(tolower(name), cwd) == -1
       continue
     endif
-    if buflisted(bufnr) && nvim_buf_is_loaded(bufnr) && filereadable(name)
+    if nvim_buf_is_loaded(bufnr) && filereadable(name)
       if getbufvar(bufnr, '&readonly') != 1
         call tabline#bwpush(name)
       endif
