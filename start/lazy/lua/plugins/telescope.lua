@@ -47,6 +47,15 @@ return {
   dependencies = {
     'nvim-lua/plenary.nvim',
     'nvim-telescope/telescope-ui-select.nvim',
+    {
+      'paopaol/telescope-git-diffs.nvim',
+      dependencies = {
+        'sindrets/diffview.nvim',
+        config = function()
+          require('config.diffview')
+        end,
+      },
+    }
   },
   config = function()
     require('config.telescope')

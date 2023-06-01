@@ -116,6 +116,8 @@ telescope.setup(get_setup_table(t))
 
 telescope.load_extension("ui-select")
 
+telescope.load_extension("git_diffs")
+
 local do_telescope_lua = require("plenary.path"):new(vim.g.boot_lua):parent():parent():joinpath('lua', 'config', 'telescope.lua').filename
 
 local open = function()
