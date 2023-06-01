@@ -36,6 +36,7 @@ local multilinesearchdo = function()
   end
   local content = table.concat(lines, " . '\\n' . ")
   vim.cmd(string.format([[let @/ = "\\V" . %s]], content))
+  vim.cmd([[call feedkeys("/\<c-r>/\<cr>")]])
 end
 
 local multilinesearch = function()
