@@ -1,4 +1,4 @@
-local multilinesearchdo = function()
+local getvisualcontent = function()
   local s = vim.fn.getpos("'<")
   local line1 = s[2]
   local col1 = s[3]
@@ -35,6 +35,10 @@ local multilinesearchdo = function()
     end
   end
   local content = table.concat(lines, " . '\\n' . ")
+end
+
+local multilinesearchdo = function()
+  local content = getvisualcontent()
   vim.cmd(string.format([[let @/ = "\\V" . %s]], content))
   vim.cmd([[call feedkeys("/\<c-r>/\<cr>")]])
 end
