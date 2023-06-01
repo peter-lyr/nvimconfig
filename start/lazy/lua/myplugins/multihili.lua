@@ -1,4 +1,4 @@
-local name = "multilinesearch"
+local name = "multihili"
 
 return {
   name = name,
