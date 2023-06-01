@@ -37,4 +37,4 @@ vim.fn['timer_start'](200, require"rainbow.internal".defhl)
 
 require("treesitter-context").setup()
 
-require("match-up").setup()
+require("match-up").setup({})
