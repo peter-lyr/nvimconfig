@@ -597,6 +597,7 @@ fu! tabline#tabline()
         let g:nextbufnr = L[i][0]
       elseif i == curcnt
         exe 'nnoremap <buffer><silent><nowait> <leader>x<bs> :call tabline#bw(' . bufnr .')<cr>'
+        exe 'nnoremap <buffer><silent><nowait> <c-del> :call tabline#bw(' . bufnr .')<cr>'
       endif
       let ext = split(name, '\.')[-1]
       let s1 ..= '%' . bufnr
