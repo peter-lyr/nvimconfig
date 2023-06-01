@@ -733,16 +733,6 @@ fu! tabline#toggleshowtablineright()
   endif
 endfu
 
-" 切换是否显示cmdline
-
-fu! tabline#togglecmdheight()
-  if &cmdheight == 0
-    set cmdheight=1
-  else
-    set cmdheight=0
-  endif
-endfu
-
 " mapping
 
 nnoremap <silent><nowait> <leader>xC :call tabline#bwall()<cr>
@@ -760,5 +750,4 @@ nnoremap <silent><nowait> <leader>bs :call tabline#restorehidden()<cr>
 nnoremap <silent><nowait> <leader>bu :call tabline#restoresession()<cr>
 
 nnoremap <silent><nowait> <leader>bv :call tabline#toggleshowtabline()<cr>
-nnoremap <silent><nowait> <leader>bx :call tabline#togglecmdheight()<cr>
 nnoremap <silent><nowait> <leader>by :call tabline#toggleshowtablineright()<cr>
