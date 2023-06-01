@@ -1,51 +1,51 @@
-snippet pjin "printf just int\n"
+snippet jin "printf just int\n"
 my_printf("%d\n", $1);
 endsnippet
 
-snippet pjic "printf just int, "
+snippet jic "printf just int, "
 my_printf("%d, ", $1);
 endsnippet
 
-snippet pin "printf int\n"
+snippet in "printf int\n"
 my_printf("$1: %d\n", $1);
 endsnippet
 
-snippet pic "printf int,"
+snippet ic "printf int,"
 my_printf("$1: %d, ", $1);
 endsnippet
 
-snippet pjhn "printf just hex\n"
+snippet jhn "printf just hex\n"
 my_printf("%x\n", $1);
 endsnippet
 
-snippet pjhc "printf just hex,"
+snippet jhc "printf just hex,"
 my_printf("%x, ", $1);
 endsnippet
 
-snippet phn "printf hex\n"
+snippet hn "printf hex\n"
 my_printf("$1: 0x%x\n", $1);
 endsnippet
 
-snippet phc "printf hex,"
+snippet hc "printf hex,"
 my_printf("$1: 0x%x, ", $1);
 endsnippet
 
-snippet phin "printf hex(int)\n"
+snippet hin "printf hex(int)\n"
 my_printf("$1: 0x%x(%d)\n", $1, $1);
 endsnippet
 
-snippet phic "printf hex(int),"
+snippet hic "printf hex(int),"
 my_printf("$1: 0x%x(%d), ", $1, $1);
 endsnippet
 
-snippet psn "printf string"
+snippet sn "printf string"
 my_printf("$1\n");
 endsnippet
 
-snippet ps "printf string"
+snippet s "printf string"
 my_printf("$1");
 endsnippet
 
-snippet pl "printf line"
+snippet l "printf line"
 my_printf("## %s# %d\n", __func__, __LINE__);
 endsnippet
