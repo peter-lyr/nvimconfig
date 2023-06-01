@@ -242,7 +242,7 @@ a.nvim_create_autocmd({ 'BufEnter', 'WinEnter' }, {
             c('LspStart')
             local curbufnr = vim.fn.bufnr()
             local curclient = vim.lsp.get_active_clients({ bufnr = curbufnr })
-            if #curclient == 1 and vim.tbl_contains(vim.tbl_keys(curclient[1]), 'id') and vim.lsp.buf_is_attached(curbufnr, curclient[1]['id']) then
+            if #curclient == 1 and vim.tbl_contains(vim.tbl_keys(curclient[1]), 'id') == true and vim.lsp.buf_is_attached(curbufnr, curclient[1]['id']) then
               timer:stop()
             end
             cnt = cnt + 1
