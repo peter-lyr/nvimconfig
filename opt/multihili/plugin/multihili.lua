@@ -1,10 +1,4 @@
-local getvisualcontent = function()
-  local s = vim.fn.getpos("'<")
-  local line1 = s[2]
-  local col1 = s[3]
-  local e = vim.fn.getpos("'>")
-  local line2 = e[2]
-  local col2 = e[3]
+local getcontent = function(line1, col1, line2, col2)
   local lines = {}
   for lnr = line1, line2 do
     local line = vim.fn.getline(lnr)
@@ -38,6 +32,16 @@ local getvisualcontent = function()
   return content
 end
 
+local getvisualcontent = function()
+  local s = vim.fn.getpos("'<")
+  local line1 = s[2]
+  local col1 = s[3]
+  local e = vim.fn.getpos("'>")
+  local line2 = e[2]
+  local col2 = e[3]
+  return getcontent(line1, col1, line2, col2)
+end
+
 local multilinesearch = function()
   vim.cmd([[call feedkeys("\<esc>")]])
   local timer = vim.loop.new_timer()
@@ -60,7 +64,7 @@ end
 
 colorinit()
 
-HiLi = {}
+-- HiLi = {}
 
 local function hili()
   if vim.tbl_contains({ 'v', 'V', '' }, vim.fn.mode()) == true then
@@ -83,21 +87,11 @@ local function hili()
           end
         end
         local hiname = 'HiLi' .. number
-        local rand1 = math.random(#Colors)
-        local rand2 = math.random(#Colors)
-        if rand2 == rand1 then
-          if rand1 > 1 then
-            rand2 = rand1 - 1
-          else
-            rand2 = rand1 + 1
-          end
-        end
-        local fg = Colors[rand1]
-        local bg = Colors[rand2]
+        local bg = Colors[math.random(#Colors)]
         HiLi = vim.tbl_deep_extend('force', HiLi, {
-          [content] = { hiname, fg, bg }
+          [content] = { hiname, bg }
         })
-        vim.api.nvim_set_hl(0, hiname, { fg = fg, bg = bg, bold = true })
+        vim.api.nvim_set_hl(0, hiname, { bg = bg })
         vim.fn.matchadd(hiname, content)
       end)
     end)
@@ -107,15 +101,59 @@ end
 local rehili = function()
   for c, v in pairs(HiLi) do
     local h = v[1]
-    local f = v[2]
-    local b = v[3]
-    vim.api.nvim_set_hl(0, h, { fg = f, bg = b, bold = true })
+    local b = v[2]
+    vim.api.nvim_set_hl(0, h, { bg = b })
     vim.fn.matchadd(h, c)
   end
 end
 
-vim.keymap.set({ 'v' }, '<c-8>', hili, { silent = true })
+local curcontent = ''
 
-vim.keymap.set({ 'n', 'v' }, '<c-7>', rehili, { silent = true })
+local prevhili = function()
+  if #vim.tbl_keys(HiLi) > 0 then
+    local content = table.concat(vim.tbl_keys(HiLi), '\\|')
+    local ee = vim.fn.searchpos(content, 'be')
+    local ss = vim.fn.searchpos(content, 'bn')
+    vim.cmd(string.format([[let @0 = %s]], getcontent(ss[1], ss[2], ee[1], ee[2])))
+    content = string.gsub(vim.fn.getreg('0'), '%[', '\\[')
+    curcontent = string.gsub(content, '%*', '\\*')
+  end
+end
+
+local nexthili = function()
+  if #vim.tbl_keys(HiLi) > 0 then
+    local content = table.concat(vim.tbl_keys(HiLi), '\\|')
+    local ss = vim.fn.searchpos(content)
+    local ee = vim.fn.searchpos(content, 'ne')
+    vim.cmd(string.format([[let @0 = %s]], getcontent(ss[1], ss[2], ee[1], ee[2])))
+    content = string.gsub(vim.fn.getreg('0'), '%[', '\\[')
+    curcontent = string.gsub(content, '%*', '\\*')
+  end
+end
+
+local prevcurhili = function()
+  if #curcontent > 0 then
+    vim.fn.searchpos(curcontent, 'be')
+  end
+end
+
+local nextcurhili = function()
+  if #curcontent > 0 then
+    vim.fn.searchpos(curcontent)
+  end
+end
+
+vim.api.nvim_create_autocmd({ 'BufEnter', 'WinEnter', }, {
+  callback = function()
+    rehili()
+  end,
+})
 
 vim.keymap.set({ 'v' }, '*', multilinesearch, { silent = true })
+vim.keymap.set({ 'v' }, '<c-8>', hili, { silent = true })
+
+vim.keymap.set({ 'n' }, '<c-n>', prevhili, { silent = true })
+vim.keymap.set({ 'n' }, '<c-m>', nexthili, { silent = true })
+
+vim.keymap.set({ 'n' }, '<c-,>', prevcurhili, { silent = true })
+vim.keymap.set({ 'n' }, '<c-.>', nextcurhili, { silent = true })
