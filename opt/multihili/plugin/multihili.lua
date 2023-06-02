@@ -198,6 +198,12 @@ vim.api.nvim_create_autocmd({ 'BufEnter', 'WinEnter', }, {
   end,
 })
 
+vim.api.nvim_create_autocmd({ 'CursorMoved', }, {
+  callback = function()
+    vim.cmd(string.format([[match Search /\V\<%s\>/]], vim.fn.expand('<cword>')))
+  end,
+})
+
 vim.keymap.set({ 'v', }, '*', multilinesearch, { silent = true })
 vim.keymap.set({ 'v', }, '<c-8>', hili, { silent = true })
 vim.keymap.set({ 'v', }, '<c-s-8>', rmhili, { silent = true })
