@@ -64,7 +64,7 @@ end
 
 colorinit()
 
--- HiLi = {}
+HiLi = {}
 
 local function hili()
   if vim.tbl_contains({ 'v', 'V', '' }, vim.fn.mode()) == true then
@@ -76,14 +76,16 @@ local function hili()
         local content = string.gsub(vim.fn.getreg('0'), '%[', '\\[')
         content = string.gsub(content, '%*', '\\*')
         local number = 1
-        local g = {}
-        for _, v in pairs(vim.tbl_values(HiLi)) do
-          table.insert(g, v[1])
-        end
-        for i = 1, 50000 do
-          if vim.tbl_contains(g, 'HiLi' .. i) == false then
-            number = i
-            break
+        if HiLi and #vim.tbl_keys(HiLi) > 0 then
+          local g = {}
+          for _, v in pairs(vim.tbl_values(HiLi)) do
+            table.insert(g, v[1])
+          end
+          for i = 1, 50000 do
+            if vim.tbl_contains(g, 'HiLi' .. i) == false then
+              number = i
+              break
+            end
           end
         end
         local hiname = 'HiLi' .. number
@@ -99,18 +101,21 @@ local function hili()
 end
 
 local rehili = function()
-  for c, v in pairs(HiLi) do
-    local h = v[1]
-    local b = v[2]
-    vim.api.nvim_set_hl(0, h, { bg = b })
-    vim.fn.matchadd(h, c)
+  if HiLi and #vim.tbl_keys(HiLi) > 0 then
+    for c, v in pairs(HiLi) do
+      local h = v[1]
+      local b = v[2]
+      vim.api.nvim_set_hl(0, h, { bg = b })
+      vim.fn.matchadd(h, c)
+    end
   end
 end
 
 local curcontent = ''
 
 local prevhili = function()
-  if #vim.tbl_keys(HiLi) > 0 then
+  if HiLi and #vim.tbl_keys(HiLi) > 0 then
+    vim.cmd([[call feedkeys("\<esc>")]])
     local content = table.concat(vim.tbl_keys(HiLi), '\\|')
     local ee = vim.fn.searchpos(content, 'be')
     local ss = vim.fn.searchpos(content, 'bn')
@@ -121,7 +126,8 @@ local prevhili = function()
 end
 
 local nexthili = function()
-  if #vim.tbl_keys(HiLi) > 0 then
+  if HiLi and #vim.tbl_keys(HiLi) > 0 then
+    vim.cmd([[call feedkeys("\<esc>")]])
     local content = table.concat(vim.tbl_keys(HiLi), '\\|')
     local ss = vim.fn.searchpos(content)
     local ee = vim.fn.searchpos(content, 'ne')
@@ -133,13 +139,35 @@ end
 
 local prevcurhili = function()
   if #curcontent > 0 then
+    vim.cmd([[call feedkeys("\<esc>")]])
     vim.fn.searchpos(curcontent, 'be')
   end
 end
 
 local nextcurhili = function()
   if #curcontent > 0 then
+    vim.cmd([[call feedkeys("\<esc>")]])
     vim.fn.searchpos(curcontent)
+  end
+end
+
+local selnexthili = function()
+  if HiLi and #vim.tbl_keys(HiLi) > 0 then
+    vim.cmd([[call feedkeys("\<esc>")]])
+    local content = table.concat(vim.tbl_keys(HiLi), '\\|')
+    vim.fn.searchpos(content)
+    local ne = vim.fn.searchpos(content, 'ne')
+    vim.cmd(string.format([[call feedkeys("v%dgg%d|")]], ne[1], ne[2]))
+  end
+end
+
+local selprevhili = function()
+  if HiLi and #vim.tbl_keys(HiLi) > 0 then
+    vim.cmd([[call feedkeys("\<esc>")]])
+    local content = table.concat(vim.tbl_keys(HiLi), '\\|')
+    vim.fn.searchpos(content, 'be')
+    local ne = vim.fn.searchpos(content, 'nb')
+    vim.cmd(string.format([[call feedkeys("v%dgg%d|")]], ne[1], ne[2]))
   end
 end
 
@@ -149,11 +177,13 @@ vim.api.nvim_create_autocmd({ 'BufEnter', 'WinEnter', }, {
   end,
 })
 
-vim.keymap.set({ 'v' }, '*', multilinesearch, { silent = true })
-vim.keymap.set({ 'v' }, '<c-8>', hili, { silent = true })
+vim.keymap.set({ 'v', }, '*', multilinesearch, { silent = true })
+vim.keymap.set({ 'v', }, '<c-8>', hili, { silent = true })
 
-vim.keymap.set({ 'n' }, '<c-n>', prevhili, { silent = true })
-vim.keymap.set({ 'n' }, '<c-m>', nexthili, { silent = true })
+vim.keymap.set({ 'n','v', }, '<c-n>', prevhili, { silent = true })
+vim.keymap.set({ 'n','v', }, '<c-m>', nexthili, { silent = true })
+vim.keymap.set({ 'n','v', }, '<c-s-n>', prevcurhili, { silent = true })
+vim.keymap.set({ 'n','v', }, '<c-s-m>', nextcurhili, { silent = true })
 
-vim.keymap.set({ 'n' }, '<c-,>', prevcurhili, { silent = true })
-vim.keymap.set({ 'n' }, '<c-.>', nextcurhili, { silent = true })
+vim.keymap.set({ 'n', 'v', }, '<c-7>', selnexthili, { silent = true })
+vim.keymap.set({ 'n', 'v', }, '<c-s-7>', selprevhili, { silent = true })
