@@ -64,9 +64,9 @@ end
 
 colorinit()
 
-HiLi = {}
+-- HiLi = {}
 
-local function hili()
+local hili = function()
   if vim.tbl_contains({ 'v', 'V', '' }, vim.fn.mode()) == true then
     vim.cmd([[call feedkeys("\<esc>")]])
     local timer = vim.loop.new_timer()
@@ -97,6 +97,27 @@ local function hili()
         vim.fn.matchadd(hiname, content)
       end)
     end)
+  end
+end
+
+local rmhili = function()
+  if HiLi and #vim.tbl_keys(HiLi) > 0 then
+    if vim.tbl_contains({ 'v', 'V', '' }, vim.fn.mode()) == true then
+      vim.cmd([[call feedkeys("\<esc>")]])
+      local timer = vim.loop.new_timer()
+      timer:start(10, 0, function()
+        vim.schedule(function()
+          vim.cmd(string.format([[let @0 = %s]], getvisualcontent()))
+          local content = string.gsub(vim.fn.getreg('0'), '%[', '\\[')
+          content = string.gsub(content, '%*', '\\*')
+          if vim.tbl_contains(vim.tbl_keys(HiLi), content) then
+            local hiname = HiLi[content][1]
+            vim.api.nvim_set_hl(0, hiname, { bg = 'NONE' })
+            HiLi[content] = nil
+          end
+        end)
+      end)
+    end
   end
 end
 
@@ -179,6 +200,7 @@ vim.api.nvim_create_autocmd({ 'BufEnter', 'WinEnter', }, {
 
 vim.keymap.set({ 'v', }, '*', multilinesearch, { silent = true })
 vim.keymap.set({ 'v', }, '<c-8>', hili, { silent = true })
+vim.keymap.set({ 'v', }, '<c-s-8>', rmhili, { silent = true })
 
 vim.keymap.set({ 'n','v', }, '<c-n>', prevhili, { silent = true })
 vim.keymap.set({ 'n','v', }, '<c-m>', nexthili, { silent = true })
