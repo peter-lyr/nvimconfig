@@ -64,7 +64,7 @@ end
 
 colorinit()
 
--- HiLi = {}
+HiLi = {}
 
 local hili = function()
   if vim.tbl_contains({ 'v', 'V', '' }, vim.fn.mode()) == true then
