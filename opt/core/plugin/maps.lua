@@ -36,12 +36,13 @@ vim.keymap.set({ 'n', 'v' }, '<leader>y', '<esc>:let @+ = expand("%:t")<cr>')
 vim.keymap.set({ 'n', 'v' }, '<leader>gy', '<esc>:let @+ = substitute(nvim_buf_get_name(0), "/", "\\\\", "g")<cr>')
 vim.keymap.set({ 'n', 'v' }, '<leader><leader>gy', '<esc>:let @+ = substitute(getcwd(), "/", "\\\\", "g")<cr>')
 
-local buf_leave = function()
-  vim.g.word = vim.fn.expand('<cword>')
-end
-
-vim.api.nvim_create_autocmd({ "BufLeave", "CmdlineEnter" }, {
-  callback = buf_leave,
+vim.api.nvim_create_autocmd({ "BufLeave", "CmdlineEnter", }, {
+  callback = function()
+    local word = vim.fn.expand('<cword>')
+    if #word > 0 then
+      vim.g.word = word
+    end
+  end,
 })
 
 -- cursor
