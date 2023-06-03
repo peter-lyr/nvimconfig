@@ -195,12 +195,13 @@ end
 vim.api.nvim_create_autocmd({ 'BufEnter', 'WinEnter', }, {
   callback = function()
     rehili()
+    vim.api.nvim_set_hl(0, 'CursorWord', { bg = 'gray', fg = 'yellow' })
   end,
 })
 
 vim.api.nvim_create_autocmd({ 'CursorMoved', }, {
   callback = function()
-    vim.cmd(string.format([[match Search /\V\<%s\>/]], vim.fn.expand('<cword>')))
+    vim.cmd(string.format([[match CursorWord /\V\<%s\>/]], vim.fn.expand('<cword>')))
   end,
 })
 
