@@ -5,19 +5,11 @@ vim.cmd([[set tabline=%!tabline#tabline()]])
 
 -- 更新窗口标题
 
-local startuptime = os.date("%H:%M:%S", vim.g.startuptime)
-
 vim.api.nvim_create_autocmd({ 'WinLeave' }, {
   callback = function()
     vim.fn.timer_start(100, function()
-      local title = vim.loop.cwd()
-      if #title > 0 then
-        local t1 = title .. ' | ' .. startuptime
-        if vim.g.colors_name then
-          t1 = t1 .. ' ' .. vim.g.colors_name
-        end
-        vim.opt.titlestring = t1
-      end
+      vim.opt.titlestring = string.format('%s %.1fM', vim.loop.cwd(),
+        vim.loop.resident_set_memory() / 1024 / 1024)
     end)
   end,
 })
@@ -111,15 +103,10 @@ local function format_time(secs)
   end
 end
 
-vim.loop.new_timer():start(1000, 1000, function()
-  vim.schedule(function()
-    local t = format_time(os.difftime(os.time(), vim.g.startuptime))
-    t = t .. ' ' .. string.format("%.1f", vim.loop.resident_set_memory() / 1024 / 1024)
-    vim.g.process_mem = t
-    vim.g.tabline_onesecond = 1
-  end)
-end)
-
 -- mappings
 
 vim.keymap.set({ 'n', 'v' }, '<leader><bs>', ':<c-u>try|exe "b" . g:lastbufnr|catch|endtry<cr>', { silent = true })
+
+vim.api.nvim_create_user_command('PrintRuntime', function()
+  print(format_time(os.difftime(os.time(), vim.g.startuptime)))
+end, { nargs = 0, })

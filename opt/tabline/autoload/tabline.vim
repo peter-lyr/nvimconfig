@@ -378,9 +378,7 @@ endfu
 
 " tabline
 
-let g:process_mem = ''
 let g:tabline_done = 1
-let g:tabline_onesecond = 1
 let g:tablinehi = {}
 let s:cnt = 19
 let s:curbufnr = 0
@@ -390,15 +388,10 @@ let s:tabpagecnt = 0
 
 fu! tabline#tabline()
   if s:curbufnr == bufnr() && s:tabpagecnt == tabpagenr() && g:tabline_done
-    if g:tabline_onesecond == 0
-      return s:tabline_string
-    endif
-    let g:tabline_onesecond = 0
-    return substitute(s:tabline_string, '\(#  ([0-9:. %-]\+M)  %\)', '#  (' . g:process_mem . 'M)  %', 'g')
+    return s:tabline_string
   endif
   let s:tabpagecnt = tabpagenr()
   let g:tabline_done = 1
-  let g:tabline_onesecond = 0
   let s:curbufnr = bufnr()
   let curname = substitute(nvim_buf_get_name(0), '\', '/', 'g')
   let cwd = tolower(substitute(getcwd(), '\', '/', 'g'))
@@ -419,9 +412,6 @@ fu! tabline#tabline()
   endfor
   let s2 = ''
   if s:showtablineright
-    let s2 ..= "  ("
-    let s2 ..= g:process_mem
-    let s2 ..= "M)  "
     let projectroots = []
     let curtabpgnr = tabpagenr()
     for i in range(tabpagenr('$'))
