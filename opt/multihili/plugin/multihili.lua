@@ -192,7 +192,7 @@ local selprevhili = function()
   end
 end
 
-vim.api.nvim_create_autocmd({ 'BufEnter', 'WinEnter', }, {
+vim.api.nvim_create_autocmd({ 'BufEnter', 'WinEnter', 'ColorScheme', }, {
   callback = function()
     rehili()
     vim.api.nvim_set_hl(0, 'CursorWord', { bg = 'gray', fg = 'yellow' })
