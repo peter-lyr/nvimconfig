@@ -86,6 +86,7 @@ M.delete_sel = function()
       vim.fn.system(string.format('%s "%s"', recyclebin, absolute_path:match('^(.-)\\*$')))
     end
     m.clear_marks()
+    vim.g.tabline_done = 0
   else
     print('canceled!')
   end
@@ -144,12 +145,13 @@ M.move_sel = function(node)
       ::continue::
     end
     m.clear_marks()
+    vim.g.tabline_done = 0
   else
     print('canceled!')
   end
 end
 
-M.rename_sel = function(node)
+M.copy_sel = function(node)
   local dtarget = get_dtarget(node)
   if not dtarget then
     return
