@@ -2,10 +2,10 @@ package.loaded['config.nvimtreefunc'] = nil
 
 local f = require('config.nvimtreefunc')
 
-local wrap_node = function(f)
+local wrap_node = function(fn)
   return function(node, ...)
     node = node or require("nvim-tree.lib").get_node_at_cursor()
-    f(node, ...)
+    fn(node, ...)
   end
 end
 
