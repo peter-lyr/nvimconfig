@@ -13,7 +13,7 @@ local others = function(bufnr)
   local function opts(desc)
     return { desc = 'nvim-tree: ' .. desc, buffer = bufnr, noremap = true, silent = true, nowait = true }
   end
-  vim.keymap.set('n', '\'', wrap_node(func.test), opts('test'))
+  vim.keymap.set('n', '\'', wrap_node(func.toggle_sel), opts('toggle_sel'))
 end
 
 local on_attach = function(bufnr)
