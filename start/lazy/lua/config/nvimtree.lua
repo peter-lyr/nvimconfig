@@ -1,6 +1,4 @@
-package.loaded['config.nvimtreefunc'] = nil
-
-local f = require('config.nvimtreefunc')
+local f = require('config.nvimtree-func')
 
 local wrap_node = function(fn)
   return function(node, ...)
