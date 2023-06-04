@@ -18,5 +18,8 @@ local tab_width = function()
 end
 
 vim.api.nvim_create_autocmd({ "BufEnter" }, {
-  callback = tab_width,
+  callback = function()
+    tab_width()
+    vim.cmd('set mouse=a')
+  end,
 })
