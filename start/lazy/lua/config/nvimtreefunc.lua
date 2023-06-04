@@ -12,8 +12,9 @@ local recyclebin = pp:joinpath('nvimtree-recyclebin.exe').filename
 local M = {}
 
 local rep = function(path)
-  path, _ = string.gsub(path, '\\\\', '/')
-  path, _ = string.gsub(path, '\\', '/')
+  path, _ = string.gsub(path, '\\\\', '\\')
+  path, _ = string.gsub(path, '//', '\\')
+  path, _ = string.gsub(path, '/', '\\')
   return path
 end
 
@@ -96,13 +97,13 @@ M.move_sel = function(node)
     return
   end
   local marks = m.get_marks()
-  local res = vim.fn.input("Confirm movment " .. #marks .. " [N/y] ", "y")
+  local res = vim.fn.input(dtarget .. "\nConfirm movment " .. #marks .. " [N/y] ", "y")
   if vim.tbl_contains({ 'y', 'Y', 'yes', 'Yes', 'YES' }, res) == true then
     for _, v in ipairs(marks) do
       local absolute_path = v['absolute_path']
       if p:new(absolute_path):is_dir() then
         local dname = get_fname_tail(absolute_path)
-        dname = string.format('%s/%s', dtarget, dname)
+        dname = string.format('%s\\%s', dtarget, dname)
         if p:new(dname):exists() then
           vim.cmd('redraw')
           local dname_new = vim.fn.input(absolute_path .. " ->\nExisted! Rename? ", dname)
@@ -121,7 +122,7 @@ M.move_sel = function(node)
         end
       else
         local fname = get_fname_tail(absolute_path)
-        fname = string.format('%s/%s', dtarget, fname)
+        fname = string.format('%s\\%s', dtarget, fname)
         if p:new(fname):exists() then
           vim.cmd('redraw')
           local fname_new = vim.fn.input(absolute_path .. " ->\nExisted! Rename? ", fname)
@@ -140,6 +141,69 @@ M.move_sel = function(node)
         end
       end
       pcall(vim.cmd, "bw! " .. rep(absolute_path))
+      ::continue::
+    end
+    m.clear_marks()
+  else
+    print('canceled!')
+  end
+end
+
+M.copy_sel = function(node)
+  local dtarget = get_dtarget(node)
+  if not dtarget then
+    return
+  end
+  local marks = m.get_marks()
+  local res = vim.fn.input(dtarget .. "\nConfirm copy " .. #marks .. " [N/y] ", "y")
+  if vim.tbl_contains({ 'y', 'Y', 'yes', 'Yes', 'YES' }, res) == true then
+    for _, v in ipairs(marks) do
+      local absolute_path = v['absolute_path']
+      if p:new(absolute_path):is_dir() then
+        local dname = get_fname_tail(absolute_path)
+        dname = string.format('%s\\%s', dtarget, dname)
+        if p:new(dname):exists() then
+          vim.cmd('redraw')
+          local dname_new = vim.fn.input(absolute_path .. " ->\nExisted! Rename? ", dname)
+          if #dname_new > 0 and dname_new ~= dname then
+            if string.sub(dname_new, #dname_new, #dname_new) ~= '\\' then
+              dname_new = dname_new .. '\\'
+            end
+            vim.fn.system(string.format('xcopy "%s" "%s" /s /e /f', absolute_path, dname_new))
+          elseif #dname_new == 0 then
+            print('cancel all!')
+            return
+          else
+            vim.cmd('redraw')
+            print(absolute_path .. ' -> failed!')
+            goto continue
+          end
+        else
+          if string.sub(dname, #dname, #dname) ~= '\\' then
+            dname = dname .. '\\'
+          end
+          vim.fn.system(string.format('xcopy "%s" "%s" /s /e /f', absolute_path, dname))
+        end
+      else
+        local fname = get_fname_tail(absolute_path)
+        fname = string.format('%s\\%s', dtarget, fname)
+        if p:new(fname):exists() then
+          vim.cmd('redraw')
+          local fname_new = vim.fn.input(absolute_path .. "\n ->Existed! Rename? ", fname)
+          if #fname_new > 0 and fname_new ~= fname then
+            vim.fn.system(string.format('copy "%s" "%s"', absolute_path, fname_new))
+          elseif #fname_new == 0 then
+            print('cancel all!')
+            return
+          else
+            vim.cmd('redraw')
+            print(absolute_path .. ' -> failed!')
+            goto continue
+          end
+        else
+          vim.fn.system(string.format('copy "%s" "%s"', absolute_path, fname))
+        end
+      end
       ::continue::
     end
     m.clear_marks()
