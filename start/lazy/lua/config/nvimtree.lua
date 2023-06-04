@@ -20,6 +20,7 @@ local others = function(bufnr)
   vim.keymap.set('n', 'dD', wrap_node(func.delete_sel), opts('delete_sel'))
   vim.keymap.set('n', 'dM', wrap_node(func.move_sel), opts('move_sel'))
   vim.keymap.set('n', 'dC', wrap_node(func.copy_sel), opts('copy_sel'))
+  vim.keymap.set('n', 'dR', wrap_node(func.rename_sel), opts('rename_sel'))
 end
 
 local on_attach = function(bufnr)
