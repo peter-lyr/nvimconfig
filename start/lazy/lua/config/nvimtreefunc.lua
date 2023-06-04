@@ -7,7 +7,7 @@ local s = require("plenary.scandir")
 local pp = p:new(vim.g.boot_lua):parent():parent():joinpath('lua', 'config')
 
 local recyclebin = pp:joinpath('nvimtree-recyclebin.exe').filename
--- local copy2clip = pp:joinpath('nvimtree-copy2clip.exe').filename
+local copy2clip = pp:joinpath('nvimtree-copy2clip.exe').filename
 
 local M = {}
 
@@ -352,6 +352,24 @@ M.rename_sel = function(node)
       end
     end)
   end)
+end
+
+M.copy_2_clip = function()
+  local marks = m.get_marks()
+  local files = ""
+  for _, v in ipairs(marks) do
+    files = files .. " " .. '"' .. v.absolute_path .. '"'
+  end
+  vim.fn.system(string.format('%s%s', copy2clip, files))
+end
+
+M.paste_from_clip = function(node)
+  local dtarget = get_dtarget(node)
+  if not dtarget then
+    return
+  end
+  local cmd = string.format([[Get-Clipboard -Format FileDropList | ForEach-Object { Copy-Item -Path $_.FullName -Destination "%s" }]], dtarget)
+  TerminalSend('powershell', cmd, 0)
 end
 
 return M

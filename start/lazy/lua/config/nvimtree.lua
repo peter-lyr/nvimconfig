@@ -21,6 +21,8 @@ local others = function(bufnr)
   vim.keymap.set('n', 'dM', wrap_node(func.move_sel), opts('move_sel'))
   vim.keymap.set('n', 'dC', wrap_node(func.copy_sel), opts('copy_sel'))
   vim.keymap.set('n', 'dR', wrap_node(func.rename_sel), opts('rename_sel'))
+  vim.keymap.set('n', 'dY', wrap_node(func.copy_2_clip), opts('copy_2_clip'))
+  vim.keymap.set('n', 'dP', wrap_node(func.paste_from_clip), opts('paste_from_clip'))
 end
 
 local on_attach = function(bufnr)
