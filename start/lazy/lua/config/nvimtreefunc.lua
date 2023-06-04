@@ -31,6 +31,11 @@ M.toggle_sel_up = function(node)
   vim.cmd('norm k')
 end
 
+M.empty_sel = function()
+  m.clear_marks()
+  print('empty selected.')
+end
+
 M.delete_sel = function()
   local marks = m.get_marks()
   local res = vim.fn.input("Confirm deletion " .. #marks .. " [N/y] ", "y")
