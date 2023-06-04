@@ -13,10 +13,12 @@ local others = function(bufnr)
   local function opts(desc)
     return { desc = 'nvim-tree: ' .. desc, buffer = bufnr, noremap = true, silent = true, nowait = true }
   end
+  vim.keymap.set('n', '<c-f9>', wrap_node(func.test), opts('test'))
   vim.keymap.set('n', '\'', wrap_node(func.toggle_sel), opts('toggle_sel'))
   vim.keymap.set('n', '"', wrap_node(func.toggle_sel_up), opts('toggle_sel_up'))
   vim.keymap.set('n', 'dE', wrap_node(func.empty_sel), opts('empty_sel'))
   vim.keymap.set('n', 'dD', wrap_node(func.delete_sel), opts('delete_sel'))
+  vim.keymap.set('n', 'dM', wrap_node(func.move_sel), opts('move_sel'))
 end
 
 local on_attach = function(bufnr)
