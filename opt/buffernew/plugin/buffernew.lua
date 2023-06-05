@@ -1,4 +1,4 @@
-local stack_fpath
+local stack_fpath = ''
 local split
 
 local open_fpath = function()
@@ -10,8 +10,13 @@ local open_fpath = function()
     vim.cmd('rightbelow split')
   elseif split == 'left' then
     vim.cmd('leftabove vsplit')
+  elseif split == 'tab' then
+    vim.cmd('leftabove vsplit')
+    vim.cmd('wincmd T')
   end
-  pcall(vim.cmd, 'e ' .. stack_fpath)
+  if #stack_fpath > 0 then
+    vim.cmd('e ' .. stack_fpath)
+  end
 end
 
 local open = function(mode)
@@ -96,28 +101,29 @@ end, { nargs = '*', })
 
 -- '<,'>s/vim\.keymap\.set(\([^}]\+},\) *\([^,]\+,\) *\([^,]\+,\) *\([^)]\+\))/\=printf("vim.keymap.set(%-20s %-24s %-64s %s)", submatch(1), submatch(2), submatch(3), submatch(4))
 
-vim.keymap.set({ 'n', 'v' },        '<leader>bg',            ':<c-u>BufferneW copy_fpath<cr>',                                { silent = true })
-vim.keymap.set({ 'n', 'v' },        '<leader>bi',            ':<c-u>BufferneW here<cr>',                                      { silent = true })
+vim.keymap.set({ 'n', 'v' },        '<leader>bb',            ':<c-u>BufferneW copy_fpath<cr>',                                { silent = true })
+vim.keymap.set({ 'n', 'v' },        '<leader>bg',            ':<c-u>BufferneW tab<cr>',                                      { silent = true })
+vim.keymap.set({ 'n', 'v' },        '<leader>b;',            ':<c-u>BufferneW here<cr>',                                      { silent = true })
 vim.keymap.set({ 'n', 'v' },        '<leader>bk',            ':<c-u>BufferneW up<cr>',                                        { silent = true })
 vim.keymap.set({ 'n', 'v' },        '<leader>bj',            ':<c-u>BufferneW down<cr>',                                      { silent = true })
 vim.keymap.set({ 'n', 'v' },        '<leader>bh',            ':<c-u>BufferneW left<cr>',                                      { silent = true })
 vim.keymap.set({ 'n', 'v' },        '<leader>bl',            ':<c-u>BufferneW right<cr>',                                     { silent = true })
 
-vim.keymap.set({ 'n', 'v' },        '<leader>xc',            ':<c-u>BufferneW copy_fpath_silent<cr>',                         { silent = true })
-vim.keymap.set({ 'n', 'v' },        '<leader><del>',         ':<c-u>BufferneW bwunlisted<cr>',                                { silent = true })
-
-vim.keymap.set({ 'n', 'v' },        '<leader>bn',            ':<c-u>leftabove split<cr>',                                     { silent = true })
-vim.keymap.set({ 'n', 'v' },        '<leader>bm',            ':<c-u>leftabove new<cr>',                                       { silent = true })
-vim.keymap.set({ 'n', 'v' },        '<leader>bo',            ':<c-u>leftabove vsplit<cr>',                                    { silent = true })
-vim.keymap.set({ 'n', 'v' },        '<leader>bp',            ':<c-u>leftabove vnew<cr>',                                      { silent = true })
-
-vim.keymap.set({ 'n', 'v' },        '<leader>ba',            ':<c-u>split<cr>',                                               { silent = true })
-vim.keymap.set({ 'n', 'v' },        '<leader>bb',            ':<c-u>new<cr>',                                                 { silent = true })
-vim.keymap.set({ 'n', 'v' },        '<leader>bc',            ':<c-u>vsplit<cr>',                                              { silent = true })
+vim.keymap.set({ 'n', 'v' },        '<leader>bq',            ':<c-u>tabnew<cr>',                                              { silent = true })
+vim.keymap.set({ 'n', 'v' },        '<leader>bw',            ':<c-u>leftabove new<cr>',                                       { silent = true })
+vim.keymap.set({ 'n', 'v' },        '<leader>ba',            ':<c-u>leftabove vnew<cr>',                                      { silent = true })
+vim.keymap.set({ 'n', 'v' },        '<leader>bs',            ':<c-u>new<cr>',                                                 { silent = true })
 vim.keymap.set({ 'n', 'v' },        '<leader>bd',            ':<c-u>vnew<cr>',                                                { silent = true })
-vim.keymap.set({ 'n', 'v' },        '<leader>be',            '<c-w>s<c-w>T',                                                  { silent = true })
-vim.keymap.set({ 'n', 'v' },        '<leader>bf',            ':<c-u>tabnew<cr>',                                              { silent = true })
 
-vim.keymap.set({ 'n', 'v' },        '<leader>xX',            ':<c-u>tabclose<cr>',                                            { silent = true })
+vim.keymap.set({ 'n', 'v' },        '<leader>bI',            '<c-w>s<c-w>T',                                                  { silent = true })
+vim.keymap.set({ 'n', 'v' },        '<leader>bH',            ':<c-u>leftabove vsplit<cr>',                                    { silent = true })
+vim.keymap.set({ 'n', 'v' },        '<leader>bJ',            ':<c-u>split<cr>',                                               { silent = true })
+vim.keymap.set({ 'n', 'v' },        '<leader>bK',            ':<c-u>leftabove split<cr>',                                     { silent = true })
+vim.keymap.set({ 'n', 'v' },        '<leader>bL',            ':<c-u>vsplit<cr>',                                              { silent = true })
+
+vim.keymap.set({ 'n', 'v' },        '<leader>xc',            ':<c-u>BufferneW copy_fpath_silent<cr>',                         { silent = true })
+vim.keymap.set({ 'n', 'v' },        '<leader>xt',            ':<c-u>tabclose<cr>',                                            { silent = true })
+vim.keymap.set({ 'n', 'v' },        '<leader><del>',         ':<c-u>BufferneW bwunlisted<cr>',                                { silent = true })
 vim.keymap.set({ 'n', 'v' },        '<a-bs>',                ':<c-u>bw!<cr>',                                                 { silent = true })
+
 vim.keymap.set({ 'n', 'v' },        'ZX',                    ':<c-u>qa!<cr>',                                                 { silent = true })

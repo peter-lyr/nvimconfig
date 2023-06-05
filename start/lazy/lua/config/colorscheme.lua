@@ -48,5 +48,5 @@ end)
 
 local s = vim.keymap.set
 local opt = { silent = true }
-s({ 'n', 'v' }, '<leader>bw', function() changecolorscheme(true) end, opt)
-s({ 'n', 'v' }, '<leader>bW', function() changecolorschemedefault() end, opt)
+s({ 'n', 'v' }, '<leader>bc', function() changecolorscheme(true) end, opt)
+s({ 'n', 'v' }, '<leader>bC', function() changecolorschemedefault() end, opt)

@@ -3,8 +3,8 @@ return {
   lazy = true,
   event = { 'FocusLost', 'CursorMoved', },
   keys = {
-    '<leader>bw',
-    '<leader>bW',
+    '<leader>bc',
+    '<leader>bC',
   },
   config = function()
     require('config.colorscheme')

@@ -725,19 +725,18 @@ endfu
 
 " mapping
 
-nnoremap <silent><nowait> <leader>xC :call tabline#bwall()<cr>
+nnoremap <silent><nowait> <leader>xa :call tabline#bwall()<cr>
 nnoremap <silent><nowait> <leader>xf :call tabline#bwfiletype()<cr>
 nnoremap <silent><nowait> <leader>xh :call tabline#bwleft()<cr>
 nnoremap <silent><nowait> <leader>xl :call tabline#bwright()<cr>
 nnoremap <silent><nowait> <leader>xo :call tabline#bwothers()<cr>
 
-nnoremap <silent><nowait> <leader>bq :call tabline#bwpop()<cr>
-nnoremap <silent><nowait> <leader>br :call tabline#bwpopmore()<cr>
+nnoremap <silent><nowait> <leader>bp :call tabline#bwpop()<cr>
+nnoremap <silent><nowait> <leader>bP :call tabline#bwpopmore()<cr>
 
-nnoremap <silent><nowait> <leader>bs :call tabline#restorehidden()<cr>
+nnoremap <silent><nowait> <leader>be :call tabline#restorehidden()<cr>
 
-" nnoremap <silent><nowait> <leader>bt :call tabline#savesession()<cr>
-nnoremap <silent><nowait> <leader>bu :call tabline#restoresession()<cr>
+nnoremap <silent><nowait> <leader>bo :call tabline#restoresession()<cr>
 
-nnoremap <silent><nowait> <leader>bv :call tabline#toggleshowtabline()<cr>
-nnoremap <silent><nowait> <leader>by :call tabline#toggleshowtablineright()<cr>
+nnoremap <silent><nowait> <leader>b< :call tabline#toggleshowtabline()<cr>
+nnoremap <silent><nowait> <leader>b> :call tabline#toggleshowtablineright()<cr>

@@ -15,28 +15,24 @@ return {
   dir = vim.fn.expand('$VIMRUNTIME') .. '\\pack\\nvimconfig\\opt\\' .. name,
   event = { 'FocusLost', 'WinEnter', 'VimResized', },
   keys = {
-    '<leader>xC',
+    '<leader>xa',
     '<leader>xf',
     '<leader>xh',
     '<leader>xl',
     '<leader>xo',
 
-    '<leader>bq',
-    '<leader>br',
+    '<leader>bp',
+    '<leader>bP',
 
-    '<leader>bs',
+    '<leader>be',
 
-    -- '<leader>bt',
+    '<leader>bo',
+
+    '<leader>b<',
+    '<leader>b>',
+
+    '<leader>bi',
     '<leader>bu',
-
-    '<leader>bv',
-    '<leader>bx',
-    '<leader>by',
-
-    '<leader>bt',
-    '<leader>bU',
-
-    '<leader><bs>',
   },
   dependencies = {
     {

@@ -135,11 +135,11 @@ end
 
 -- mappings
 
-vim.keymap.set({ 'n', 'v' }, '<leader>bt', function()
+vim.keymap.set({ 'n', 'v' }, '<leader>bi', function()
   savesession()
   vim.fn['tabline#savesession']()
 end, { silent = true })
 
-vim.keymap.set({ 'n', 'v' }, '<leader>bU', function()
+vim.keymap.set({ 'n', 'v' }, '<leader>bu', function()
   loadsession()
 end, { silent = true })
