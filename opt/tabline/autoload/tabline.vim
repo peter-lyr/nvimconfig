@@ -311,6 +311,11 @@ fu! tabline#restorehidden()
   endtry
 endfu
 
+fu! tabline#tabonly()
+  tabonly
+  let g:tabline_done = 0
+endfu
+
 " 鼠标wipeout或切换buffer
 
 fu! tabline#gobuffer(minwid, _clicks, _btn, _modifiers)
@@ -735,6 +740,7 @@ nnoremap <silent><nowait> <leader>bp :call tabline#bwpop()<cr>
 nnoremap <silent><nowait> <leader>bP :call tabline#bwpopmore()<cr>
 
 nnoremap <silent><nowait> <leader>be :call tabline#restorehidden()<cr>
+nnoremap <silent><nowait> <leader>bE :call tabline#tabonly()<cr>
 
 nnoremap <silent><nowait> <leader>bo :call tabline#restoresession()<cr>
 
