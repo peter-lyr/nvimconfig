@@ -103,6 +103,8 @@ local run = function (params)
     if #r > 0 then
       local input = vim.fn.input(prompt)
       vim.fn.system(string.format('cd %s && start cmd /c %s "%s"', dir, cc, input))
+    else
+      print('no changes.')
     end
   end
 end
