@@ -654,7 +654,7 @@ fu! tabline#tabline()
     exe 'nnoremap <buffer><silent><nowait> <leader>0 :b' . bufnr .'<cr>'
     exe 'nnoremap <buffer><silent><nowait> <leader>x0 :call tabline#bw(' . bufnr .')<cr>'
   endif
-  let s1 ..= '%#TablineDim#%T'
+  let s1 ..= '%#TablineDim#%T '
   let s1 ..= "%="
   let s1 ..= '%#TablineDim#'
   let s = s1 .. s2
