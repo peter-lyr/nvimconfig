@@ -96,12 +96,13 @@ local run = function (params)
       end
     end)
   else
-    local h = io.popen('git status -s')
+    local dir = p:new(vim.api.nvim_buf_get_name(0)):parent().filename
+    local h = io.popen(string.format('cd %s && git status -s', dir))
     local r = h:read("*a")
     h:close()
     if #r > 0 then
       local input = vim.fn.input(prompt)
-      vim.fn.system(string.format('cd %s && start cmd /c %s "%s"', p:new(vim.api.nvim_buf_get_name(0)):parent().filename, cc, input))
+      vim.fn.system(string.format('cd %s && start cmd /c %s "%s"', dir, cc, input))
     end
   end
 end
