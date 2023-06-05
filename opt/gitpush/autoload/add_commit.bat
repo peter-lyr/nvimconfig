@@ -1,5 +1,5 @@
 @echo off
-set /p var=%~1
+set var=%~1
 if not defined var (
   timeout /t 3
   exit /b

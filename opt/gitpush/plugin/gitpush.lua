@@ -101,8 +101,7 @@ local run = function (params)
     h:close()
     if #r > 0 then
       local input = vim.fn.input(prompt)
-      vim.fn.system(string.format('cd %s && start cmd /c "%s" "%s"', p:new(vim.api.nvim_buf_get_name(0)):parent()['filename'], cc, input))
-      print(string.format('cd %s && start cmd /c "%s" "%s"', p:new(vim.api.nvim_buf_get_name(0)):parent()['filename'], cc, input))
+      vim.fn.system(string.format('cd %s && start cmd /c %s "%s"', p:new(vim.api.nvim_buf_get_name(0)):parent()['filename'], cc, input))
     end
   end
 end
