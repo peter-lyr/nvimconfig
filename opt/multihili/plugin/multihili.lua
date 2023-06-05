@@ -28,6 +28,9 @@ local getcontent = function(line1, col1, line2, col2)
       table.insert(lines, "''")
     end
   end
+  if #lines == 0 then
+    return "''"
+  end
   local content = table.concat(lines, " . '\\n' . ")
   return content
 end
