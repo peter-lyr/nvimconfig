@@ -3,12 +3,22 @@ local getcontent = function(line1, col1, line2, col2)
   for lnr = line1, line2 do
     local line = vim.fn.getline(lnr)
     if lnr == line1 and lnr == line2 then
+      local linetemp1 = string.sub(line, col1, col2+1)
+      local linetemp2 = string.sub(line, col1, col2+2)
       line = string.sub(line, col1, col2)
+      if vim.fn.strdisplaywidth(linetemp1) == vim.fn.strdisplaywidth(line) + 4 and vim.fn.strdisplaywidth(linetemp1) == vim.fn.strdisplaywidth(linetemp2) + 6 then
+        line = linetemp2
+      end
     else
       if lnr == line1 then
         line = string.sub(line, col1)
       elseif lnr == line2 then
+        local linetemp1 = string.sub(line, col1, col2+1)
+        local linetemp2 = string.sub(line, col1, col2+2)
         line = string.sub(line, 0, col2)
+        if vim.fn.strdisplaywidth(linetemp1) == vim.fn.strdisplaywidth(line) + 4 and vim.fn.strdisplaywidth(linetemp1) == vim.fn.strdisplaywidth(linetemp2) + 6 then
+          line = linetemp2
+        end
       end
     end
     local cells = {}
