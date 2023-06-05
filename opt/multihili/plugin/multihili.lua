@@ -201,7 +201,10 @@ vim.api.nvim_create_autocmd({ 'BufEnter', 'WinEnter', 'ColorScheme', }, {
 
 vim.api.nvim_create_autocmd({ 'CursorMoved', }, {
   callback = function()
-    vim.cmd(string.format([[match CursorWord /\V\<%s\>/]], vim.fn.expand('<cword>')))
+    local word = vim.fn.expand('<cword>')
+    if #word > 0 then
+      vim.cmd(string.format([[match CursorWord /\V\<%s\>/]], word))
+    end
   end,
 })
 
