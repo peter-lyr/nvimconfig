@@ -24,6 +24,7 @@ return {
     '<leader>bp',
     '<leader>bP',
 
+    '<leader>br',
     '<leader>be',
 
     '<leader>bo',
