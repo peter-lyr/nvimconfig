@@ -2,12 +2,12 @@ local p = require("plenary.path")
 
 local gitpush_path = p:new(vim.fn.expand('<sfile>')):parent():parent()
 
-local add_commit = gitpush_path:joinpath('autoload', 'add_commit.bat')['filename']
-local add_commit_push = gitpush_path:joinpath('autoload', 'add_commit_push.bat')['filename']
-local commit_push = gitpush_path:joinpath('autoload', 'commit_push.bat')['filename']
-local git_init = gitpush_path:joinpath('autoload', 'git_init.bat')['filename']
-local just_commit = gitpush_path:joinpath('autoload', 'just_commit.bat')['filename']
-local just_push = gitpush_path:joinpath('autoload', 'just_push.bat')['filename']
+local add_commit = gitpush_path:joinpath('autoload', 'add_commit.bat').filename
+local add_commit_push = gitpush_path:joinpath('autoload', 'add_commit_push.bat').filename
+local commit_push = gitpush_path:joinpath('autoload', 'commit_push.bat').filename
+local git_init = gitpush_path:joinpath('autoload', 'git_init.bat').filename
+local just_commit = gitpush_path:joinpath('autoload', 'just_commit.bat').filename
+local just_push = gitpush_path:joinpath('autoload', 'just_push.bat').filename
 
 local rep = function(path)
   path, _ = string.gsub(path, '\\', '/')
@@ -66,7 +66,7 @@ local run = function (params)
     local d = {}
     for _ = 1, 24 do
       p1 = p1:parent()
-      local name = p1['filename']
+      local name = p1.filename
       name = rep(name)
       table.insert(d, name)
       if not string.match(name, '/') then
@@ -101,7 +101,7 @@ local run = function (params)
     h:close()
     if #r > 0 then
       local input = vim.fn.input(prompt)
-      vim.fn.system(string.format('cd %s && start cmd /c %s "%s"', p:new(vim.api.nvim_buf_get_name(0)):parent()['filename'], cc, input))
+      vim.fn.system(string.format('cd %s && start cmd /c %s "%s"', p:new(vim.api.nvim_buf_get_name(0)):parent().filename, cc, input))
     end
   end
 end
