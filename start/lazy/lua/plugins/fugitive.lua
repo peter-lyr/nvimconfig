@@ -2,6 +2,7 @@ return {
   'tpope/vim-fugitive',
   lazy = true,
   event = { 'FocusLost', },
+  cmd = { "Git" },
   keys = {
     '<leader>gg',
     '<leader>gA',
