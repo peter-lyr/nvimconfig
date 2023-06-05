@@ -115,7 +115,7 @@ vim.keymap.set({ 'n', 'v' },        '<leader>ba',            ':<c-u>split<cr>', 
 vim.keymap.set({ 'n', 'v' },        '<leader>bb',            ':<c-u>new<cr>',                                                 { silent = true })
 vim.keymap.set({ 'n', 'v' },        '<leader>bc',            ':<c-u>vsplit<cr>',                                              { silent = true })
 vim.keymap.set({ 'n', 'v' },        '<leader>bd',            ':<c-u>vnew<cr>',                                                { silent = true })
-vim.keymap.set({ 'n', 'v' },        '<leader>be',            '<c-w>s<c-w>t',                                                  { silent = true })
+vim.keymap.set({ 'n', 'v' },        '<leader>be',            '<c-w>s<c-w>T',                                                  { silent = true })
 vim.keymap.set({ 'n', 'v' },        '<leader>bf',            ':<c-u>tabnew<cr>',                                              { silent = true })
 
 vim.keymap.set({ 'n', 'v' },        '<leader>xX',            ':<c-u>tabclose<cr>',                                            { silent = true })
