@@ -4,7 +4,7 @@ return {
   name = name,
   dir = vim.fn.expand('$VIMRUNTIME') .. '\\pack\\nvimconfig\\opt\\' .. name,
   keys = {
-    '<leader>bb',
+    '<leader>b\'',
     '<leader>bf',
     '<leader>b;',
     '<leader>bk',
