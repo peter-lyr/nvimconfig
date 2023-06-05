@@ -4,7 +4,7 @@ if not defined var (
   exit /b
 )
 echo ====================================
-git status
+git diff --stat
 echo ====================================
 set var2=
 set /p var2=Sure to just commit? (Empty for yes): 
