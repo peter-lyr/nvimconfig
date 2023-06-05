@@ -12,7 +12,6 @@ if exist %remote_path% (
 	echo git branch -v:
 	git branch -v
 	echo ------------------------------------
-  timeout /t 3
 	exit /b
 )
 
@@ -30,4 +29,3 @@ git commit -m ".gitignore"
 git remote add origin %remote_path%
 git branch -M "local_master"
 git push -u origin "local_master"
-timeout /t 3

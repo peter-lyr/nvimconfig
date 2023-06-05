@@ -1,7 +1,6 @@
 @echo off
 set var=%~1
 if not defined var (
-  timeout /t 3
   exit /b
 )
 set var2=
@@ -13,4 +12,3 @@ if not defined var2 (
   echo ====================================
   git commit -m "%var%"
 )
-timeout /t 3
