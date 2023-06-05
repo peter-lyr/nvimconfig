@@ -1,6 +1,6 @@
-local Path = require("plenary.path")
+local p = require("plenary.path")
 
-local gitpush_path = Path:new(vim.fn.expand('<sfile>')):parent():parent()
+local gitpush_path = p:new(vim.fn.expand('<sfile>')):parent():parent()
 
 local add_commit = gitpush_path:joinpath('autoload', 'add_commit.bat')['filename']
 local add_commit_push = gitpush_path:joinpath('autoload', 'add_commit_push.bat')['filename']
@@ -16,7 +16,7 @@ end
 
 local get_fname_tail = function(fname)
   fname = rep(fname)
-  local fpath = Path:new(fname)
+  local fpath = p:new(fname)
   if fpath:is_file() then
     fname = fpath:_split()
     return fname[#fname]
@@ -37,22 +37,28 @@ local run = function (params)
   end
   local cmd = params[1]
   local cc = ''
+  local prompt = ''
   if cmd == "add_commit" then
     cc = add_commit
+    prompt = 'commit info (Add all and commit): '
   elseif cmd == "add_commit_push" then
     cc = add_commit_push
+    prompt = 'commit info (Add all and push): '
   elseif cmd == "commit_push" then
     cc = commit_push
+    prompt = 'commit info (Just push): '
   elseif cmd == "git_init" then
     cc = git_init
   elseif cmd == "just_commit" then
     cc = just_commit
+    prompt = 'commit info (Just commit): '
   elseif cmd == "just_push" then
     cc = just_push
+    prompt = 'Just push[yes/force]: '
   end
   if cmd == "git_init" then
     local fname = vim.api.nvim_buf_get_name(0)
-    local p1 = Path:new(fname)
+    local p1 = p:new(fname)
     if not p1:is_file() then
       vim.cmd('ec "not file"')
       return
@@ -79,7 +85,7 @@ local run = function (params)
       remote_dname = '.git-' .. remote_dname
       vim.fn.system(string.format('cd %s && start cmd /c "%s %s"', dpath, cc, remote_dname))
       fname = dpath .. '/.gitignore'
-      local p3 = Path.new(fname)
+      local p3 = p.new(fname)
       if p3:is_file() then
         local lines = vim.fn.readfile(fname)
         if vim.tbl_contains(lines, remote_dname) == false then
@@ -90,7 +96,14 @@ local run = function (params)
       end
     end)
   else
-    vim.fn.system(string.format('cd %s && start cmd /c "%s"', Path:new(vim.api.nvim_buf_get_name(0)):parent()['filename'], cc))
+    local h = io.popen('git status -s')
+    local r = h:read("*a")
+    h:close()
+    if #r > 0 then
+      local input = vim.fn.input(prompt)
+      vim.fn.system(string.format('cd %s && start cmd /c "%s" "%s"', p:new(vim.api.nvim_buf_get_name(0)):parent()['filename'], cc, input))
+      print(string.format('cd %s && start cmd /c "%s" "%s"', p:new(vim.api.nvim_buf_get_name(0)):parent()['filename'], cc, input))
+    end
   end
 end
 

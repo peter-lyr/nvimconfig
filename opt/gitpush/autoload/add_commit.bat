@@ -1,19 +1,5 @@
 @echo off
-echo %~0
-echo %cd%
-echo ------------------------------------
-set res=
-for /f "delims=" %%t in ('git status -s') do (
-  set res=%res%%%t
-)
-if defined res (
-  git status
-) else (
-  timeout /t 3
-  exit /b
-)
-set var=
-set /p var=commit info (Add all and commit): 
+set /p var=%~1
 if not defined var (
   timeout /t 3
   exit /b
