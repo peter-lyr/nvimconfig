@@ -739,8 +739,8 @@ nnoremap <silent><nowait> <leader>xo :call tabline#bwothers()<cr>
 nnoremap <silent><nowait> <leader>bp :call tabline#bwpop()<cr>
 nnoremap <silent><nowait> <leader>bP :call tabline#bwpopmore()<cr>
 
-nnoremap <silent><nowait> <leader>be :call tabline#restorehidden()<cr>
-nnoremap <silent><nowait> <leader>bE :call tabline#tabonly()<cr>
+nnoremap <silent><nowait> <leader>br :call tabline#restorehidden()<cr>
+nnoremap <silent><nowait> <leader>be :call tabline#tabonly()<cr>
 
 nnoremap <silent><nowait> <leader>bo :call tabline#restoresession()<cr>
 
