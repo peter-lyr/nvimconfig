@@ -128,7 +128,7 @@ GitPush = function()
     end
   end
   if ok then
-    vim.loop.new_timer():start(400, 0, function()
+    vim.loop.new_timer():start(10, 0, function()
       vim.schedule(function()
         vim.cmd([[au User AsyncRunStop lua vim.notify('AsyncRun Done.'); vim.cmd('au! User AsyncRunStop')]])
         vim.cmd(string.format(cmd2, dir, input))
