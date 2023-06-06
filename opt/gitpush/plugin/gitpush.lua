@@ -97,12 +97,15 @@ local run = function (params)
     end)
   else
     local dir = p:new(vim.api.nvim_buf_get_name(0)):parent().filename
-    local h = io.popen(string.format('cd %s && git status -s', dir))
+    local h = io.popen(string.format('cd %s && git diff --stat', dir))
     local r = h:read("*a")
     h:close()
     if #r > 0 then
+      prompt = '[git diff --stat]\n' .. r .. '\n' .. prompt
       local input = vim.fn.input(prompt)
-      vim.fn.system(string.format('cd %s && start cmd /c %s "%s"', dir, cc, input))
+      if #input > 0 then
+        vim.fn.system(string.format('cd %s && start cmd /c %s "%s"', dir, cc, input))
+      end
     else
       print('no changes.')
     end
