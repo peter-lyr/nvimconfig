@@ -101,11 +101,14 @@ local run = function (params)
     end)
   else
     local dir = p:new(vim.api.nvim_buf_get_name(0)):parent().filename
-    local h = io.popen(string.format('cd %s && git diff --stat', dir))
+    local h = io.popen(string.format('cd %s && git status -s', dir))
     local r = h:read("*a")
     h:close()
     if #r > 0 then
-      prompt = '[git diff --stat]\n' .. r .. '\n' .. prompt
+      vim.cmd(string.format('AsyncRun cd %s && git status --show-stash', dir))
+      vim.cmd('copen')
+      vim.cmd('wincmd J')
+      vim.api.nvim_win_set_height(0, 120)
       local input = vim.fn.input(prompt)
       if #input > 0 then
         if cmd == "just_push" then
@@ -116,6 +119,7 @@ local run = function (params)
           end
         end
       end
+      vim.cmd('cclose')
     else
       print('no changes.')
     end
