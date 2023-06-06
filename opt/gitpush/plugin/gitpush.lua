@@ -117,16 +117,19 @@ end
 GitPush = function()
   vim.api.nvim_win_set_height(0, vim.fn.line('$'))
   local input = vim.fn.input(prompt)
+  local ok = nil
   if #input > 0 then
     if cmd == "just_push" then
-      vim.cmd("au User AsyncRunStop lua vim.notify('AsyncRun Done.'); vim.cmd('au! User AsyncRunStop')")
-      vim.cmd(string.format(cmd2, dir, input))
+      ok = 1
     else
       if #vim.fn.input(prompt2) == 0 then
-        vim.cmd("au User AsyncRunStop lua vim.notify('AsyncRun Done.'); vim.cmd('au! User AsyncRunStop')")
-        vim.cmd(string.format(cmd2, dir, input))
+        ok = 1
       end
     end
+  end
+  if ok then
+    vim.cmd("au User AsyncRunStop lua vim.notify('AsyncRun Done.'); vim.cmd('au! User AsyncRunStop')")
+    vim.cmd(string.format(cmd2, dir, input))
   end
   vim.cmd('cclose')
 end
