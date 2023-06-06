@@ -218,7 +218,11 @@ vim.api.nvim_create_autocmd({ 'CursorMoved', }, {
     if string.match(word, "^[%w_一-龥]+$") then
       vim.cmd(string.format([[match CursorWord /\V\<%s\>/]], word))
     else
-      vim.cmd(string.format([[match CursorWord /\V%s/]], word))
+      if #word > 0 then
+        vim.cmd(string.format([[match CursorWord /\V%s/]], word))
+      else
+        vim.cmd([[match CursorWord //]])
+      end
     end
   end,
 })
