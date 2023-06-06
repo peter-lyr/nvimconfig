@@ -6,4 +6,7 @@ return {
     'AsyncStop',
     'AsyncReset',
   },
+  config = function()
+    vim.cmd('au User AsyncRunStop echomsg "AsyncRun Done."')
+  end
 }

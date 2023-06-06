@@ -113,11 +113,9 @@ local run = function (params)
       local input = vim.fn.input(prompt)
       if #input > 0 then
         if cmd == "just_push" then
-          vim.cmd('au User AsyncRunStop copen | wincmd p')
           vim.cmd(string.format(cmd2, dir, input))
         else
           if #vim.fn.input(prompt2) == 0 then
-            vim.cmd('au User AsyncRunStop copen | wincmd p')
             vim.cmd(string.format(cmd2, dir, input))
           end
         end
