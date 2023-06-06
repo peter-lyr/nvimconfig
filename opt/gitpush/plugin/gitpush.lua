@@ -129,7 +129,7 @@ GitPush = function()
       end
     end
   end
-  vim.cmd('cclose')
+  -- vim.cmd('cclose')
 end
 
 vim.api.nvim_create_user_command('GitpusH', function(params)
