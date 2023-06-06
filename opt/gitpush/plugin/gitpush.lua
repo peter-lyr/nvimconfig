@@ -41,17 +41,21 @@ local run = function (params)
   if cmd == "add_commit" then
     cc = add_commit
     prompt = 'commit info (Add all and commit): '
+    prompt2 = 'Sure to add all and commit? (Empty for yes): '
   elseif cmd == "add_commit_push" then
     cc = add_commit_push
     prompt = 'commit info (Add all and push): '
+    prompt2 = 'Sure to add all and push? (Empty for yes): '
   elseif cmd == "commit_push" then
     cc = commit_push
     prompt = 'commit info (Just push): '
+    prompt2 = 'Sure to just push? (Empty for yes): '
   elseif cmd == "git_init" then
     cc = git_init
   elseif cmd == "just_commit" then
     cc = just_commit
     prompt = 'commit info (Just commit): '
+    prompt2 = 'Sure to just commit? (Empty for yes): '
   elseif cmd == "just_push" then
     cc = just_push
     prompt = 'Just push[yes/force]: '
@@ -104,7 +108,13 @@ local run = function (params)
       prompt = '[git diff --stat]\n' .. r .. '\n' .. prompt
       local input = vim.fn.input(prompt)
       if #input > 0 then
-        vim.fn.system(string.format('cd %s && start cmd /c %s "%s"', dir, cc, input))
+        if cmd == "just_push" then
+          vim.fn.system(string.format('cd %s && start cmd /c %s "%s"', dir, cc, input))
+        else
+          if #vim.fn.input(prompt2) == 0 then
+            vim.fn.system(string.format('cd %s && start cmd /c %s "%s"', dir, cc, input))
+          end
+        end
       end
     else
       print('no changes.')
