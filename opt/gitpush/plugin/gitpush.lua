@@ -105,6 +105,8 @@ local run = function(params)
     h:close()
     if #r > 0 then
       vim.cmd(string.format('AsyncRun cd %s && git status --show-stash', dir))
+      vim.cmd('copen')
+      vim.cmd('wincmd J')
       vim.cmd('au User AsyncRunStop lua GitPush()')
     else
       print('no changes.')
@@ -114,8 +116,6 @@ end
 
 GitPush = function()
   vim.cmd('au! User AsyncRunStop')
-  vim.cmd('copen')
-  vim.cmd('wincmd J')
   vim.api.nvim_win_set_height(0, vim.fn.line('$'))
   local input = vim.fn.input(prompt)
   if #input > 0 then
@@ -129,7 +129,7 @@ GitPush = function()
       end
     end
   end
-  -- vim.cmd('cclose')
+  vim.cmd('cclose')
 end
 
 vim.api.nvim_create_user_command('GitpusH', function(params)
