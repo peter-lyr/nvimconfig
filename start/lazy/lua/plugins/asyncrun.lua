@@ -7,6 +7,11 @@ return {
     'AsyncReset',
   },
   config = function()
-    vim.cmd('au User AsyncRunStop echomsg "AsyncRun Done."')
+        vim.cmd([[
+augroup local-asyncrun
+au!
+au User AsyncRunStop copen | wincmd p | echomsg "AsyncRun Done."
+augroup END
+  ]])
   end
 }
