@@ -20,7 +20,7 @@ return {
         vim.cmd([[
 augroup local-asyncrun
 au!
-au User AsyncRunStop copen | wincmd p | echomsg "AsyncRun Done."
+au User AsyncRunStop copen | wincmd p | lua print("AsyncRun Done.")
 augroup END
   ]])
       end
