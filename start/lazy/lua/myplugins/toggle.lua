@@ -6,5 +6,7 @@ return {
   keys = {
     '<F6>z',
     '<F6>Z',
+
+    '<leader>tw',
   },
 }
