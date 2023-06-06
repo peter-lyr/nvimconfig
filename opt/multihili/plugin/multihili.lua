@@ -217,9 +217,9 @@ vim.api.nvim_create_autocmd({ 'CursorMoved', }, {
     local word = vim.fn.expand('<cword>')
     local winid = vim.fn.win_getid()
     if string.match(word, "^[%w_一-龥]+$") then
-      vim.cmd(string.format([[windo match CursorWord /\V\<%s\>/]], word))
+      vim.cmd(string.format([[keepj windo match CursorWord /\V\<%s\>/]], word))
     else
-      vim.cmd([[windo match CursorWord //]])
+      vim.cmd([[keepj windo match CursorWord //]])
     end
     vim.fn.win_gotoid(winid)
   end,
