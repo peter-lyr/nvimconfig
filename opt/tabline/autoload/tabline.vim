@@ -657,6 +657,12 @@ fu! tabline#tabline()
   let s1 ..= '%#TablineDim#%T '
   let s1 ..= "%="
   let s1 ..= '%#TablineDim#'
+  let xx = tabpagenr('$')
+  if xx > 3
+    let xx = 3
+  endif
+  let s1 ..= repeat('▉', xx)
+  let s1 ..= ' '
   let s = s1 .. s2
   let s:tabline_string = trim(s) . ' '
   return s:tabline_string
