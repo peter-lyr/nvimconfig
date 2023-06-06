@@ -38,31 +38,27 @@ local run = function (params)
   local cmd = params[1]
   local cc = ''
   local prompt = ''
+  local prompt2 = ''
   local cmd2 = ''
   if cmd == "add_commit" then
-    cc = add_commit
     prompt = 'commit info (Add all and commit): '
     prompt2 = 'Sure to add all and commit? (Empty for yes): '
     cmd2 = 'AsyncRun cd %s && git add -A && git status && git commit -m "%s"'
   elseif cmd == "add_commit_push" then
-    cc = add_commit_push
     prompt = 'commit info (Add all and push): '
     prompt2 = 'Sure to add all and push? (Empty for yes): '
     cmd2 = 'AsyncRun cd %s && git add -A && git status && git commit -m "%s" && git push'
   elseif cmd == "commit_push" then
-    cc = commit_push
     prompt = 'commit info (Just push): '
     prompt2 = 'Sure to just push? (Empty for yes): '
     cmd2 = 'AsyncRun cd %s && git commit -m "%s" && git push'
   elseif cmd == "git_init" then
     cc = git_init
   elseif cmd == "just_commit" then
-    cc = just_commit
     prompt = 'commit info (Just commit): '
     prompt2 = 'Sure to just commit? (Empty for yes): '
     cmd2 = 'AsyncRun cd %s && git commit -m "%s"'
   elseif cmd == "just_push" then
-    cc = just_push
     prompt = 'Just push[yes/force]: '
   end
   if cmd == "git_init" then
@@ -124,7 +120,7 @@ local run = function (params)
           end
         end
       end
-      -- vim.cmd('cclose')
+      vim.cmd('cclose')
     else
       print('no changes.')
     end
