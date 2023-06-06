@@ -487,7 +487,7 @@ fu! tabline#tabline()
   endif
   let xx = tabpagenr('$')
   if xx > 3
-    let x = 3
+    let xx = 3
   endif
   let s2 = repeat('▉', xx) .. ' ' .. s2 .. ' '
   let temps2 = substitute(s2, '%#.\{-}#', '', 'g')
