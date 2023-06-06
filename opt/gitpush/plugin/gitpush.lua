@@ -26,7 +26,7 @@ local get_fname_tail = function(fname)
   return ''
 end
 
-local run = function (params)
+local run = function(params)
   if not params or #params == 0 then
     return
   end
@@ -108,9 +108,11 @@ local run = function (params)
       local input = vim.fn.input(prompt)
       if #input > 0 then
         if cmd == "just_push" then
+          vim.cmd([[au User AsyncRunStop lua vim.notify('AsyncRun Done.') | au User AsyncRunStop 'ec ""']])
           vim.cmd(string.format(cmd2, dir, input))
         else
           if #vim.fn.input(prompt2) == 0 then
+            vim.cmd([[au User AsyncRunStop lua vim.notify('AsyncRun Done.') | au User AsyncRunStop 'ec ""']])
             vim.cmd(string.format(cmd2, dir, input))
           end
         end
@@ -130,10 +132,11 @@ end, { nargs = '*', })
 
 -- '<,'>s/vim\.keymap\.set(\([^}]\+},\) *\([^,]\+,\) *\([^,]\+,\) *\([^)]\+\))/\=printf("vim.keymap.set(%-20s %-24s %-64s %s)", submatch(1), submatch(2), submatch(3), submatch(4))
 
-vim.keymap.set({ 'n', 'v' }, '<leader>g1',    ':<c-u>GitpusH add_commit_push<cr>', { silent = true })
-vim.keymap.set({ 'n', 'v' }, '<leader>g2',    ':<c-u>GitpusH commit_push<cr>',     { silent = true })
-vim.keymap.set({ 'n', 'v' }, '<leader>g3',    ':<c-u>GitpusH just_push<cr>',       { silent = true })
-vim.keymap.set({ 'n', 'v' }, '<leader>g4',    ':<c-u>GitpusH add_commit<cr>',      { silent = true })
-vim.keymap.set({ 'n', 'v' }, '<leader>g5',    ':<c-u>GitpusH just_commit<cr>',     { silent = true })
-vim.keymap.set({ 'n', 'v' }, '<leader>gI',    ':<c-u>GitpusH git_init<cr>',        { silent = true })
-vim.keymap.set({ 'n', 'v' }, '<leader>g<f1>', [[:silent exe '!start cmd /c "git log --all --graph --decorate --oneline && pause"'<cr>]], { silent = true })
+vim.keymap.set({ 'n', 'v' }, '<leader>g1', ':<c-u>GitpusH add_commit_push<cr>', { silent = true })
+vim.keymap.set({ 'n', 'v' }, '<leader>g2', ':<c-u>GitpusH commit_push<cr>', { silent = true })
+vim.keymap.set({ 'n', 'v' }, '<leader>g3', ':<c-u>GitpusH just_push<cr>', { silent = true })
+vim.keymap.set({ 'n', 'v' }, '<leader>g4', ':<c-u>GitpusH add_commit<cr>', { silent = true })
+vim.keymap.set({ 'n', 'v' }, '<leader>g5', ':<c-u>GitpusH just_commit<cr>', { silent = true })
+vim.keymap.set({ 'n', 'v' }, '<leader>gI', ':<c-u>GitpusH git_init<cr>', { silent = true })
+vim.keymap.set({ 'n', 'v' }, '<leader>g<f1>',
+  [[:silent exe '!start cmd /c "git log --all --graph --decorate --oneline && pause"'<cr>]], { silent = true })

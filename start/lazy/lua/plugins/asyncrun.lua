@@ -6,12 +6,4 @@ return {
     'AsyncStop',
     'AsyncReset',
   },
-  config = function()
-        vim.cmd([[
-augroup local_asyncrun
-au!
-au User AsyncRunStop copen | wincmd p | lua vim.notify('AsyncRun Done.')
-augroup END
-  ]])
-  end
 }
