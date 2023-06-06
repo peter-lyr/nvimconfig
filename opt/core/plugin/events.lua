@@ -32,7 +32,7 @@ vim.api.nvim_create_autocmd({ "BufEnter" }, {
   end,
 })
 
-vim.api.nvim_create_autocmd({ "WinResized" }, {
+vim.api.nvim_create_autocmd({  "BufEnter", "WinResized", }, {
   callback = function()
     foldcolumn()
   end,
