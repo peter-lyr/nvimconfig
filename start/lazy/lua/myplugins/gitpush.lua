@@ -4,7 +4,7 @@ return {
   name = name,
   dir = vim.fn.expand('$VIMRUNTIME') .. '\\pack\\nvimconfig\\opt\\' .. name,
   event = { 'FocusLost' },
-  keys = {
+  keys ={
     '<leader>g1',
     '<leader>g2',
     '<leader>g3',
@@ -14,6 +14,11 @@ return {
     '<leader>g<f1>',
   },
   dependencies = {
-    'skywind3000/asyncrun.vim',
+    {
+      'skywind3000/asyncrun.vim',
+      config = function()
+        vim.cmd('au User AsyncRunStop echomsg "AsyncRun Done."')
+      end
+    },
   },
 }
