@@ -34,6 +34,8 @@ MyHi = {
   "MyHiLiFileEncoding",
   "MyHiLiLineCol",
   "MyHiLiBotTop",
+  "MyHiLiCwd",
+  "MyHiLiMem",
 }
 
 local statuslinecolor = function()

@@ -123,9 +123,12 @@ fu! statusline#fileSize(fname)
   endif
 endfu
 
+fu! statusline#mem()
+  return printf('%.1fM', v:lua.vim.loop.resident_set_memory() / 1024 / 1024)
+endfu
+
 fu! statusline#cwd()
-  return printf('%s %.1fM', substitute(getcwd(), "\\", "/", "g"),
-        \ v:lua.vim.loop.resident_set_memory() / 1024 / 1024)
+  return printf('%s', substitute(getcwd(), "\\", "/", "g"))
 endfu
 
 fu! s:active()
@@ -144,8 +147,9 @@ fu! s:active()
   let statusline .= '%#MyHiLiWeek# ' . strftime("%a")
   let statusline .= '%#MyHiLiFsize# %{statusline#fileSize(@%)}'
   if g:GuiWindowFullScreen
-    let statusline .= ' %='
-    let statusline .= '%#MyHiLiFnameHead#%{statusline#cwd()}'
+    let statusline .= ' %#MyHiLiMem#%{statusline#mem()}'
+    let statusline .= ' '
+    let statusline .= '%#MyHiLiCwd#%{statusline#cwd()}'
   endif
   let statusline .= ' %='
   if len(expand(@%)) < winwidth(0)
