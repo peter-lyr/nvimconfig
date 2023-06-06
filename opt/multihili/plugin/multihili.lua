@@ -212,7 +212,7 @@ vim.api.nvim_create_autocmd({ 'BufEnter', 'WinEnter', 'ColorScheme', }, {
   end,
 })
 
-vim.api.nvim_create_autocmd({ 'CursorHold', }, {
+vim.api.nvim_create_autocmd({ 'CursorHold', 'CursorHoldI', }, {
   callback = function()
     local word = vim.fn.expand('<cword>')
     local winid = vim.fn.win_getid()
