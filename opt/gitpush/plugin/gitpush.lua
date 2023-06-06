@@ -107,7 +107,7 @@ local run = function(params)
       vim.cmd(string.format('AsyncRun cd %s && git status --show-stash', dir))
       vim.cmd('copen')
       vim.cmd('wincmd J')
-      vim.cmd("au User AsyncRunStop lua GitPush(); vim.cmd('au! User AsyncRunStop')")
+      vim.cmd([[au User AsyncRunStop lua GitPush(); vim.cmd('au! User AsyncRunStop')]])
     else
       print('no changes.')
     end
@@ -128,7 +128,7 @@ GitPush = function()
     end
   end
   if ok then
-    vim.cmd("au User AsyncRunStop lua vim.notify('AsyncRun Done.'); vim.cmd('au! User AsyncRunStop')")
+    vim.cmd([[au User AsyncRunStop lua vim.notify('AsyncRun Done.'); vim.cmd('au! User AsyncRunStop')]])
     vim.cmd(string.format(cmd2, dir, input))
   end
   vim.cmd('cclose')
