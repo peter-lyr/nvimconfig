@@ -26,15 +26,18 @@ local get_fname_tail = function(fname)
   return ''
 end
 
+local cmd = ''
+local cmd2 = ''
+local prompt = ''
+local prompt2 = ''
+local dir = ''
+
 local run = function(params)
   if not params or #params == 0 then
     return
   end
-  local cmd = params[1]
   local cc = ''
-  local prompt = ''
-  local prompt2 = ''
-  local cmd2 = ''
+  cmd = params[1]
   if cmd == "add_commit" then
     prompt = 'commit info (Add all and commit): '
     prompt2 = 'Sure to add all and commit? (Empty for yes): '
@@ -96,32 +99,36 @@ local run = function(params)
       end
     end)
   else
-    local dir = p:new(vim.api.nvim_buf_get_name(0)):parent().filename
+    dir = p:new(vim.api.nvim_buf_get_name(0)):parent().filename
     local h = io.popen(string.format('cd %s && git status -s', dir))
     local r = h:read("*a")
     h:close()
     if #r > 0 then
       vim.cmd(string.format('AsyncRun cd %s && git status --show-stash', dir))
-      vim.cmd('copen')
-      vim.cmd('wincmd J')
-      vim.api.nvim_win_set_height(0, 120)
-      local input = vim.fn.input(prompt)
-      if #input > 0 then
-        if cmd == "just_push" then
-          vim.cmd([[au User AsyncRunStop lua vim.notify('AsyncRun Done.'); vim.cmd('au! User AsyncRunStop')]])
-          vim.cmd(string.format(cmd2, dir, input))
-        else
-          if #vim.fn.input(prompt2) == 0 then
-            vim.cmd([[au User AsyncRunStop lua vim.notify('AsyncRun Done.'); vim.cmd('au! User AsyncRunStop')]])
-            vim.cmd(string.format(cmd2, dir, input))
-          end
-        end
-      end
-      vim.cmd('cclose')
+      vim.cmd('au User AsyncRunStop lua GitPush()')
     else
       print('no changes.')
     end
   end
+end
+
+GitPush = function()
+  vim.cmd('copen')
+  vim.cmd('wincmd J')
+  vim.api.nvim_win_set_height(0, vim.fn.line('$'))
+  local input = vim.fn.input(prompt)
+  if #input > 0 then
+    if cmd == "just_push" then
+      vim.cmd("au User AsyncRunStop lua vim.notify('AsyncRun Done.'); vim.cmd('au! User AsyncRunStop')")
+      vim.cmd(string.format(cmd2, dir, input))
+    else
+      if #vim.fn.input(prompt2) == 0 then
+        vim.cmd("au User AsyncRunStop lua vim.notify('AsyncRun Done.'); vim.cmd('au! User AsyncRunStop')")
+        vim.cmd(string.format(cmd2, dir, input))
+      end
+    end
+  end
+  vim.cmd('cclose')
 end
 
 vim.api.nvim_create_user_command('GitpusH', function(params)
