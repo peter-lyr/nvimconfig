@@ -17,9 +17,23 @@ local tab_width = function()
   end
 end
 
+local foldcolumn = function()
+  if vim.g.GuiWindowMaximized == 1 then
+    vim.opt.foldcolumn = 'auto:1'
+  else
+    vim.opt.foldcolumn = '0'
+  end
+end
+
 vim.api.nvim_create_autocmd({ "BufEnter" }, {
   callback = function()
     tab_width()
     vim.cmd('set mouse=a')
+  end,
+})
+
+vim.api.nvim_create_autocmd({ "WinResized" }, {
+  callback = function()
+    foldcolumn()
   end,
 })
