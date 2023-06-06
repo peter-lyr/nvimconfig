@@ -40,3 +40,11 @@ endfu
 
 let s:fontsize = 9
 let s:fontsizenormal = 9
+
+fu! fontSize#full()
+  if g:GuiWindowFullScreen
+    call GuiWindowFullScreen(0)
+  else
+    call GuiWindowFullScreen(1)
+  endif
+endfu

@@ -10,12 +10,18 @@ local rep = function(path)
   return path
 end
 
-vim.api.nvim_create_autocmd({ 'WinLeave' }, {
+local titlestring = function()
+  vim.opt.titlestring = string.format('%s %.1fM', rep(vim.loop.cwd()),
+    vim.loop.resident_set_memory() / 1024 / 1024)
+end
+
+titlestring()
+
+vim.api.nvim_create_autocmd({ 'BufEnter', 'WinEnter', 'VimResized', 'WinResized', }, {
   callback = function()
-    vim.fn.timer_start(100, function()
-      vim.opt.titlestring = string.format('%s %.1fM', rep(vim.loop.cwd()),
-        vim.loop.resident_set_memory() / 1024 / 1024)
-    end)
+    if vim.g.GuiWindowFullScreen == 0 then
+      titlestring()
+    end
   end,
 })
 

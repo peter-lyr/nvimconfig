@@ -123,6 +123,11 @@ fu! statusline#fileSize(fname)
   endif
 endfu
 
+fu! statusline#cwd()
+  return printf('%s %.1fM', substitute(getcwd(), "\\", "/", "g"),
+        \ v:lua.vim.loop.resident_set_memory() / 1024 / 1024)
+endfu
+
 fu! s:active()
   try
     let branchname = gitbranch#name()
@@ -138,9 +143,9 @@ fu! s:active()
   let statusline .= '%#MyHiLiTime# %{strftime("%T")}'
   let statusline .= '%#MyHiLiWeek# ' . strftime("%a")
   let statusline .= '%#MyHiLiFsize# %{statusline#fileSize(@%)}'
-  if g:GuiWindowFrameless
+  if g:GuiWindowFullScreen
     let statusline .= ' %='
-    let statusline .= '%#MyHiLiFnameHead#%{&titlestring}'
+    let statusline .= '%#MyHiLiFnameHead#%{statusline#cwd()}'
   endif
   let statusline .= ' %='
   if len(expand(@%)) < winwidth(0)

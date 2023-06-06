@@ -1,6 +1,6 @@
 vim.fn['statusline#watch']()
 
-vim.api.nvim_create_autocmd({ 'BufEnter', 'WinEnter', 'VimResized', }, {
+vim.api.nvim_create_autocmd({ 'BufEnter', 'WinEnter', 'VimResized', 'WinResized', }, {
   callback = function()
     vim.fn['statusline#watch']()
   end,

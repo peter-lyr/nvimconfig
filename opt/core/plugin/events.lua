@@ -18,7 +18,7 @@ local tab_width = function()
 end
 
 local foldcolumn = function()
-  if vim.g.GuiWindowMaximized == 1 then
+  if vim.g.GuiWindowFullScreen == 1 then
     vim.opt.foldcolumn = 'auto:1'
   else
     vim.opt.foldcolumn = '0'

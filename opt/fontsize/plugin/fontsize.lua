@@ -8,3 +8,5 @@ vim.keymap.set({ 'n', 'v', 'i' },   '<c-9>',                 ':<c-u>call fontSiz
 vim.keymap.set({ 'n', 'v', 'i' },   '<c-->',                 ':<c-u>call fontSize#change(-1)<cr>',    { silent = true })
 vim.keymap.set({ 'n', 'v', 'i' },   '<c-0>',                 ':<c-u>call fontSize#change(0)<cr>',     { silent = true })
 vim.keymap.set({ 'n', 'v', 'i' },   '<c-=>',                 ':<c-u>call fontSize#change(1)<cr>',     { silent = true })
+
+vim.keymap.set({ 'n', 'v', 'i' },   '<c-s-k>',               ':<c-u>call fontSize#full()<cr>',        { silent = true })
