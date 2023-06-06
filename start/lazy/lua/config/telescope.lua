@@ -118,7 +118,8 @@ telescope.load_extension("ui-select")
 
 telescope.load_extension("git_diffs")
 
-local do_telescope_lua = require("plenary.path"):new(vim.g.boot_lua):parent():parent():joinpath('lua', 'config', 'telescope.lua').filename
+local do_telescope_lua = require("plenary.path"):new(vim.g.boot_lua):parent():parent():joinpath('lua', 'config',
+'telescope.lua').filename
 
 local open = function()
   vim.cmd('split')
@@ -127,45 +128,95 @@ local open = function()
   vim.cmd([[call feedkeys("zb{{2j2w")]])
 end
 
+local update_projectroots = function(excludecur)
+  local projectroots = {}
+  local curprojectroot = string.gsub(vim.fn['projectroot#get'](vim.api.nvim_buf_get_name(0)), '\\', '/')
+  curprojectroot = vim.fn.tolower(curprojectroot)
+  for _, bufnr in ipairs(vim.api.nvim_list_bufs()) do
+    if vim.fn['buflisted'](bufnr) ~= 0 and vim.api.nvim_buf_is_loaded(bufnr) ~= false then
+      local projectroot = string.gsub(vim.fn['projectroot#get'](vim.api.nvim_buf_get_name(bufnr)), '\\', '/')
+      projectroot = vim.fn.tolower(projectroot)
+      if vim.tbl_contains(projectroots, projectroot) == false then
+        if excludecur then
+          if projectroot ~= curprojectroot then
+            table.insert(projectroots, projectroot)
+          end
+        else
+          table.insert(projectroots, projectroot)
+        end
+      end
+    end
+  end
+  return projectroots
+end
+
+local projectsbuffers = function()
+  local projectroots = update_projectroots(nil)
+  vim.ui.select(projectroots, { prompt = 'select one of them' }, function(_, idx)
+    local dir = projectroots[idx]
+    vim.cmd('cd ' .. dir)
+    local cmd = 'Telescope buffers search_dirs=' .. dir
+    vim.cmd(cmd)
+  end)
+end
+
+local run = function(params)
+  if not params or #params == 0 then
+    return
+  end
+  if params[1] == 'projectsbuffers' then
+    projectsbuffers()
+  end
+end
+
+vim.api.nvim_create_user_command('TelescopE', function(params)
+  run(params['fargs'])
+end, { nargs = '*', })
+
+vim.keymap.set({ 'n', 'v' }, '<a-h>', ':<c-u>TelescopE projectsbuffers<cr>', { silent = true })
+
 -- '<,'>s/vim\.keymap\.set(\([^}]\+},\) *\([^,]\+,\) *\([^,]\+,\) *\([^)]\+\))/\=printf("vim.keymap.set(%-12s %-10s %-54s %s)", submatch(1), submatch(2), submatch(3), submatch(4))
 
-vim.keymap.set({ 'n', 'v' }, '<a-/>',   ':<c-u>Telescope search_history<cr>',                  { silent = true })
-vim.keymap.set({ 'n', 'v' }, '<a-c>',   ':<c-u>Telescope command_history<cr>',                 { silent = true })
-vim.keymap.set({ 'n', 'v' }, '<a-C>',   ':<c-u>Telescope commands<cr>',                        { silent = true })
+vim.keymap.set({ 'n', 'v' }, '<a-/>', ':<c-u>Telescope search_history<cr>', { silent = true })
+vim.keymap.set({ 'n', 'v' }, '<a-c>', ':<c-u>Telescope command_history<cr>', { silent = true })
+vim.keymap.set({ 'n', 'v' }, '<a-C>', ':<c-u>Telescope commands<cr>', { silent = true })
 
-vim.keymap.set({ 'n', 'v' }, '<a-o>',   ':<c-u>Telescope oldfiles previewer=false<cr>',        { silent = true })
-vim.keymap.set({ 'n', 'v' }, '<a-k>',   ':<c-u>Telescope find_files previewer=false<cr>',      { silent = true })
-vim.keymap.set({ 'n', 'v' }, '<a-j>',   ':<c-u>Telescope buffers cwd_only=true sort_mru=true ignore_current_buffer=true<cr>', { silent = true })
-vim.keymap.set({ 'n', 'v' }, '<a-J>',   ':<c-u>Telescope buffers<cr>',                         { silent = true })
-vim.keymap.set({ 'n', 'v' }, '<a-;>e',  ':<c-u>Telescope empty_buffers<cr>',                   { silent = true })
+vim.keymap.set({ 'n', 'v' }, '<a-o>', ':<c-u>Telescope oldfiles previewer=false<cr>', { silent = true })
+vim.keymap.set({ 'n', 'v' }, '<a-k>', ':<c-u>Telescope find_files previewer=false<cr>', { silent = true })
+vim.keymap.set({ 'n', 'v' }, '<a-j>',
+':<c-u>Telescope buffers cwd_only=true sort_mru=true ignore_current_buffer=true<cr>', { silent = true })
+vim.keymap.set({ 'n', 'v' }, '<a-J>', ':<c-u>Telescope buffers<cr>', { silent = true })
+vim.keymap.set({ 'n', 'v' }, '<a-;>e', ':<c-u>Telescope empty_buffers<cr>', { silent = true })
 
-vim.keymap.set({ 'n', 'v' }, '<a-;>k',  ':<c-u>Telescope git_files previewer=false<cr>',       { silent = true })
-vim.keymap.set({ 'n', 'v' }, '<a-;>i',  ':<c-u>Telescope git_commits<cr>',                     { silent = true })
-vim.keymap.set({ 'n', 'v' }, '<a-;>o',  ':<c-u>Telescope git_bcommits<cr>',                    { silent = true })
-vim.keymap.set({ 'n', 'v' }, '<a-;>h',  ':<c-u>Telescope git_branches<cr>',                    { silent = true })
-vim.keymap.set({ 'n', 'v' }, '<a-;>j',  ':<c-u>Telescope git_status previewer=false<cr>',      { silent = true })
-vim.keymap.set({ 'n', 'v' }, '<a-;>l',  ':<c-u>Telescope git_diffs diff_commits<cr>',          { silent = true })
+vim.keymap.set({ 'n', 'v' }, '<a-;>k', ':<c-u>Telescope git_files previewer=false<cr>', { silent = true })
+vim.keymap.set({ 'n', 'v' }, '<a-;>i', ':<c-u>Telescope git_commits<cr>', { silent = true })
+vim.keymap.set({ 'n', 'v' }, '<a-;>o', ':<c-u>Telescope git_bcommits<cr>', { silent = true })
+vim.keymap.set({ 'n', 'v' }, '<a-;>h', ':<c-u>Telescope git_branches<cr>', { silent = true })
+vim.keymap.set({ 'n', 'v' }, '<a-;>j', ':<c-u>Telescope git_status previewer=false<cr>', { silent = true })
+vim.keymap.set({ 'n', 'v' }, '<a-;>l', ':<c-u>Telescope git_diffs diff_commits<cr>', { silent = true })
 
 -- vim.keymap.set({ 'n', 'v' }, '<a-l>',   ':<c-u>Telescope live_grep shorten_path=true word_match=-w only_sort_text=true search= grep_open_files=true<cr>', { silent = true })
 -- vim.keymap.set({ 'n', 'v' }, '<a-L>',   ':<c-u>Telescope live_grep<cr>',                       { silent = true })
-vim.keymap.set({ 'n', 'v' }, '<a-l>',   ':<c-u>Telescope live_grep<cr>',                       { silent = true })
-vim.keymap.set({ 'n', 'v' }, '<a-i>',   ':<c-u>Telescope grep_string shorten_path=true word_match=-w only_sort_text=true search= grep_open_files=true<cr>', { silent = true })
+vim.keymap.set({ 'n', 'v' }, '<a-l>', ':<c-u>Telescope live_grep<cr>', { silent = true })
+vim.keymap.set({ 'n', 'v' }, '<a-i>',
+':<c-u>Telescope grep_string shorten_path=true word_match=-w only_sort_text=true search= grep_open_files=true<cr>',
+{ silent = true })
 
-vim.keymap.set({ 'n', 'v' }, '<a-b>',   ':<c-u>Telescope lsp_document_symbols<cr>',            { silent = true })
-vim.keymap.set({ 'n', 'v' }, '<a-.>',   ':<c-u>Telescope lsp_references<cr>',                  { silent = true })
+vim.keymap.set({ 'n', 'v' }, '<a-b>', ':<c-u>Telescope lsp_document_symbols<cr>', { silent = true })
+vim.keymap.set({ 'n', 'v' }, '<a-.>', ':<c-u>Telescope lsp_references<cr>', { silent = true })
 
-vim.keymap.set({ 'n', 'v' }, '<a-q>',   ':<c-u>Telescope quickfix<cr>',                        { silent = true })
-vim.keymap.set({ 'n', 'v' }, '<a-Q>',   ':<c-u>Telescope quickfixhistory<cr>',                 { silent = true })
+vim.keymap.set({ 'n', 'v' }, '<a-q>', ':<c-u>Telescope quickfix<cr>', { silent = true })
+vim.keymap.set({ 'n', 'v' }, '<a-Q>', ':<c-u>Telescope quickfixhistory<cr>', { silent = true })
 
-vim.keymap.set({ 'n', 'v' }, '<a-\'>a', ':<c-u>Telescope builtin<cr>',                         { silent = true })
-vim.keymap.set({ 'n', 'v' }, '<a-\'>c', ':<c-u>Telescope colorscheme<cr>',                     { silent = true })
-vim.keymap.set({ 'n', 'v' }, '<a-\'>d', ':<c-u>Telescope diagnostics<cr>',                     { silent = true })
-vim.keymap.set({ 'n', 'v' }, '<a-\'>f', ':<c-u>Telescope filetypes<cr>',                       { silent = true })
-vim.keymap.set({ 'n', 'v' }, '<a-\'>h', ':<c-u>Telescope help_tags<cr>',                       { silent = true })
-vim.keymap.set({ 'n', 'v' }, '<a-\'>j', ':<c-u>Telescope jumplist<cr>',                        { silent = true })
-vim.keymap.set({ 'n', 'v' }, '<a-\'>m', ':<c-u>Telescope keymaps<cr>',                         { silent = true })
-vim.keymap.set({ 'n', 'v' }, '<a-\'>o', ':<c-u>Telescope vim_options<cr>',                     { silent = true })
-vim.keymap.set({ 'n', 'v' }, '<a-\'>p', ':<c-u>Telescope planets<cr>',                         { silent = true })
-vim.keymap.set({ 'n', 'v' }, '<a-\'>z', ':<c-u>Telescope current_buffer_fuzzy_find<cr>',       { silent = true })
+vim.keymap.set({ 'n', 'v' }, '<a-\'>a', ':<c-u>Telescope builtin<cr>', { silent = true })
+vim.keymap.set({ 'n', 'v' }, '<a-\'>c', ':<c-u>Telescope colorscheme<cr>', { silent = true })
+vim.keymap.set({ 'n', 'v' }, '<a-\'>d', ':<c-u>Telescope diagnostics<cr>', { silent = true })
+vim.keymap.set({ 'n', 'v' }, '<a-\'>f', ':<c-u>Telescope filetypes<cr>', { silent = true })
+vim.keymap.set({ 'n', 'v' }, '<a-\'>h', ':<c-u>Telescope help_tags<cr>', { silent = true })
+vim.keymap.set({ 'n', 'v' }, '<a-\'>j', ':<c-u>Telescope jumplist<cr>', { silent = true })
+vim.keymap.set({ 'n', 'v' }, '<a-\'>m', ':<c-u>Telescope keymaps<cr>', { silent = true })
+vim.keymap.set({ 'n', 'v' }, '<a-\'>o', ':<c-u>Telescope vim_options<cr>', { silent = true })
+vim.keymap.set({ 'n', 'v' }, '<a-\'>p', ':<c-u>Telescope planets<cr>', { silent = true })
+vim.keymap.set({ 'n', 'v' }, '<a-\'>z', ':<c-u>Telescope current_buffer_fuzzy_find<cr>', { silent = true })
 
-vim.keymap.set({ 'n', 'v' }, '<a-\\>',  open,                                                  { silent = true })
+vim.keymap.set({ 'n', 'v' }, '<a-\\>', open, { silent = true })

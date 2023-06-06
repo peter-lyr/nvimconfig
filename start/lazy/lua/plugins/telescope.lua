@@ -1,3 +1,11 @@
+local patterns = {
+  ".cache",
+  "build",
+  "compile_commands.json",
+  "CMakeLists.txt",
+  ".git",
+}
+
 return {
   'nvim-telescope/telescope.nvim',
   tag = '0.1.1',
@@ -43,6 +51,8 @@ return {
     '<a-\'>z',
 
     '<a-\\>',
+
+    '<a-h>',
   },
   dependencies = {
     'nvim-lua/plenary.nvim',
@@ -55,7 +65,13 @@ return {
           require('config.diffview')
         end,
       },
-    }
+    },
+    {
+      "dbakker/vim-projectroot",
+      config = function()
+        vim.g.rootmarkers = patterns
+      end
+    },
   },
   config = function()
     require('config.telescope')
