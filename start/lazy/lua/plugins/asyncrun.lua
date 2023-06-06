@@ -8,9 +8,9 @@ return {
   },
   config = function()
         vim.cmd([[
-augroup local-asyncrun
+augroup local_asyncrun
 au!
-au User AsyncRunStop copen | wincmd p | lua print("AsyncRun Done.")
+au User AsyncRunStop copen | wincmd p | lua vim.notify('AsyncRun Done.')
 augroup END
   ]])
   end
