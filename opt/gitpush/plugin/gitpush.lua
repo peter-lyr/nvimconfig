@@ -113,6 +113,7 @@ local run = function(params)
 end
 
 GitPush = function()
+  vim.cmd('au! User AsyncRunStop')
   vim.cmd('copen')
   vim.cmd('wincmd J')
   vim.api.nvim_win_set_height(0, vim.fn.line('$'))
