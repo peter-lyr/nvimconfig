@@ -138,6 +138,10 @@ fu! s:active()
   let statusline .= '%#MyHiLiTime# %{strftime("%T")}'
   let statusline .= '%#MyHiLiWeek# ' . strftime("%a")
   let statusline .= '%#MyHiLiFsize# %{statusline#fileSize(@%)}'
+  if g:GuiWindowFrameless
+    let statusline .= ' %='
+    let statusline .= '%#MyHiLiFnameHead#%{&titlestring}'
+  endif
   let statusline .= ' %='
   if len(expand(@%)) < winwidth(0)
     let statusline .= '%#MyHiLiFnameHead#%{statusline#fileAbspathHead(@%)}'

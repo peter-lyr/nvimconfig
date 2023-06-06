@@ -5,10 +5,15 @@ vim.cmd([[set tabline=%!tabline#tabline()]])
 
 -- 更新窗口标题
 
+local rep = function(path)
+  path, _ = string.gsub(path, '\\', '/')
+  return path
+end
+
 vim.api.nvim_create_autocmd({ 'WinLeave' }, {
   callback = function()
     vim.fn.timer_start(100, function()
-      vim.opt.titlestring = string.format('%s %.1fM', vim.loop.cwd(),
+      vim.opt.titlestring = string.format('%s %.1fM', rep(vim.loop.cwd()),
         vim.loop.resident_set_memory() / 1024 / 1024)
     end)
   end,
