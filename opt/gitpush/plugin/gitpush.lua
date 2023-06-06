@@ -112,10 +112,10 @@ local run = function (params)
       local input = vim.fn.input(prompt)
       if #input > 0 then
         if cmd == "just_push" then
-          vim.fn.system(string.format('cd %s && start cmd /c %s "%s"', dir, cc, input))
+          vim.cmd(string.format('AsyncRun cd %s && start cmd /c %s "%s"', dir, cc, input))
         else
           if #vim.fn.input(prompt2) == 0 then
-            vim.fn.system(string.format('cd %s && start cmd /c %s "%s"', dir, cc, input))
+            vim.cmd(string.format('AsyncRun cd %s && start cmd /c %s "%s"', dir, cc, input))
           end
         end
       end
