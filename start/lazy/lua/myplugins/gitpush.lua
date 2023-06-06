@@ -13,4 +13,7 @@ return {
     '<leader>gI',
     '<leader>g<f1>',
   },
+  dependencies = {
+    'skywind3000/asyncrun.vim',
+  },
 }
