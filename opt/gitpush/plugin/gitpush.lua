@@ -2,12 +2,7 @@ local p = require("plenary.path")
 
 local gitpush_path = p:new(vim.fn.expand('<sfile>')):parent():parent()
 
-local add_commit = gitpush_path:joinpath('autoload', 'add_commit.bat').filename
-local add_commit_push = gitpush_path:joinpath('autoload', 'add_commit_push.bat').filename
-local commit_push = gitpush_path:joinpath('autoload', 'commit_push.bat').filename
 local git_init = gitpush_path:joinpath('autoload', 'git_init.bat').filename
-local just_commit = gitpush_path:joinpath('autoload', 'just_commit.bat').filename
-local just_push = gitpush_path:joinpath('autoload', 'just_push.bat').filename
 
 local rep = function(path)
   path, _ = string.gsub(path, '\\', '/')
