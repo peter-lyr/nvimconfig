@@ -399,7 +399,7 @@ fu! tabline#tabline()
   let g:tabline_done = 1
   let s:curbufnr = bufnr()
   let curname = substitute(nvim_buf_get_name(0), '\', '/', 'g')
-  let cwd = tolower(substitute(getcwd(), '\', '/', 'g'))
+  let cwd = tolower(substitute(projectroot#get(curname), '\', '/', 'g'))
   let cnt = 0
   let curcnt = 0
   let L = {}
