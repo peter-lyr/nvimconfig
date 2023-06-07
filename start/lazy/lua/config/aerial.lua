@@ -32,6 +32,8 @@ require('aerial').setup({
     ['zx'] = 'actions.tree_sync_folds',
     ['zX'] = 'actions.tree_sync_folds',
   },
+  -- backends = { "lsp", "treesitter", "markdown", "man" },
+  backends = { "lsp", },
   post_jump_cmd = [[call feedkeys('zt3\<c-y>')]],
   close_automatic_events = {},
   close_on_select = false,
