@@ -79,7 +79,40 @@ colorinit()
 
 HiLi = {}
 
+local gethilipath = function ()
+  return require('plenary.path'):new(vim.loop.cwd()):joinpath('.hili')
+end
+
+local gethili = function ()
+  local hilipath = gethilipath()
+  if not hilipath:exists() then
+    return {}
+  end
+  local res = hilipath:read()
+  local hili
+  if #res > 0 then
+    hili = loadstring('return ' .. res)()
+  else
+    hili = {}
+  end
+  return hili
+end
+
+local savehili = function(content, hiname, bg)
+  local hili = gethili()
+  if hiname and bg then
+    hili = vim.tbl_deep_extend('force', hili, {
+      [content] = { hiname, bg }
+    })
+  else
+    hili[content] = nil
+  end
+  gethilipath():write(vim.inspect(hili), 'w')
+end
+
+
 local hili = function()
+  HiLi = gethili()
   if vim.tbl_contains({ 'v', 'V', '' }, vim.fn.mode()) == true then
     vim.cmd([[call feedkeys("\<esc>")]])
     local timer = vim.loop.new_timer()
@@ -106,6 +139,7 @@ local hili = function()
         HiLi = vim.tbl_deep_extend('force', HiLi, {
           [content] = { hiname, bg }
         })
+        savehili(content, hiname, bg)
         vim.api.nvim_set_hl(0, hiname, { bg = bg })
         vim.fn.matchadd(hiname, content)
       end)
@@ -114,6 +148,7 @@ local hili = function()
 end
 
 local rmhili = function()
+  HiLi = gethili()
   if HiLi and #vim.tbl_keys(HiLi) > 0 then
     if vim.tbl_contains({ 'v', 'V', '' }, vim.fn.mode()) == true then
       vim.cmd([[call feedkeys("\<esc>")]])
@@ -127,6 +162,7 @@ local rmhili = function()
             local hiname = HiLi[content][1]
             vim.api.nvim_set_hl(0, hiname, { bg = 'NONE' })
             HiLi[content] = nil
+            savehili(content, nil, nil)
           end
         end)
       end)
@@ -135,6 +171,7 @@ local rmhili = function()
 end
 
 local rehili = function()
+  HiLi = gethili()
   if HiLi and #vim.tbl_keys(HiLi) > 0 then
     for c, v in pairs(HiLi) do
       local h = v[1]
@@ -148,6 +185,7 @@ end
 local curcontent = ''
 
 local prevhili = function()
+  HiLi = gethili()
   if HiLi and #vim.tbl_keys(HiLi) > 0 then
     vim.cmd([[call feedkeys("\<esc>")]])
     local content = table.concat(vim.tbl_keys(HiLi), '\\|')
@@ -160,6 +198,7 @@ local prevhili = function()
 end
 
 local nexthili = function()
+  HiLi = gethili()
   if HiLi and #vim.tbl_keys(HiLi) > 0 then
     vim.cmd([[call feedkeys("\<esc>")]])
     local content = table.concat(vim.tbl_keys(HiLi), '\\|')
@@ -172,6 +211,7 @@ local nexthili = function()
 end
 
 local prevcurhili = function()
+  HiLi = gethili()
   if #curcontent > 0 then
     vim.cmd([[call feedkeys("\<esc>")]])
     vim.fn.searchpos(curcontent, 'be')
@@ -179,6 +219,7 @@ local prevcurhili = function()
 end
 
 local nextcurhili = function()
+  HiLi = gethili()
   if #curcontent > 0 then
     vim.cmd([[call feedkeys("\<esc>")]])
     vim.fn.searchpos(curcontent)
@@ -186,6 +227,7 @@ local nextcurhili = function()
 end
 
 local selnexthili = function()
+  HiLi = gethili()
   if HiLi and #vim.tbl_keys(HiLi) > 0 then
     vim.cmd([[call feedkeys("\<esc>")]])
     local content = table.concat(vim.tbl_keys(HiLi), '\\|')
@@ -196,6 +238,7 @@ local selnexthili = function()
 end
 
 local selprevhili = function()
+  HiLi = gethili()
   if HiLi and #vim.tbl_keys(HiLi) > 0 then
     vim.cmd([[call feedkeys("\<esc>")]])
     local content = table.concat(vim.tbl_keys(HiLi), '\\|')

@@ -42,7 +42,7 @@ local setup = function()
       vim.keymap.set("n", "ml", bm.bookmark_list)                      -- show marked file list in quickfix window
     end
   })
-  vim.fn.timer_start(200, function() actions.refresh() end)
+  -- vim.fn.timer_start(200, function() actions.refresh() end)
 end
 
 vim.api.nvim_create_autocmd({ 'BufEnter', }, {
