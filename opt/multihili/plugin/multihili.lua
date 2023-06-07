@@ -283,8 +283,8 @@ vim.keymap.set({ 'v', }, '*', multilinesearch, { silent = true })
 
 vim.keymap.set({ 'n', }, '<c-8>', hili_n, { silent = true })
 vim.keymap.set({ 'v', }, '<c-8>', hili, { silent = true })
-vim.keymap.set({ 'v', }, '<c-9>', rmhili, { silent = true })
-vim.keymap.set({ 'n', }, '<c-9>', rmhili_n, { silent = true })
+vim.keymap.set({ 'v', }, '<c-s-8>', rmhili, { silent = true })
+vim.keymap.set({ 'n', }, '<c-s-8>', rmhili_n, { silent = true })
 
 vim.keymap.set({ 'n', 'v', }, '<c-7>', selnexthili, { silent = true })
 vim.keymap.set({ 'n', 'v', }, '<c-s-7>', selprevhili, { silent = true })
