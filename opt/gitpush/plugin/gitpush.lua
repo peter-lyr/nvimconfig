@@ -116,6 +116,7 @@ end
 
 GitPush = function()
   vim.api.nvim_win_set_height(0, vim.fn.line('$'))
+  vim.cmd('norm Gzb')
   local input = vim.fn.input(prompt)
   local ok = nil
   if #input > 0 then
