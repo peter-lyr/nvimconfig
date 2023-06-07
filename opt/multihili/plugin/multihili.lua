@@ -147,6 +147,11 @@ local hili = function()
   end
 end
 
+local hili_n = function()
+  vim.cmd('norm viw')
+  hili()
+end
+
 local rmhili = function()
   HiLi = gethili()
   if HiLi and #vim.tbl_keys(HiLi) > 0 then
@@ -156,6 +161,7 @@ local rmhili = function()
       timer:start(10, 0, function()
         vim.schedule(function()
           vim.cmd(string.format([[let @0 = %s]], getvisualcontent()))
+          -- vim.cmd('echomsg @0')
           local content = string.gsub(vim.fn.getreg('0'), '%[', '\\[')
           content = string.gsub(content, '%*', '\\*')
           if vim.tbl_contains(vim.tbl_keys(HiLi), content) then
@@ -168,6 +174,11 @@ local rmhili = function()
       end)
     end
   end
+end
+
+local rmhili_n = function()
+  vim.cmd('norm viw')
+  rmhili()
 end
 
 local rehili = function()
@@ -269,13 +280,16 @@ vim.api.nvim_create_autocmd({ 'CursorHold', 'CursorHoldI', }, {
 })
 
 vim.keymap.set({ 'v', }, '*', multilinesearch, { silent = true })
+
+vim.keymap.set({ 'n', }, '<c-8>', hili_n, { silent = true })
 vim.keymap.set({ 'v', }, '<c-8>', hili, { silent = true })
-vim.keymap.set({ 'v', }, '<c-s-8>', rmhili, { silent = true })
+vim.keymap.set({ 'v', }, '<c-9>', rmhili, { silent = true })
+vim.keymap.set({ 'n', }, '<c-9>', rmhili_n, { silent = true })
+
+vim.keymap.set({ 'n', 'v', }, '<c-7>', selnexthili, { silent = true })
+vim.keymap.set({ 'n', 'v', }, '<c-s-7>', selprevhili, { silent = true })
 
 vim.keymap.set({ 'n', 'v', }, '<c-n>', prevhili, { silent = true })
 vim.keymap.set({ 'n', 'v', }, '<c-m>', nexthili, { silent = true })
 vim.keymap.set({ 'n', 'v', }, '<c-s-n>', prevcurhili, { silent = true })
 vim.keymap.set({ 'n', 'v', }, '<c-s-m>', nextcurhili, { silent = true })
-
-vim.keymap.set({ 'n', 'v', }, '<c-7>', selnexthili, { silent = true })
-vim.keymap.set({ 'n', 'v', }, '<c-s-7>', selprevhili, { silent = true })
