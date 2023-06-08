@@ -118,6 +118,16 @@ end
 
 local loadsession = function()
   local cwds = loadstring('return ' .. session:read())()
+  local ok = nil
+  for k, _ in pairs(cwds) do
+    if k ~= '-' and not Path:new(k):exists() then
+      cwds[k] = nil
+      ok = 1
+    end
+  end
+  if ok then
+    session:write(vim.inspect(cwds), 'w')
+  end
   vim.ui.select(vim.fn.sort(vim.tbl_keys(cwds)), { prompt = 'cwd' }, function(cwd, _)
     local branches = cwds[cwd]
     if #vim.tbl_keys(branches) == 1 then
