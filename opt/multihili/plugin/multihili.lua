@@ -297,10 +297,11 @@ vim.api.nvim_create_autocmd({ 'BufEnter', 'WinEnter', 'ColorScheme', }, {
 local windocursorword = function()
   if windo == 1 then
     windo = 0
+    print('windo match')
   else
     windo = 1
+    print('match')
   end
-  print("windo:", vim.inspect(windo))
 end
 
 vim.keymap.set({ 'v', }, '*', multilinesearch, { silent = true })
