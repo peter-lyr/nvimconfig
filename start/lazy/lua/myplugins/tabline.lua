@@ -34,6 +34,7 @@ return {
 
     '<leader>bi',
     '<leader>bu',
+    '<leader>b<del>',
   },
   dependencies = {
     {

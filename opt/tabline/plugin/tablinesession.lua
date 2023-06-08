@@ -133,6 +133,14 @@ local loadsession = function()
   end)
 end
 
+local deletesession = function()
+  local cwds = loadstring('return ' .. session:read())()
+  vim.ui.select(vim.fn.sort(vim.tbl_keys(cwds)), { prompt = 'cwd' }, function(cwd, _)
+    cwds[cwd] = nil
+    session:write(vim.inspect(cwds), 'w')
+  end)
+end
+
 -- mappings
 
 vim.keymap.set({ 'n', 'v' }, '<leader>bi', function()
@@ -142,4 +150,8 @@ end, { silent = true })
 
 vim.keymap.set({ 'n', 'v' }, '<leader>bu', function()
   loadsession()
+end, { silent = true })
+
+vim.keymap.set({ 'n', 'v' }, '<leader>b<del>', function()
+  deletesession()
 end, { silent = true })
