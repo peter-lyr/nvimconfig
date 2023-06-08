@@ -267,7 +267,7 @@ end
 vim.api.nvim_create_autocmd({ 'BufEnter', 'WinEnter', 'ColorScheme', }, {
   callback = function()
     rehili()
-    vim.api.nvim_set_hl(0, 'CursorWord', { bg = 'gray', fg = 'yellow' })
+    vim.api.nvim_set_hl(0, 'CursorWord', { bg = '#383838', fg = '#a8a8a8', bold = true  })
   end,
 })
 
