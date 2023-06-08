@@ -264,6 +264,29 @@ local selprevhili = function()
   end
 end
 
+local windo = 0
+
+vim.api.nvim_create_autocmd({ 'CursorHold', 'CursorHoldI', }, {
+  callback = function()
+    local word = vim.fn.expand('<cword>')
+    local winid = vim.fn.win_getid()
+    if windo == 1 then
+      if string.match(word, "^[%w_一-龥]+$") then
+        vim.cmd(string.format([[keepj windo match CursorWord /\V\<%s\>/]], word))
+      else
+        vim.cmd([[keepj windo match CursorWord //]])
+      end
+    else
+      if string.match(word, "^[%w_一-龥]+$") then
+        vim.cmd(string.format([[match CursorWord /\V\<%s\>/]], word))
+      else
+        vim.cmd([[match CursorWord //]])
+      end
+    end
+    vim.fn.win_gotoid(winid)
+  end,
+})
+
 vim.api.nvim_create_autocmd({ 'BufEnter', 'WinEnter', 'ColorScheme', }, {
   callback = function()
     rehili()
@@ -271,20 +294,18 @@ vim.api.nvim_create_autocmd({ 'BufEnter', 'WinEnter', 'ColorScheme', }, {
   end,
 })
 
-vim.api.nvim_create_autocmd({ 'CursorHold', 'CursorHoldI', }, {
-  callback = function()
-    local word = vim.fn.expand('<cword>')
-    local winid = vim.fn.win_getid()
-    if string.match(word, "^[%w_一-龥]+$") then
-      vim.cmd(string.format([[keepj windo match CursorWord /\V\<%s\>/]], word))
-    else
-      vim.cmd([[keepj windo match CursorWord //]])
-    end
-    vim.fn.win_gotoid(winid)
-  end,
-})
+local windocursorword = function()
+  if windo == 1 then
+    windo = 0
+  else
+    windo = 1
+  end
+  print("windo:", vim.inspect(windo))
+end
 
 vim.keymap.set({ 'v', }, '*', multilinesearch, { silent = true })
+
+vim.keymap.set({ 'n', }, '<a-8>', windocursorword, { silent = true })
 
 vim.keymap.set({ 'n', }, '<c-8>', hili_n, { silent = true })
 vim.keymap.set({ 'v', }, '<c-8>', hilido, { silent = true })
