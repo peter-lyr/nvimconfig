@@ -1,3 +1,19 @@
+local gethiname = function(content)
+  local sha256 = require('sha2')
+  local res = tostring(sha256.sha256(content))
+  return 'H' .. string.sub(res, 1, 7)
+end
+
+local getescape = function(content)
+  content = string.gsub(content, '%[', '\\[')
+  content = string.gsub(content, '%*', '\\*')
+  content = string.gsub(content, '%.', '\\.')
+  content = string.gsub(content, '%~', '\\~')
+  content = string.gsub(content, '%$', '\\$')
+  content = string.gsub(content, '%^', '\\^')
+  return content
+end
+
 local getcontent = function(line1, col1, line2, col2)
   local lines = {}
   for lnr = line1, line2 do
@@ -98,20 +114,17 @@ local gethili = function ()
   return hili
 end
 
-local savehili = function(content, hiname, bg)
+local savehili = function(content, bg)
   local hili = gethili()
-  if hiname and bg then
-    hili = vim.tbl_deep_extend('force', hili, {
-      [content] = { hiname, bg }
-    })
+  if bg then
+    hili = vim.tbl_deep_extend('force', hili, { [content] =  bg })
   else
     hili[content] = nil
   end
   gethilipath():write(vim.inspect(hili), 'w')
 end
 
-
-local hili = function()
+local hilido = function()
   HiLi = gethili()
   if vim.tbl_contains({ 'v', 'V', '' }, vim.fn.mode()) == true then
     vim.cmd([[call feedkeys("\<esc>")]])
@@ -119,27 +132,11 @@ local hili = function()
     timer:start(10, 0, function()
       vim.schedule(function()
         vim.cmd(string.format([[let @0 = %s]], getvisualcontent()))
-        local content = string.gsub(vim.fn.getreg('0'), '%[', '\\[')
-        content = string.gsub(content, '%*', '\\*')
-        local number = 1
-        if HiLi and #vim.tbl_keys(HiLi) > 0 then
-          local g = {}
-          for _, v in pairs(vim.tbl_values(HiLi)) do
-            table.insert(g, v[1])
-          end
-          for i = 1, 50000 do
-            if vim.tbl_contains(g, 'HiLi' .. i) == false then
-              number = i
-              break
-            end
-          end
-        end
-        local hiname = 'HiLi' .. number
+        local content = getescape(vim.fn.getreg('0'))
+        local hiname = gethiname(content)
         local bg = Colors[math.random(#Colors)]
-        HiLi = vim.tbl_deep_extend('force', HiLi, {
-          [content] = { hiname, bg }
-        })
-        savehili(content, hiname, bg)
+        HiLi = vim.tbl_deep_extend('force', HiLi, { [content] = bg })
+        savehili(content, bg)
         vim.api.nvim_set_hl(0, hiname, { bg = bg })
         vim.fn.matchadd(hiname, content)
       end)
@@ -149,7 +146,7 @@ end
 
 local hili_n = function()
   vim.cmd('norm viw')
-  hili()
+  hilido()
 end
 
 local rmhili = function()
@@ -161,14 +158,12 @@ local rmhili = function()
       timer:start(10, 0, function()
         vim.schedule(function()
           vim.cmd(string.format([[let @0 = %s]], getvisualcontent()))
-          -- vim.cmd('echomsg @0')
-          local content = string.gsub(vim.fn.getreg('0'), '%[', '\\[')
-          content = string.gsub(content, '%*', '\\*')
+          local content = getescape(vim.fn.getreg('0'))
           if vim.tbl_contains(vim.tbl_keys(HiLi), content) then
-            local hiname = HiLi[content][1]
-            vim.api.nvim_set_hl(0, hiname, { bg = 'NONE' })
-            HiLi[content] = nil
-            savehili(content, nil, nil)
+            local hiname = gethiname(content)
+            pcall(vim.fn.matchdelete, vim.api.nvim_get_hl_id_by_name(hiname))
+            vim.api.nvim_set_hl(0, hiname, { bg = nil })
+            savehili(content, nil)
           end
         end)
       end)
@@ -184,11 +179,10 @@ end
 local rehili = function()
   HiLi = gethili()
   if HiLi and #vim.tbl_keys(HiLi) > 0 then
-    for c, v in pairs(HiLi) do
-      local h = v[1]
-      local b = v[2]
-      vim.api.nvim_set_hl(0, h, { bg = b })
-      vim.fn.matchadd(h, c)
+    for content, bg in pairs(HiLi) do
+      local hiname = gethiname(content)
+      vim.api.nvim_set_hl(0, hiname, { bg = bg })
+      vim.fn.matchadd(hiname, content)
     end
   end
 end
@@ -203,8 +197,7 @@ local prevhili = function()
     local ee = vim.fn.searchpos(content, 'be')
     local ss = vim.fn.searchpos(content, 'bn')
     vim.cmd(string.format([[let @0 = %s]], getcontent(ss[1], ss[2], ee[1], ee[2])))
-    content = string.gsub(vim.fn.getreg('0'), '%[', '\\[')
-    curcontent = string.gsub(content, '%*', '\\*')
+    curcontent = getescape(vim.fn.getreg('0'))
   end
 end
 
@@ -216,8 +209,7 @@ local nexthili = function()
     local ss = vim.fn.searchpos(content)
     local ee = vim.fn.searchpos(content, 'ne')
     vim.cmd(string.format([[let @0 = %s]], getcontent(ss[1], ss[2], ee[1], ee[2])))
-    content = string.gsub(vim.fn.getreg('0'), '%[', '\\[')
-    curcontent = string.gsub(content, '%*', '\\*')
+    curcontent = getescape(vim.fn.getreg('0'))
   end
 end
 
@@ -242,9 +234,15 @@ local selnexthili = function()
   if HiLi and #vim.tbl_keys(HiLi) > 0 then
     vim.cmd([[call feedkeys("\<esc>")]])
     local content = table.concat(vim.tbl_keys(HiLi), '\\|')
-    vim.fn.searchpos(content)
+    local n = vim.fn.searchpos(content, 'n')
     local ne = vim.fn.searchpos(content, 'ne')
-    vim.cmd(string.format([[call feedkeys("v%dgg%d|")]], ne[1], ne[2]))
+    if n[1] == ne[1] and n[2] == ne[2] then
+      vim.fn.searchpos(content)
+      vim.cmd([[call feedkeys("\<c-v>v")]])
+    else
+      vim.fn.searchpos(content)
+      vim.cmd(string.format([[call feedkeys("v%dgg%d|")]], ne[1], ne[2]))
+    end
   end
 end
 
@@ -253,9 +251,16 @@ local selprevhili = function()
   if HiLi and #vim.tbl_keys(HiLi) > 0 then
     vim.cmd([[call feedkeys("\<esc>")]])
     local content = table.concat(vim.tbl_keys(HiLi), '\\|')
-    vim.fn.searchpos(content, 'be')
-    local ne = vim.fn.searchpos(content, 'nb')
-    vim.cmd(string.format([[call feedkeys("v%dgg%d|")]], ne[1], ne[2]))
+    local nb = vim.fn.searchpos(content, 'nb')
+    local nbe = vim.fn.searchpos(content, 'nbe')
+    if nbe[1] == nb[1] and nbe[2] == nb[2] then
+      vim.fn.searchpos(content, 'be')
+      vim.cmd([[call feedkeys("\<c-v>v")]])
+    else
+      vim.fn.searchpos(content, 'be')
+      local ne = vim.fn.searchpos(content, 'nb')
+      vim.cmd(string.format([[call feedkeys("v%dgg%d|")]], ne[1], ne[2]))
+    end
   end
 end
 
@@ -282,7 +287,7 @@ vim.api.nvim_create_autocmd({ 'CursorHold', 'CursorHoldI', }, {
 vim.keymap.set({ 'v', }, '*', multilinesearch, { silent = true })
 
 vim.keymap.set({ 'n', }, '<c-8>', hili_n, { silent = true })
-vim.keymap.set({ 'v', }, '<c-8>', hili, { silent = true })
+vim.keymap.set({ 'v', }, '<c-8>', hilido, { silent = true })
 vim.keymap.set({ 'v', }, '<c-s-8>', rmhili, { silent = true })
 vim.keymap.set({ 'n', }, '<c-s-8>', rmhili_n, { silent = true })
 
