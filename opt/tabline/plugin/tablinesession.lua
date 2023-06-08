@@ -148,10 +148,5 @@ vim.keymap.set({ 'n', 'v' }, '<leader>bi', function()
   vim.fn['tabline#savesession']()
 end, { silent = true })
 
-vim.keymap.set({ 'n', 'v' }, '<leader>bu', function()
-  loadsession()
-end, { silent = true })
-
-vim.keymap.set({ 'n', 'v' }, '<leader>b<del>', function()
-  deletesession()
-end, { silent = true })
+vim.keymap.set({ 'n', 'v' }, '<leader>bu', loadsession, { silent = true })
+vim.keymap.set({ 'n', 'v' }, '<leader>b<del>', deletesession, { silent = true })
