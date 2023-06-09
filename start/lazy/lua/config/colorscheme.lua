@@ -39,14 +39,14 @@ local changecolorschemedefault = function()
   c([[call feedkeys(":\<c-u>colorscheme default\<cr>")]])
 end
 
-local timer = vim.loop.new_timer()
-timer:start(100, 100, function()
-  vim.schedule(function()
-    changecolorscheme(false)
-  end)
-end)
+-- local timer = vim.loop.new_timer()
+-- timer:start(100, 100, function()
+--   vim.schedule(function()
+--    changecolorscheme(false)
+--   end)
+-- end)
 
-local s = vim.keymap.set
-local opt = { silent = true }
-s({ 'n', 'v' }, '<leader>bc', function() changecolorscheme(true) end, opt)
-s({ 'n', 'v' }, '<leader>bC', function() changecolorschemedefault() end, opt)
+changecolorscheme(true)
+
+vim.keymap.set({ 'n', 'v' }, '<leader>bc', function() changecolorscheme(true) end,  { silent = true })
+vim.keymap.set({ 'n', 'v' }, '<leader>bC', function() changecolorschemedefault() end,  { silent = true })
