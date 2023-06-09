@@ -17,13 +17,13 @@ local tab_width = function()
   end
 end
 
-local foldcolumn = function()
-  if vim.g.GuiWindowFullScreen == 1 then
-    vim.opt.foldcolumn = 'auto:1'
-  else
-    vim.opt.foldcolumn = '0'
-  end
-end
+-- local foldcolumn = function()
+--   if vim.g.GuiWindowFullScreen == 1 then
+--     vim.opt.foldcolumn = 'auto:1'
+--   else
+--     vim.opt.foldcolumn = '0'
+--   end
+-- end
 
 vim.api.nvim_create_autocmd({ "BufEnter" }, {
   callback = function()
@@ -32,8 +32,8 @@ vim.api.nvim_create_autocmd({ "BufEnter" }, {
   end,
 })
 
-vim.api.nvim_create_autocmd({  "BufEnter", "WinResized", }, {
-  callback = function()
-    foldcolumn()
-  end,
-})
+-- vim.api.nvim_create_autocmd({  "BufEnter", "WinResized", }, {
+--   callback = function()
+--     foldcolumn()
+--   end,
+-- })
