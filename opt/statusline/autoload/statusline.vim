@@ -131,6 +131,14 @@ fu! statusline#cwd()
   return printf('%s', substitute(getcwd(), "\\", "/", "g"))
 endfu
 
+fu! statusline#recording()
+  let recording = reg_recording()
+  if len(recording) > 0
+    return '@' .. recording .. ' '
+  endif
+  return ''
+endfu
+
 fu! s:active()
   try
     let branchname = gitbranch#name()
@@ -157,12 +165,13 @@ fu! s:active()
   endif
   let statusline .= '%#MyHiLiFnameTailActive#' . statusline#fileAbspathTail(@%)
   let statusline .= ' %='
+  let statusline .= '%#MyHiLiRecoding#%{statusline#recording()}'
   let statusline .= '%#MyHiLiBranchName#(' . branchname . ') '
   let statusline .= '%#MyHiLiFileType#%m%r%y'
   let statusline .= '%#MyHiLiFileFormat# %{&ff} '
   let statusline .= '%#MyHiLiFileEncoding# %{"".(&fenc==""?&enc:&fenc).((exists("+bomb") && &bomb)?",B":"")." "}'
   let statusline .= '%#MyHiLiLineCol#%(%4l:%-4c%)'
-  let statusline .= '%#MyHiLiBotTop# %P '
+  let statusline .= '%#MyHiLiBotTop# %P'
   return statusline
 endfu
 

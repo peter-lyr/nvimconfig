@@ -1,6 +1,6 @@
 vim.fn['statusline#watch']()
 
-vim.api.nvim_create_autocmd({ 'BufEnter', 'WinEnter', 'VimResized', 'WinResized', }, {
+vim.api.nvim_create_autocmd({ 'RecordingEnter','RecordingLeave', 'BufEnter', 'WinEnter', 'VimResized', 'WinResized', }, {
   callback = function()
     vim.fn['statusline#watch']()
   end,
@@ -36,6 +36,7 @@ MyHi = {
   "MyHiLiBotTop",
   "MyHiLiCwd",
   "MyHiLiMem",
+  "MyHiLiRecoding",
 }
 
 local statuslinecolor = function()
