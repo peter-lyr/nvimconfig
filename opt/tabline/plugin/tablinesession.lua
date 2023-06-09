@@ -148,7 +148,11 @@ local loadsession = function()
   timer:start(3000, 3000, function()
     vim.schedule(function()
       if vim.opt.ft:get() ~= 'TelescopePrompt' then
-        vim.g.session_restoring = 0
+        vim.loop.new_timer():start(3000, 0, function()
+          vim.schedule(function()
+            vim.g.session_restoring = 0
+          end)
+        end)
         timer:stop()
       end
     end)
