@@ -177,13 +177,15 @@ end, { silent = true })
 vim.api.nvim_create_autocmd({ 'BufRead' }, {
   callback = function()
     if vim.g.session_restoring == 0 then
-      local cwd = string.gsub(vim.loop.cwd(), '\\', '/')
-      cwd = vim.fn.tolower(cwd)
       local fname = string.gsub(vim.api.nvim_buf_get_name(0), '\\', '/')
-      fname = vim.fn.tolower(fname)
-      print(vim.fn.substitute(fname, cwd .. '/', '', 'g'))
-      savesession(nil)
-      vim.fn['tabline#savesession']()
+      if Path:new(fname):exists() then
+        fname = vim.fn.tolower(fname)
+        local cwd = string.gsub(vim.loop.cwd(), '\\', '/')
+        cwd = vim.fn.tolower(cwd)
+        print(vim.fn.substitute(fname, cwd .. '/', '', 'g'))
+        savesession(nil)
+        vim.fn['tabline#savesession']()
+      end
     end
   end,
 })
