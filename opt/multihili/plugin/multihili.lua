@@ -297,10 +297,10 @@ vim.api.nvim_create_autocmd({ 'BufEnter', 'WinEnter', 'ColorScheme', }, {
 local windocursorword = function()
   if windo == 1 then
     windo = 0
-    print('windo match')
+    print('match')
   else
     windo = 1
-    print('match')
+    print('windo match')
   end
 end
 
