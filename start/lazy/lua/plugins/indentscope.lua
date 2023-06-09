@@ -4,7 +4,7 @@ return {
   event = { 'CursorMoved', },
   config = function()
     require('mini.indentscope').setup({
-      symbol = '▌',
+      symbol = '▒',
     })
   end,
 }
