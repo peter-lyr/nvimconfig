@@ -139,15 +139,15 @@ fu! statusline#recording()
   return ''
 endfu
 
-fu! s:active()
-  try
-    let branchname = gitbranch#name()
-  catch
-    let branchname = ''
-  endtry
+fu! statusline#branchname()
+  let branchname = gitbranch#name()
   if branchname == ''
     let branchname = '-'
   endif
+  return '(' .. branchname .. ')'
+endfu
+
+fu! s:active()
   let statusline  = '%#MyHiLiMode#%{statusline#mode()}'
   let statusline .= '%#MyHiLiBufNr#' . statusline#bufNr()
   let statusline .= '%#MyHiLiDate# ' . strftime("%Y-%m-%d")
@@ -166,7 +166,7 @@ fu! s:active()
   let statusline .= '%#MyHiLiFnameTailActive#' . statusline#fileAbspathTail(@%)
   let statusline .= ' %='
   let statusline .= '%#MyHiLiRecoding#%{statusline#recording()}'
-  let statusline .= '%#MyHiLiBranchName#(' . branchname . ') '
+  let statusline .= '%#MyHiLiBranchName#%{statusline#branchname()} '
   let statusline .= '%#MyHiLiFileType#%m%r%y'
   let statusline .= '%#MyHiLiFileFormat# %{&ff} '
   let statusline .= '%#MyHiLiFileEncoding# %{"".(&fenc==""?&enc:&fenc).((exists("+bomb") && &bomb)?",B":"")." "}'
