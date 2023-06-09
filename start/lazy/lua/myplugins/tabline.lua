@@ -49,6 +49,6 @@ return {
         require('config.telescope-projects')
       end
     },
+    "itchyny/vim-gitbranch",
   },
 }
-

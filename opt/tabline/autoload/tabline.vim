@@ -703,6 +703,7 @@ fu! tabline#savesession()
 endfu
 
 fu! tabline#restoresession()
+  let g:session_restoring = 1
   let lines = readfile(s:sessionname)
   for line in lines
     if filereadable(line)
@@ -710,6 +711,7 @@ fu! tabline#restoresession()
     endif
   endfor
   call tabline#restorehidden()
+  let g:session_restoring = 0
 endfu
 
 " 切换是否显示tabline

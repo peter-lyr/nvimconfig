@@ -67,7 +67,7 @@ local getbuffers = function()
   return new
 end
 
-local savesession = function()
+local savesession = function(print_en)
   local old = loadstring('return ' .. session:read())()
   local new = getbuffers()
   if old then
@@ -92,7 +92,9 @@ local savesession = function()
   end
   local newcontent = tostring(vim.inspect(new))
   session:write(newcontent, 'w')
-  print('save ' .. #vim.tbl_keys(new) .. ' cwd, ' .. newcnt .. ' opened files')
+  if print_en then
+    print('save ' .. #vim.tbl_keys(new) .. ' cwd, ' .. newcnt .. ' opened files')
+  end
 end
 
 local bwande = function(cwd, fnames)
@@ -117,6 +119,7 @@ local bwande = function(cwd, fnames)
 end
 
 local loadsession = function()
+  vim.g.session_restoring = 1
   local cwds = loadstring('return ' .. session:read())()
   local ok = nil
   for k, _ in pairs(cwds) do
@@ -141,6 +144,15 @@ local loadsession = function()
       end)
     end
   end)
+  local timer = vim.loop.new_timer()
+  timer:start(3000, 3000, function()
+    vim.schedule(function()
+      if vim.opt.ft:get() ~= 'TelescopePrompt' then
+        vim.g.session_restoring = 0
+        timer:stop()
+      end
+    end)
+  end)
 end
 
 local deletesession = function()
@@ -154,9 +166,22 @@ end
 -- mappings
 
 vim.keymap.set({ 'n', 'v' }, '<leader>bi', function()
-  savesession()
+  savesession(1)
   vim.fn['tabline#savesession']()
 end, { silent = true })
 
+vim.api.nvim_create_autocmd({ 'BufRead' }, {
+  callback = function()
+    if vim.g.session_restoring == 0 then
+      local cwd = string.gsub(vim.loop.cwd(), '\\', '/')
+      cwd = vim.fn.tolower(cwd)
+      local fname = string.gsub(vim.api.nvim_buf_get_name(0), '\\', '/')
+      fname = vim.fn.tolower(fname)
+      print(vim.fn.substitute(fname, cwd .. '/', '', 'g'))
+      savesession(nil)
+      vim.fn['tabline#savesession']()
+    end
+  end,
+})
 vim.keymap.set({ 'n', 'v' }, '<leader>bu', loadsession, { silent = true })
 vim.keymap.set({ 'n', 'v' }, '<leader>b<del>', deletesession, { silent = true })
