@@ -35,3 +35,9 @@
 [baidu][baidu]
 
 [baidu]: https://www.baidu.com
+
+# 图片及将其嵌入链接
+
+![baidu图标](https://seopic.699pic.com/photo/50164/3854.jpg_wh1200.jpg)
+
+[![baidu图标](https://seopic.699pic.com/photo/50164/3854.jpg_wh1200.jpg)](https://v.qq.com/)
