@@ -3,3 +3,4 @@
 3. [ ] nvim-pack/nvim-spectre
 4. [ ] kdheepak/lazygit.nvim
 5. [ ] vim.keymap.set spec
+6. [ ] folke/todo-comments.nvim
