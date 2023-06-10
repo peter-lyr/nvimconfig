@@ -35,6 +35,8 @@ require("nvim-treesitter.configs").setup({
 
 vim.fn['timer_start'](200, require"rainbow.internal".defhl)
 
-require("treesitter-context").setup()
+require("treesitter-context").setup({
+  max_lines = 0,
+})
 
 require("match-up").setup({})
