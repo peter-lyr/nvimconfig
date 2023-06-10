@@ -23,3 +23,15 @@
 [被引用文件](被引用文件)
 
 [被引用文件](被引用文件.md)
+
+# 注脚
+
+## 方式1
+
+[baidu](https://www.baidu.com)
+
+## 方式2
+
+[baidu][baidu]
+
+[baidu]: https://www.baidu.com
