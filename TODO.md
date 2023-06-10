@@ -1,4 +1,4 @@
-1. [ ] nvim-telescope/telescope-file-browser.nvim
+1. [x] nvim-telescope/telescope-file-browser.nvim <!-- 没太必要 -->
 2. [ ] statusline count lsp errs/warnings.
 3. [x] nvim-pack/nvim-spectre
 4. [x] kdheepak/lazygit.nvim <!-- use just lazygit.exe -->
