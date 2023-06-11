@@ -61,7 +61,7 @@ def get_md_from_file(f):
 def get_toc_html(content):
     extensions=[
             'markdown.extensions.tables',
-            # 'markdown.extensions.extra',
+            'markdown.extensions.footnotes',
             # 'pymdownx.magiclink',
             'pymdownx.betterem',
             # 'pymdownx.tilde',

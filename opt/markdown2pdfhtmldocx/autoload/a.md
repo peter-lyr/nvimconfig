@@ -78,3 +78,18 @@ $$
     p(v_i=1|\mathbf{h}) & = \sigma\left(\sum_j w_{ij}h_j + b_i\right) \\
     p(h_j=1|\mathbf{v}) & = \sigma\left(\sum_i w_{ij}v_i + c_j\right)
 \end{align}
+
+Footnotes[^1] have a label[^@#$%] and the footnote's content.
+
+[^@#$%]: A footnote on the label: "@#$%".
+[^1]:
+    The first paragraph of the definition.
+
+    Paragraph two of the definition.
+
+    > A blockquote with
+    > multiple lines.
+
+        a code block
+
+    A final paragraph.
