@@ -1,5 +1,5 @@
 return {
   'honza/vim-snippets',
   lazy = true,
-  event = { 'InserEnter', },
+  event = { 'InsertEnter', },
 }
