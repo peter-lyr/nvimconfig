@@ -1,1 +1,3 @@
 {
+  "asyncrun.vim": { "branch": "master", "commit": "7191d0c30dd105e5d7f897b9a6ee19cabe734466" },
+  "bookmarks.nvim": { "branch": "main", "commit": "3079ab9a537e754aade19bc40c32ceb8efcd16f5" },
