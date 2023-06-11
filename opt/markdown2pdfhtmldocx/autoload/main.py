@@ -74,6 +74,7 @@ def get_toc_html(content):
             'pymdownx.mark',
             'pymdownx.pathconverter',
             'pymdownx.caret',
+            'pymdownx.arithmatex',
             TocExtension(slugify=slugify),
             MathExtension(enable_dollar_delimiter=True),
             ]
