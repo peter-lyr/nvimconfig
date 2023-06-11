@@ -6,3 +6,4 @@
 6. [ ] folke/todo-comments.nvim
 7. [x] simrat39/symbols-outline.nvim 替换 aerial.nvim
 8. [ ] bw报错
+9. [ ] markdown注释插件替换
