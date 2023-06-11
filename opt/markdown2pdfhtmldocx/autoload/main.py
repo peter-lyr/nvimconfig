@@ -66,10 +66,11 @@ def get_toc_html(content):
             # 'pymdownx.betterem',
             # 'pymdownx.tilde',
             # 'pymdownx.emoji',
-            # 'pymdownx.tasklist',
+            'pymdownx.tasklist',
             'pymdownx.superfences',
             # 'pymdownx.saneheaders',
             # 'pymdownx.highlight',
+            'pymdownx.progressbar',
             TocExtension(slugify=slugify),
             MathExtension(enable_dollar_delimiter=True),
             ]
