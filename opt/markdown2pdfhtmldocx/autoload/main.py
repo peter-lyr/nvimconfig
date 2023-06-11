@@ -63,7 +63,7 @@ def get_toc_html(content):
             'markdown.extensions.tables',
             # 'markdown.extensions.extra',
             # 'pymdownx.magiclink',
-            # 'pymdownx.betterem',
+            'pymdownx.betterem',
             # 'pymdownx.tilde',
             # 'pymdownx.emoji',
             'pymdownx.tasklist',
@@ -71,6 +71,7 @@ def get_toc_html(content):
             # 'pymdownx.saneheaders',
             # 'pymdownx.highlight',
             'pymdownx.progressbar',
+            'pymdownx.mark',
             TocExtension(slugify=slugify),
             MathExtension(enable_dollar_delimiter=True),
             ]
