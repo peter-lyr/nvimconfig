@@ -9,8 +9,9 @@ local patterns = {
 return {
   'neovim/nvim-lspconfig',
   lazy = true,
-  event = { 'FocusLost', },
+  event = { 'LspAttach', 'FocusLost', },
   dependencies = {
+    'folke/neodev.nvim',
     'williamboman/mason.nvim',
     'williamboman/mason-lspconfig.nvim',
     'hrsh7th/nvim-cmp',

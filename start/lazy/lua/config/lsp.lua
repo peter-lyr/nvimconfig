@@ -86,6 +86,8 @@ if not sta then
   return
 end
 
+require('neodev').setup()
+
 local capabilities = cmp_nvim_lsp.default_capabilities()
 
 lspconfig.clangd.setup({
@@ -158,6 +160,9 @@ lspconfig.lua_ls.setup({
       },
       telemetry = {
         enable = false,
+      },
+      completion = {
+        callSnippet = "Replace"
       },
     },
   }
