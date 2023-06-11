@@ -59,3 +59,9 @@ __This will all be bold_ because of the token is less than that of the surroundi
 **All will not*** be bold**
 
 **All will not *** be bold**
+
+^^Insert me^^
+
+H^2^0
+
+text^a\ superscript^

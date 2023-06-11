@@ -73,6 +73,7 @@ def get_toc_html(content):
             'pymdownx.progressbar',
             'pymdownx.mark',
             'pymdownx.pathconverter',
+            'pymdownx.caret',
             TocExtension(slugify=slugify),
             MathExtension(enable_dollar_delimiter=True),
             ]
