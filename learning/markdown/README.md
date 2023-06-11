@@ -47,3 +47,20 @@
 [# qewqkejwkeqjwjkeqqk]: #
 
 <!-- # qewqkejwkeqjwjkeqqk -->
+
+# 注脚
+
+Footnotes[^1] have a label[^@#$%] and the footnote's content.
+
+[^@#$%]: A footnote on the label: "@#$%".
+[^1]:
+    The first paragraph of the definition.
+
+    Paragraph two of the definition.
+
+    > A blockquote with
+    > multiple lines.
+
+        a code block
+
+    A final paragraph.
